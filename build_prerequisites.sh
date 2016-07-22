@@ -1,0 +1,23 @@
+#! /bin/sh
+
+PREREQ_SCRIPTDIR=`dirname $0`
+#source ${PREREQ_SCRIPTDIR}/prerequisites/jinja2.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/bison.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/flex.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/boost.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/double-conversion.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/glew.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/numpy.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/OpenColorIO.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/OpenEXR.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/OpenSubdiv.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/jpeg.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/png.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/ptex.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/tiff.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/tbb.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/hdf5.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/alembic.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites/OpenImageIO.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/qt4.sh
+#source ${PREREQ_SCRIPTDIR}/prerequisites/pyside.sh

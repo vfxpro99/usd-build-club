@@ -1,0 +1,29 @@
+Metadata-Version: 1.1
+Name: pxr
+Version: 0.8
+Summary: Pixar Universal Scene Description
+Home-page: http://graphics.pixar.com/usd/
+Author: Pixar Studios
+Author-email: usd-support@pixar.com
+License: Apache 2
+Description:
+        Universal Scene Description
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        (USD) is an efficient, scalable system for authoring, reading, and
+        streaming time-sampled scene description for interchange between
+        graphics applications.
+
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache 2 License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
