@@ -10,12 +10,13 @@ cd ${ROOT}
 # arguments that can be overridden from the command line
 CONFIGURATION="Release"
 BUILD_SYSTEM="Xcode"
-BUILD_PREREQUISITES="No"
-PERFORM_BUILD="No"
+BUILD_PREREQUISITES="Yes"
+PERFORM_BUILD="Yes"
 
-for key in "$@"
-do
-case $key in
+echo "$@"
+
+for i in "$@"; do
+case $i in
     -s=*|--src=*)
     SOURCEDIR="${i#*=}"
     shift # past argument=value
