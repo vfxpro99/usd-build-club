@@ -10,7 +10,7 @@ Building USD on OSX
   mkdir stage
   cd stage
   echo get coffee... In a little while you're going to need to enter a sudo password
-  ../UsdDev/usd-build-club/bootstrap.sh -p -b
+  ../usd-build-club/bootstrap.sh -p -b
 ```
 
 Options for bootstrap.sh:
