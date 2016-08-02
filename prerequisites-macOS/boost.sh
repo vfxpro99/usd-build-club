@@ -21,8 +21,8 @@ if [ ! -f local/lib/libboost_python.a ]; then
   else
     cd boost-build-club; git pull; cd ..
   fi
-  #curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz
-  #tar -zxf boost.tgz
+  curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz
+  tar -zxf boost.tgz
   cd boost_1_60_0
   cp ../boost-build-club/* .
   chmod 744 build-OSX-shared.sh;./build-OSX-shared.sh
