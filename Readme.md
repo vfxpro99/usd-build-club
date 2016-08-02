@@ -5,7 +5,7 @@ Building USD on OSX
 ```
   mkdir Projects
   cd Projects
-  git clone https://github.com/AddressOfUsd/UsdDev.git
+  git clone https://github.com/PixarAnimationStudios/USD.git
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
