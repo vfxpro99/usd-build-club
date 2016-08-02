@@ -11,7 +11,7 @@ source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/glew.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenColorIO.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenEXR.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenSubdiv.sh
-#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jpeg.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jpeg.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/png.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/ptex.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/tiff.sh
