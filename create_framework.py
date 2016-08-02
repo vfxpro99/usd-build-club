@@ -460,11 +460,6 @@ file = open(os.path.join(egg_path, "EGG-INFO", "top_level.txt"), 'w')
 file.write("pxr\n")
 file.close()
 
-#-------------------------------------------------------------------------------
-print "Copying the python modules"
-
-os.system('cp -R local/lib/python/pxr/ ' + os.path.join(egg_path, "pxr"))
-
 curr_dir = os.getcwd()
 
 #-------------------------------------------------------------------------------
