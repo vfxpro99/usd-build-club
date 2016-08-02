@@ -28,7 +28,7 @@ def file_is_newer(src, dst):
     return True # @TODO do this for real using fstat etc.
 
 def copy_newer(src_path, out_path):
-    if file_is_newer(src_path, out_path):
+    if os.path.exists(src_path) and file_is_newer(src_path, out_path):
         file = open(src_path, 'r')
         schema_data = file.read()
         file.close
@@ -227,7 +227,7 @@ for dylib in dylibs:
 
 framework_dylibs = [
 	"cameraUtil", "glf",
-    #"glfq",
+    "glfq",
     "hd", "hdx", "pcp", "plug", "sdf", "vt",
 	"usd",
 	"usdAbc",
@@ -245,6 +245,7 @@ for dylib in framework_dylibs:
 
 third_party_dylibs = [
 	"libAlembic.dylib",
+    "libdouble-conversion.1.0.0.dylib",
     "libGLEW.2.0.0.dylib",
     "libHalf.12.0.0.dylib",
     "libIex-2_2.12.0.0.dylib",
@@ -268,6 +269,8 @@ for dylib in third_party_dylibs:
     src_path = os.path.join("local", "lib", dylib)
     out_path = os.path.join(framework_prefix, dylib)
     copy_newer(src_path, out_path)
+
+os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "libdouble-conversion.1.0.0.dylib" + " " + framework_prefix + "libdouble-conversion.1.dylib")
 
 boost_dylibs = [
     "atomic", "chrono", "container", "date_time", "filesystem", "graph",
@@ -360,12 +363,13 @@ for dylib in third_party_dylibs:
     dylib_paths.append(framework_prefix + dylib)
 
 for dylib_path in dylib_paths:
-    dylib = os.path.basename(dylib_path)
-    set_link_path("@rpath/" + dylib, dylib_path)
-    libraries = get_libraries(dylib_path)
-    for library in libraries:
-        library_path = normalize_library_path(library)
-        rewrite_path(library, library_path, dylib_path)
+    if os.path.exists(dylib_path):
+        dylib = os.path.basename(dylib_path)
+        set_link_path("@rpath/" + dylib, dylib_path)
+        libraries = get_libraries(dylib_path)
+        for library in libraries:
+            library_path = normalize_library_path(library)
+            rewrite_path(library, library_path, dylib_path)
 
 #-------------------------------------------------------------------------------
 # Make Xcode believe the resulting directory is actually a framework

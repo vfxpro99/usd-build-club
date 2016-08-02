@@ -52,8 +52,8 @@ fi
 if [[ ${BUILD_SYSTEM} = "Xcode" ]]; then
   ${BOOTSTRAP_SCRIPTDIR}/configure.sh Xcode
   if [[ ${PERFORM_BUILD} = "Yes" ]]; then
-    xcodebuild -project third_party.xcodeproj -target ALL_BUILD -destination 'platform=OS X,arch=x86_64'
-    xcodebuild -project third_party.xcodeproj -target install -destination 'platform=OS X,arch=x86_64'
+    xcodebuild -project usd.xcodeproj -target ALL_BUILD -destination 'platform=OS X,arch=x86_64'
+    xcodebuild -project usd.xcodeproj -target install -destination 'platform=OS X,arch=x86_64'
     python ${BOOTSTRAP_SCRIPTDIR}/create_framework.py ${SOURCEDIR}
   fi
 else
