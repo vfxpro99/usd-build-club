@@ -10,9 +10,6 @@ if [ ! -f local/lib/libdouble-conversion.a ]; then
   if [ ! -f local/bin ]; then
     mkdir -p local/bin
   fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
   if [ ! -f local/include/double-conversion ]; then
     mkdir -p local/include/double-conversion
   fi
@@ -20,15 +17,20 @@ if [ ! -f local/lib/libdouble-conversion.a ]; then
   ROOT=$(pwd)
   cd prereq
   if [ ! -f double-conversion/.git/config ]; then
-    git clone https://github.com/google/double-conversion.git
-  else
-    cd double-conversion; git pull; cd ..
+    # https://github.com/google/double-conversion/issues/33
+    # note: Top of tree is broken, this version works
+    git clone -o 0e47d5ac324c1d012e0dbbdf4f5d78d5fc3ad3cb https://github.com/google/double-conversion.git
   fi
-  cd double-conversion
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local double-conversion
+
+  if [ -f build/double-conversion ]; then
+    rm -rf build/double-conversion
+  fi
+
+  mkdir -p build/double-conversion
+  cd build/double-conversion
+
+  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../double-conversion
   make -j 4
-  cd ../..
-  cp prereq/double-conversion/libdouble-conversion.a ${ROOT}/local/lib
-  cp prereq/double-conversion/double-conversion/*.h ${ROOT}/local/include/double-conversion
+  make install
   cd ${ROOT}
 fi
