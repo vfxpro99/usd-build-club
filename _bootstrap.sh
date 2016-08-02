@@ -10,10 +10,8 @@ cd ${ROOT}
 # arguments that can be overridden from the command line
 CONFIGURATION="Release"
 BUILD_SYSTEM="Xcode"
-BUILD_PREREQUISITES="Yes"
-PERFORM_BUILD="Yes"
-
-echo "$@"
+BUILD_PREREQUISITES="No"
+PERFORM_BUILD="No"
 
 for i in "$@"; do
 case $i in
@@ -27,7 +25,7 @@ case $i in
     -m|--make)
     BUILD_SYSTEM="make"
     ;;
-    -p|--prerequesites)
+    -p|--prerequisites)
     BUILD_PREREQUISITES="Yes"
     ;;
     -b|--build)
