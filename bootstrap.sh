@@ -58,14 +58,39 @@ if [[ ${BUILD_SYSTEM} = "Xcode" ]]; then
   ${BOOTSTRAP_SCRIPTDIR}/configure.sh Xcode
   if [[ ${PERFORM_BUILD} = "Yes" ]]; then
     xcodebuild -project usd.xcodeproj -target ALL_BUILD -destination 'platform=OS X,arch=x86_64'
+    rc=$?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
+
     xcodebuild -project usd.xcodeproj -target install -destination 'platform=OS X,arch=x86_64'
+    rc=$?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
+
     python ${BOOTSTRAP_SCRIPTDIR}/create_framework.py ${SOURCEDIR}
   fi
 else
   ${BOOTSTRAP_SCRIPTDIR}/configure.sh
   if [[ ${PERFORM_BUILD} = "Yes" ]]; then
     make -j 4
+    rc=$?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
+
     make install
+    rc=$?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
+
     python ${BOOTSTRAP_SCRIPTDIR}/create_framework.py ${SOURCEDIR}
+    rc=$?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
+
   fi
 fi
