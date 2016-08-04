@@ -5,6 +5,13 @@ PREREQ_SCRIPTDIR=`dirname $0`
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/bison.sh
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/flex.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/boost.sh
+
+# $? is the result of the most recent command
+rc=$?
+if [ $rc != 0 ]; then
+  exit $rc
+fi
+
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/double-conversion.sh
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/glew.sh
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/numpy.sh

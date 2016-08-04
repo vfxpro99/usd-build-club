@@ -47,6 +47,11 @@ echo "Building USD:" ${PERFORM_BUILD}
 
 if [[ ${BUILD_PREREQUISITES} = "Yes" ]]; then
   ${BOOTSTRAP_SCRIPTDIR}/build_prerequisites.sh
+  rc=$?
+  if [ $rc != 0 ]; then
+    echo "Failed to build prerequisites. Exiting"
+    exit $rc
+  fi
 fi
 
 if [[ ${BUILD_SYSTEM} = "Xcode" ]]; then

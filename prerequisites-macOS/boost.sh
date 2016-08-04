@@ -21,12 +21,26 @@ if [ ! -f local/lib/libboost_python.a ]; then
   else
     cd boost-build-club; git pull; cd ..
   fi
-  curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz
-  tar -zxf boost.tgz
-  cd boost_1_60_0
-  cp ../boost-build-club/* .
-  chmod 744 build-OSX-shared.sh;./build-OSX-shared.sh
-  cp stage-OSX/lib/* ${ROOT}/local/lib
-  cp -R boost ${ROOT}/local/include/boost
-  cd ${ROOT}
+
+  curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz;
+  # $? is the result of the most recent command
+  rc=$?
+  if [ $rc -eq 0 ]; then
+    tar -zxf boost.tgz
+    rc=$?
+    if [ $rc -ne 0 ]; then
+      echo Failed to retrieve boost archive
+      exit 1
+    fi
+
+    cd boost_1_60_0
+    cp ../boost-build-club/* .
+    chmod 744 build-OSX-shared.sh;./build-OSX-shared.sh
+    cp stage-OSX/lib/* ${ROOT}/local/lib
+    cp -R boost ${ROOT}/local/include/boost
+    cd ${ROOT}
+  else
+    echo Failed to retrieve boost archive.
+    exit $rc
+  fi
 fi
