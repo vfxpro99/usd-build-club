@@ -260,6 +260,7 @@ third_party_dylibs = [
     "libImath*.dylib",
 	"libjpeg*.dylib",
     "libOpenColorIO*.dylib",
+    "libOpenImageIO_Util*.dylib",
     "libOpenImageIO*.dylib",
     "libosdCPU*.dylib",
     "libosdGPU*.dylib",
@@ -330,7 +331,8 @@ normalize_me = [
     "libAlembic", "libdouble-conversion",
     "libGLEW", "libHalf", "libIex", "libIexMath",
     "libIlmImfUtil", "libIlmImf", "libIlmThread",
-    "libImath", "libjpeg", "libOpenColorIO", "libOpenImageIO",
+    "libImath", "libjpeg", "libOpenColorIO", 
+    "libOpenImageIO", 
     "libosd", "libpng", "libPtex", "libtiff"
 ]
 def normalize_library_path(library_path):
@@ -433,6 +435,8 @@ for lib_path in libs:
     file.write(lib_path + "\n")
 file.close()
 
+
+
 copy_newer(os.path.join(this_script_path, "PKG-INFO"),
            os.path.join(egg_path, "EGG-INFO", "PKG-INFO"))
 
@@ -453,6 +457,9 @@ file.write("pxr\n")
 file.close()
 
 curr_dir = os.getcwd()
+
+# Copy the python build to the egg
+os.system("cp -R " + "local/lib/python/pxr " + egg_path)
 
 #-------------------------------------------------------------------------------
 print "Rpath the python libraries"

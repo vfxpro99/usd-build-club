@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ ! -f local/lib/libOpenImageIO.a ]; then
+if [ ! -f local/lib/libOpenImageIO.dylib ]; then
   if [ ! -f prereq ]; then
     mkdir -p prereq
   fi
@@ -21,20 +21,27 @@ if [ ! -f local/lib/libOpenImageIO.a ]; then
   else
     cd oiio; git pull; cd ..
   fi
-  cd oiio
-  mkdir build;cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
-  -DCMAKE_CXX_COMPILER_WORKS=1 \
-  -DOPENEXR_CUSTOM_INCLUDE_DIR:STRING=${ROOT}/local/include \
-  -DOPENEXR_CUSTOM_LIB_DIR=${ROOT}/local/lib \
-  -DBOOST_ROOT=${ROOT}/local \
-  -DBOOST_LIBRARYDIR=${ROOT}/local/lib \
-  -DBoost_USE_STATIC_LIBS:INT=0 \
-  -DBoost_LIBRARY_DIR_RELEASE=${ROOT}/local/lib \
-  -DBoost_LIBRARY_DIR_DEBUG=${ROOT}/local/lib \
-  -DOCIO_PATH=${ROOT}/local \
-  -DPTEX_LOCATION=${ROOT}/local \
-  ..
+
+  mkdir -p build/oiio
+  cd build/oiio
+
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
+    -DCMAKE_INSTALL_NAME_DIR=@rpath \
+    -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
+    -DCMAKE_CXX_COMPILER_WORKS=1 \
+    -DBUILD_WITH_INSTALL_RPATH=1 \
+    -DOPENEXR_CUSTOM_INCLUDE_DIR:STRING=${ROOT}/local/include \
+    -DOPENEXR_CUSTOM_LIB_DIR=${ROOT}/local/lib \
+    -DBOOST_ROOT=${ROOT}/local \
+    -DBOOST_LIBRARYDIR=${ROOT}/local/lib \
+    -DBoost_USE_STATIC_LIBS:INT=0 \
+    -DBoost_LIBRARY_DIR_RELEASE=${ROOT}/local/lib \
+    -DBoost_LIBRARY_DIR_DEBUG=${ROOT}/local/lib \
+    -DOCIO_PATH=${ROOT}/local \
+    -DPTEX_LOCATION=${ROOT}/local \
+    ../../oiio
+
   make -j 4;
   make install
 
