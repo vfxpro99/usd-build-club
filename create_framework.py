@@ -12,7 +12,8 @@ if len(sys.argv) < 2:
 import os, re, subprocess, stat, shutil, json
 
 src_dir = sys.argv[1]
-framework_prefix = "usd.framework/Versions/A/"
+framework_directory = "usd.framework"
+framework_prefix = framework_directory + "/Versions/A/"
 install_prefix = "/Library/Pixar"
 
 install = True # why would you not want to do this?
@@ -23,6 +24,8 @@ if len(sys.argv) > 2:
 
 #-------------------------------------------------------------------------------
 # Copy Utility
+
+import glob
 
 def file_is_newer(src, dst):
     return True # @TODO do this for real using fstat etc.
@@ -89,6 +92,7 @@ def create_framework_directory_structure():
     os.system("cp -R ./local/include/tbb/ " +            framework_prefix + "/Headers/tbb")
     os.system("cp -R ./local/include/OpenEXR/half*.* " + framework_prefix + "/Headers/")
 
+os.system("rm -rf " + framework_directory)
 create_framework_directory_structure()
 
 #-----------------------------------------------------------------------------------------------------------
@@ -209,10 +213,10 @@ for shader in shaders:
 print "Publishing dylibs"
 
 dylibs = [
-	"arch", "gf", "js", "plug", "tf", "tracelite", "work",
+	"arch", "garch", "gf", "js", "plug", "tf", "tracelite", "work",
 	"pxOsd",
 	"ar", "kind", "pcp", "usdUtils",
-	#"usdviewq",
+	"usdviewq",
 	"tbb"
 ]
 
@@ -244,33 +248,37 @@ for dylib in framework_dylibs:
 # Publish the third party dylibs
 
 third_party_dylibs = [
-	"libAlembic.dylib",
-    "libdouble-conversion.1.0.0.dylib",
-    "libGLEW.2.0.0.dylib",
-    "libHalf.12.0.0.dylib",
-    "libIex-2_2.12.0.0.dylib",
-    "libIexMath-2_2.12.0.0.dylib",
-    "libIlmImf-2_2.22.0.0.dylib",
-    "libIlmImfUtil-2_2.22.0.0.dylib",
-    "libIlmThread-2_2.12.0.0.dylib",
-    "libImath-2_2.12.0.0.dylib",
-#	"libjpeg.62.dylib",
-    "libOpenColorIO.1.0.9.dylib",
-    "libOpenImageIO.1.7.3.dylib",
-    "libOpenImageIO_Util.1.7.3.dylib",
-    "libosdCPU.3.0.5.dylib",
-    "libosdGPU.3.0.5.dylib",
-    "libpng16.16.22.0.dylib",
-    "libPtex.dylib",
-    "libtiff.5.dylib"
+	"libAlembic*.dylib",
+    "libdouble-conversion*.dylib",
+    "libGLEW*.dylib",
+    "libHalf*.dylib",
+    "libIex*.dylib",
+    "libIexMath*.dylib",
+    "libIlmImf*.dylib",
+    "libIlmImfUtil*.dylib",
+    "libIlmThread*.dylib",
+    "libImath*.dylib",
+	"libjpeg*.dylib",
+    "libOpenColorIO*.dylib",
+    "libOpenImageIO*.dylib",
+    "libosdCPU*.dylib",
+    "libosdGPU*.dylib",
+    "libpng16*.dylib",
+    "libPtex*.dylib",
+    "libtiff*.dylib"
 ]
 
 for dylib in third_party_dylibs:
-    src_path = os.path.join("local", "lib", dylib)
-    out_path = os.path.join(framework_prefix, dylib)
-    copy_newer(src_path, out_path)
+    src_path_glob = os.path.join("local", "lib", dylib)
+    src_paths = glob.glob(src_path_glob)
+    for src_path in src_paths:
+        if not os.path.islink(src_path):
+            out_path = os.path.join(framework_prefix, os.path.basename(src_path))
+            print "Copying ", src_path, " to ", out_path
+            copy_newer(src_path, out_path)
+            break
 
-os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "libdouble-conversion.1.0.0.dylib" + " " + framework_prefix + "libdouble-conversion.1.dylib")
+#os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "libdouble-conversion.1.0.0.dylib" + " " + framework_prefix + "libdouble-conversion.1.dylib")
 
 boost_dylibs = [
     "atomic", "chrono", "container", "date_time", "filesystem", "graph",
@@ -318,52 +326,36 @@ def is_library_okay(library):
             return True
     return False
 
+normalize_me = [
+    "libAlembic", "libdouble-conversion",
+    "libGLEW", "libHalf", "libIex", "libIexMath",
+    "libIlmImfUtil", "libIlmImf", "libIlmThread",
+    "libImath", "libjpeg", "libOpenColorIO", "libOpenImageIO",
+    "libosd", "libpng", "libPtex", "libtiff"
+]
 def normalize_library_path(library_path):
-    if "libGLEW" in library_path:
-        return "@rpath/libGLEW.2.0.0.dylib"
-    if "libHalf" in library_path:
-        return "@rpath/libHalf.12.0.0.dylib"
-    if "libIex" in library_path:
-        return "@rpath/libIex-2_2.12.0.0.dylib"
-    if "libIexMath" in library_path:
-        return "@rpath/libIexMath-2_2.12.0.0.dylib"
-    if "libIlmImfUtil" in library_path:
-        return "@rpath/libIlmImfUtil-2_2.22.0.0.dylib"
-    if "libIlmImf" in library_path:
-        return "@rpath/libIlmImf-2_2.22.0.0.dylib"
-    if "libIlmThread" in library_path:
-        return "@rpath/libIlmThread-2_2.12.0.0.dylib"
-    if "libImath" in library_path:
-        return "@rpath/libImath-2_2.12.0.0.dylib"
-    if "libOpenColorIO" in library_path:
-        return "@rpath/libOpenColorIO.1.0.9.dylib"
-    if "libOpenImageIO" in library_path:
-        return "@rpath/libOpenImageIO.1.7.3.dylib"
-    if "libOpenImageIO_Util" in library_path:
-        return "@rpath/libOpenImageIO_Util.1.7.3.dylib"
-    if "libosdCPU" in library_path:
-        return "@rpath/libosdCPU.3.0.5.dylib"
-    if "libosdGPU" in library_path:
-        return "@rpath/libosdGPU.3.0.5.dylib"
-    if "libpng" in library_path:
-        return "@rpath/libpng16.16.22.0.dylib"
-    if "libPtex" in library_path:
-        return "@rpath/libPtex.dylib"
-    if "libtiff" in library_path:
-        return "@rpath/libtiff.5.dylib"
+    for test in normalize_me:
+        if test in library_path:
+            return "@rpath/" + os.path.basename(library_path)
+
     if is_library_okay(library_path):
         return library_path
     return "@rpath/" + os.path.split(library_path)[-1]
 
 all_pxr_dylibs = dylibs + framework_dylibs
 dylib_paths = []
+
 for dylib in all_pxr_dylibs:
     dylib_paths.append(framework_prefix + "lib" + dylib + ".dylib")
+
 for dylib in third_party_dylibs:
-    dylib_paths.append(framework_prefix + dylib)
+    src_paths = glob.glob(src_path_glob)
+    for src_path in src_paths:
+        if not os.path.islink(src_path):
+            dylib_paths.append(framework_prefix + dylib)
 
 for dylib_path in dylib_paths:
-    if os.path.exists(dylib_path):
+    if False and os.path.exists(dylib_path):
         dylib = os.path.basename(dylib_path)
         set_link_path("@rpath/" + dylib, dylib_path)
         libraries = get_libraries(dylib_path)
@@ -471,7 +463,7 @@ for module in libs:
     dylib_path = os.path.join(egg_path, os.path.join(*path_parts[:-1]), lib)
     libraries = get_libraries(dylib_path)
     for library in libraries:
-        if not is_library_okay(library):
+        if False and not is_library_okay(library):
             library_filename = os.path.split(library)[1]
             new_library_path = normalize_library_path(library).split('/')[-1]
             new_library_path = os.path.join(install_prefix, framework_prefix, new_library_path)
