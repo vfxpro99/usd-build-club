@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ ! -f local/lib/libboost_python.a ]; then
+if [ ! -f local/lib/libboost_python.dylib ]; then
   if [ ! -f prereq ]; then
     mkdir -p prereq
   fi
