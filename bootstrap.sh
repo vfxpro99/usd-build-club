@@ -48,7 +48,7 @@ echo "Building USD:" ${PERFORM_BUILD}
 if [[ ${BUILD_PREREQUISITES} = "Yes" ]]; then
   ${BOOTSTRAP_SCRIPTDIR}/build_prerequisites.sh
   rc=$?
-  if [ $rc != 0 ]; then
+  if [ $rc -ne 0 ]; then
     echo "Failed to build prerequisites. Exiting"
     exit $rc
   fi
@@ -59,13 +59,13 @@ if [[ ${BUILD_SYSTEM} = "Xcode" ]]; then
   if [[ ${PERFORM_BUILD} = "Yes" ]]; then
     xcodebuild -project usd.xcodeproj -target ALL_BUILD -destination 'platform=OS X,arch=x86_64'
     rc=$?
-    if [ $rc != 0 ]; then
+    if [ $rc -ne 0 ]; then
       exit $rc
     fi
 
     xcodebuild -project usd.xcodeproj -target install -destination 'platform=OS X,arch=x86_64'
     rc=$?
-    if [ $rc != 0 ]; then
+    if [ $rc -ne 0 ]; then
       exit $rc
     fi
 
@@ -76,19 +76,19 @@ else
   if [[ ${PERFORM_BUILD} = "Yes" ]]; then
     make -j 4
     rc=$?
-    if [ $rc != 0 ]; then
+    if [ $rc -ne 0 ]; then
       exit $rc
     fi
 
     make install
     rc=$?
-    if [ $rc != 0 ]; then
+    if [ $rc -ne 0 ]; then
       exit $rc
     fi
 
     python ${BOOTSTRAP_SCRIPTDIR}/create_framework.py ${SOURCEDIR}
     rc=$?
-    if [ $rc != 0 ]; then
+    if [ $rc -ne 0 ]; then
       exit $rc
     fi
 

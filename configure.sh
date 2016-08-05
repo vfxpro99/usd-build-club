@@ -26,6 +26,7 @@ if [ $# > 1 ]; then
       -DPTEX_LOCATION=${BUILDDIR} \
       -DTBB_ROOT_DIR=${BUILDDIR} \
       -DBoost_INCLUDE_DIR=${BUILDDIR}/include -DBoost_LIBRARY_DIR=${BUILDDIR}/lib \
+      -DPXR_INSTALL_LOCATION=/Library/Pixar/usd.framework/Versions/A \
       -G Xcode
   else
     echo "Configuring for make"
@@ -42,6 +43,7 @@ if [ $# > 1 ]; then
       -DQT_ROOT_DIR=${BUILDDIR} \
       -DPTEX_LOCATION=${BUILDDIR} \
       -DTBB_ROOT_DIR=${BUILDDIR} \
+      -DPXR_INSTALL_LOCATION=/Library/Pixar/usd.framework/Versions/A \
       -DBoost_INCLUDE_DIR=${BUILDDIR}/include -DBoost_LIBRARY_DIR=${BUILDDIR}/lib
   fi
 fi
