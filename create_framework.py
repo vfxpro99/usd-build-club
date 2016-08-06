@@ -253,14 +253,11 @@ third_party_dylibs = [
     "libGLEW*.dylib",
     "libHalf*.dylib",
     "libIex*.dylib",
-    "libIexMath*.dylib",
     "libIlmImf*.dylib",
-    "libIlmImfUtil*.dylib",
     "libIlmThread*.dylib",
     "libImath*.dylib",
 	"libjpeg*.dylib",
     "libOpenColorIO*.dylib",
-    "libOpenImageIO_Util*.dylib",
     "libOpenImageIO*.dylib",
     "libosdCPU*.dylib",
     "libosdGPU*.dylib",
@@ -273,11 +270,15 @@ for dylib in third_party_dylibs:
     src_path_glob = os.path.join("local", "lib", dylib)
     src_paths = glob.glob(src_path_glob)
     for src_path in src_paths:
-        if not os.path.islink(src_path):
-            out_path = os.path.join(framework_prefix, os.path.basename(src_path))
+        out_path = os.path.join(framework_prefix, os.path.basename(src_path))
+        if os.path.islink(src_path):
+            src_path = os.path.basename(os.readlink(src_path))
+            #src_path = os.path.join(framework_prefix, src_path)
+            print "Linking ", src_path, " to ", out_path
+            os.symlink(src_path, out_path)
+        else:
             print "Copying ", src_path, " to ", out_path
             copy_newer(src_path, out_path)
-            break
 
 #os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "libdouble-conversion.1.0.0.dylib" + " " + framework_prefix + "libdouble-conversion.1.dylib")
 
