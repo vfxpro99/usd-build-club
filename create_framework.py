@@ -299,6 +299,69 @@ curr_dir = os.getcwd()
 os.system("cp -R " + "local/lib/python/pxr " + egg_path)
 
 #-------------------------------------------------------------------------------
+print "Rpath the python libraries" 
+
+def get_libraries(path): 
+    libraries = [] 
+    if os.path.exists(path): 
+        output = subprocess.check_output(["otool", "-L", path]) 
+        for line in output.split('\n'): 
+            m = re.match(r'^\s+(.*) \(compatibility version .*, current version .*\)$', line) 
+            if m: 
+                libraries.append(m.group(1)) 
+    return libraries 
+
+def is_library_okay(library): 
+    allowed_library_prefixes = ["/usr/lib/", "/System/Library/Frameworks/", 
+                                "/System/Library/PrivateFrameworks/", 
+                                "/Library/Pixar/"] 
+ 
+    for prefix in allowed_library_prefixes: 
+        if library.startswith(prefix) and "libGlew" not in library: 
+            return True 
+    return False 
+
+normalize_me = [ 
+    "libAlembic", "libdouble-conversion", 
+    "libGLEW", "libHalf", "libIex", "libIexMath", 
+    "libIlmImfUtil", "libIlmImf", "libIlmThread", 
+    "libImath", "libjpeg", "libOpenColorIO",  
+    "libOpenImageIO",  
+    "libosd", "libpng", "libPtex", "libtiff" 
+] 
+def normalize_library_path(library_path): 
+    for test in normalize_me: 
+        if test in library_path: 
+            return "@rpath/" + os.path.basename(library_path) 
+ 
+    if is_library_okay(library_path): 
+        return library_path 
+    return "@rpath/" + os.path.split(library_path)[-1] 
+
+def rewrite_path(old, new, exe): 
+    if False: 
+        print "Changing", old, new, exe 
+    output = subprocess.check_output(["install_name_tool", "-change", old, new, exe]) 
+ 
+for module in libs: 
+    path_parts = module.split('/') 
+    lib = path_parts[-1].split('.')[0] + ".dylib" 
+    dylib_path = os.path.join(egg_path, os.path.join(*path_parts[:-1]), lib) 
+    if (os.path.exists(dylib_path)):
+        libraries = get_libraries(dylib_path) 
+        for library in libraries: 
+            if not is_library_okay(library): 
+                library_filename = os.path.split(library)[1] 
+                new_library_path = normalize_library_path(library).split('/')[-1] 
+                new_library_path = os.path.join(install_prefix, framework_prefix, new_library_path) 
+                rewrite_path(library, new_library_path, dylib_path) 
+
+        # and rewrite the self-named rpath as well
+        output = subprocess.check_output(["install_name_tool",  "-id",
+                                          py_dir + "/" + dylib_path, 
+                                          dylib_path])
+ 
+#-------------------------------------------------------------------------------
 print "Copy the egg into site-packages"
 os.system("sudo rm -rf " + py_dir + "/" + egg_path)
 os.system("sudo cp -R " + egg_path + " " + py_dir + "/")
