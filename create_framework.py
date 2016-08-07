@@ -258,6 +258,9 @@ libs = [
 ]
 
 egg_path = "pxr-0.8-py2.7-macosx-10.11-intel.egg"
+
+os.system("rm -rf " + egg_path)
+
 this_script_path = os.path.dirname(os.path.realpath(__file__))
 
 #-------------------------------------------------------------------------------
@@ -294,6 +297,11 @@ file.write("pxr\n")
 file.close()
 
 curr_dir = os.getcwd()
+
+# remove the pycs because they are compiled for where they sit, not the deploy location
+pycs = glob.glob("local/lib/python/pxr/*/__init__.pyc")
+for pyc in pycs:
+    os.system("rm " + pyc)
 
 # Copy the python build to the egg
 os.system("cp -R " + "local/lib/python/pxr " + egg_path)
@@ -343,23 +351,24 @@ def rewrite_path(old, new, exe):
         print "Changing", old, new, exe 
     output = subprocess.check_output(["install_name_tool", "-change", old, new, exe]) 
  
-for module in libs: 
-    path_parts = module.split('/') 
-    lib = path_parts[-1].split('.')[0] + ".dylib" 
-    dylib_path = os.path.join(egg_path, os.path.join(*path_parts[:-1]), lib) 
-    if (os.path.exists(dylib_path)):
-        libraries = get_libraries(dylib_path) 
-        for library in libraries: 
-            if not is_library_okay(library): 
-                library_filename = os.path.split(library)[1] 
-                new_library_path = normalize_library_path(library).split('/')[-1] 
-                new_library_path = os.path.join(install_prefix, framework_prefix, new_library_path) 
-                rewrite_path(library, new_library_path, dylib_path) 
+if False:
+    for module in libs: 
+        path_parts = module.split('/') 
+        lib = path_parts[-1].split('.')[0] + ".dylib" 
+        dylib_path = os.path.join(egg_path, os.path.join(*path_parts[:-1]), lib) 
+        if (os.path.exists(dylib_path)):
+            libraries = get_libraries(dylib_path) 
+            for library in libraries: 
+                if not is_library_okay(library): 
+                    library_filename = os.path.split(library)[1] 
+                    new_library_path = normalize_library_path(library).split('/')[-1] 
+                    new_library_path = os.path.join(install_prefix, framework_prefix, new_library_path) 
+                    rewrite_path(library, new_library_path, dylib_path) 
 
-        # and rewrite the self-named rpath as well
-        output = subprocess.check_output(["install_name_tool",  "-id",
-                                          py_dir + "/" + dylib_path, 
-                                          dylib_path])
+            # and rewrite the self-named rpath as well
+            output = subprocess.check_output(["install_name_tool",  "-id",
+                                              py_dir + "/" + dylib_path, 
+                                              dylib_path])
  
 #-------------------------------------------------------------------------------
 print "Copy the egg into site-packages"
