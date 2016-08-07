@@ -63,23 +63,6 @@ def create_symlink(source, link):
 
 def create_framework_directory_structure():
     directory_paths = [
-    	framework_prefix + "cameraUtil.framework/Resources",
-    	framework_prefix + "glf.framework/Resources/shaders",
-    	framework_prefix + "glfq.framework/Resources",
-    	framework_prefix + "hd.framework/Resources/shaders",
-    	framework_prefix + "hdx.framework/Resources",
-    	framework_prefix + "pcp.framework/Resources",
-    	framework_prefix + "plug.framework/Resources",
-    	framework_prefix + "python",
-    	framework_prefix + "sdf.framework/Resources",
-    	framework_prefix + "usd.framework/Resources",
-    	framework_prefix + "usdAbc.framework/Resources",
-    	framework_prefix + "usdGeom.framework/Resources",
-    	framework_prefix + "usdHydra.framework/Resources",
-    	framework_prefix + "usdImaging.framework/Resources",
-    	framework_prefix + "usdRi.framework/Resources",
-    	framework_prefix + "usdShade.framework/Resources",
-    	framework_prefix + "vt.framework/Resources",
     	framework_prefix + "Headers",
     	framework_prefix + "Resources"
     ]
@@ -98,65 +81,22 @@ create_framework_directory_structure()
 #-----------------------------------------------------------------------------------------------------------
 print "Publishing plugin info"
 
-def strip_comments(data):
-    in_lines = data.split('\n')
-    out_lines = []
-    for line in in_lines:
-        if len(line) > 0 and line[0] != '#':
-            out_lines.append(line)
-    return '\n'.join(out_lines)
+# there's still a bug that these plugins are found in preference to the 
+# published plugins, so rename it to usd.bak to avoid that problem for now.
+if os.path.exists("./local/share/usd"):
+    if os.path.exists("./local/share/usd.bak"):
+        os.system("rm -rf ./local/share/usd.bak")
+    os.system("mv ./local/share/usd ./local/share/usd.bak")
 
-pluginfos = [
-	"pxr/imaging/lib/glf",
-	"pxr/imaging/lib/hd",
-	"pxr/imaging/lib/hdx",
-    "pxr/usd/lib/sdf",
-    "pxr/usd/lib/usd",
-    "pxr/usd/lib/usdGeom",
-    "pxr/usd/lib/usdHydra",
-    "pxr/usd/lib/usdRi",
-    "pxr/usd/lib/usdShade",
-    "pxr/usd/plugin/usdAbc",
-    "pxr/usdImaging/lib/usdImaging"
-]
+os.system("cp -R ./local/share/usd.bak/plugins/ " + framework_prefix)
 
-for pluginfo in pluginfos:
-    split_path = pluginfo.split('/')
-    plugin = split_path[-1]
-
-    src_path = os.path.join(src_dir, pluginfo, 'plugInfo.json')
-    out_path = framework_prefix + plugin + ".framework/Resources/plugInfo.json"
-    if file_is_newer(src_path, out_path):
-        file = open(src_path, 'r')
-        pluginfo_json = strip_comments(file.read())
-        file.close()
-
-        pluginfo_data = json.loads(pluginfo_json)
-        pluginfo_export = {}
-        pluginfo_export['Info'] = pluginfo_data
-        pluginfo_export['LibraryPath'] = "../../lib" + plugin + ".dylib"
-        pluginfo_export['Name'] = plugin
-        pluginfo_export['ResourcePath'] = '../Resources'
-        pluginfo_export['Root'] = '.'
-        pluginfo_export['Type'] = 'library'
-        pluginfo_export_wrapper = {}
-        pluginfo_export_wrapper['Plugins'] = [pluginfo_export]
-        file = open(out_path, 'w')
-        file.write(json.dumps(pluginfo_export_wrapper, indent=4))
-        file.close()
-
-#-------------------------------------------------------------------------------
-# Create the plug info index file
-
-plugInfo_file = open(framework_prefix + "/plugInfo.json", "w")
-plugInfo_file.write("""
-{
-    "Includes": [
-        "*.framework/Resources/"
-    ]
-}
-""")
-plugInfo_file.close()
+pluginfos = glob.glob(framework_prefix + "*/resources/pluginfo.json")
+for p in pluginfos:
+    f = open(p)
+    s = f.read()
+    s = s.replace("../../../../lib", "..")
+    f = open(p, "w")
+    f.write(s)
 
 #-------------------------------------------------------------------------------
 print "Publishing schemas"
@@ -169,45 +109,16 @@ schemas = [
     "pxr/usd/lib/usdShade"
 ]
 
-for schema in schemas:
-    split_path = schema.split('/')
-    plugin = split_path[-1]
 
-    src_path = os.path.join(src_dir, schema, 'generatedSchema.usda')
-    out_path = framework_prefix + plugin + ".framework/Resources/generatedSchema.usda"
-    copy_newer(src_path, out_path)
+if False:
+    for schema in schemas:
+        split_path = schema.split('/')
+        plugin = split_path[-1]
 
-#-------------------------------------------------------------------------------
-# Publish shaders
+        src_path = os.path.join(src_dir, schema, 'generatedSchema.usda')
+        out_path = framework_prefix + plugin + ".framework/Resources/generatedSchema.usda"
+        copy_newer(src_path, out_path)
 
-shaders = [
-	"pxr/imaging/lib/glf/shaders/pcfShader.glslfx",
-	"pxr/imaging/lib/glf/shaders/ptexTexture.glslfx",
-	"pxr/imaging/lib/glf/shaders/simpleLighting.glslfx",
-	"pxr/imaging/lib/glf/shaders/simpleShadowMapShader.glslfx",
-	"pxr/imaging/lib/hd/shaders/basisCurves.glslfx",
-	"pxr/imaging/lib/hd/shaders/compute.glslfx",
-	"pxr/imaging/lib/hd/shaders/defaultLightingShader.glslfx",
-	"pxr/imaging/lib/hd/shaders/fallbackSurface.glslfx",
-	"pxr/imaging/lib/hd/shaders/frustumCull.glslfx",
-	"pxr/imaging/lib/hd/shaders/instancing.glslfx",
-	"pxr/imaging/lib/hd/shaders/mesh.glslfx",
-	"pxr/imaging/lib/hd/shaders/meshNormal.glslfx",
-	"pxr/imaging/lib/hd/shaders/meshWire.glslfx",
-	"pxr/imaging/lib/hd/shaders/points.glslfx",
-	"pxr/imaging/lib/hd/shaders/ptexTexture.glslfx",
-	"pxr/imaging/lib/hd/shaders/renderPass.glslfx",
-	"pxr/imaging/lib/hd/shaders/renderPassShader.glslfx",
-	"pxr/imaging/lib/hd/shaders/simpleLighting.glslfx",
-	"pxr/imaging/lib/hd/shaders/simpleLightingShader.glslfx"
-]
-
-for shader in shaders:
-    split_path = shader.split('/')
-    plugin = split_path[-3]
-    src_path = os.path.join(src_dir, shader)
-    out_path = framework_prefix + plugin + ".framework/Resources/shaders/" + split_path[-1]
-    copy_newer(src_path, out_path)
 
 #-------------------------------------------------------------------------------
 print "Publishing dylibs"
@@ -298,81 +209,6 @@ for dylib in boost_dylibs:
     copy_newer(src_path, out_path)
 
 #-------------------------------------------------------------------------------
-print "Writing rpaths"
-
-def rewrite_path(old, new, exe):
-    if False:
-        print "Changing", old, new, exe
-    output = subprocess.check_output(["install_name_tool", "-change", old, new, exe])
-
-def set_link_path(path, exe):
-	output = subprocess.check_output(["install_name_tool", "-id", path, exe])
-
-def get_libraries(path):
-    libraries = []
-    if os.path.exists(path):
-        output = subprocess.check_output(["otool", "-L", path])
-        for line in output.split('\n'):
-            m = re.match(r'^\s+(.*) \(compatibility version .*, current version .*\)$', line)
-            if m:
-                libraries.append(m.group(1))
-    return libraries
-
-def is_library_okay(library):
-    allowed_library_prefixes = ["/usr/lib/", "/System/Library/Frameworks/",
-                                "/System/Library/PrivateFrameworks/",
-                                "/Library/Pixar/"]
-
-    for prefix in allowed_library_prefixes:
-        if library.startswith(prefix) and "libGlew" not in library:
-            return True
-    return False
-
-normalize_me = [
-    "libAlembic", "libdouble-conversion",
-    "libGLEW", "libHalf", "libIex", "libIexMath",
-    "libIlmImfUtil", "libIlmImf", "libIlmThread",
-    "libImath", "libjpeg", "libOpenColorIO", 
-    "libOpenImageIO", 
-    "libosd", "libpng", "libPtex", "libtiff"
-]
-def normalize_library_path(library_path):
-    for test in normalize_me:
-        if test in library_path:
-            return "@rpath/" + os.path.basename(library_path)
-
-    if is_library_okay(library_path):
-        return library_path
-    return "@rpath/" + os.path.split(library_path)[-1]
-
-all_pxr_dylibs = dylibs + framework_dylibs
-dylib_paths = []
-
-for dylib in all_pxr_dylibs:
-    dylib_paths.append(framework_prefix + "lib" + dylib + ".dylib")
-
-for dylib in third_party_dylibs:
-    src_paths = glob.glob(src_path_glob)
-    for src_path in src_paths:
-        if not os.path.islink(src_path):
-            dylib_paths.append(framework_prefix + dylib)
-
-for dylib_path in dylib_paths:
-    if False and os.path.exists(dylib_path):
-        dylib = os.path.basename(dylib_path)
-        set_link_path("@rpath/" + dylib, dylib_path)
-        libraries = get_libraries(dylib_path)
-        for library in libraries:
-            library_path = normalize_library_path(library)
-            rewrite_path(library, library_path, dylib_path)
-
-#-------------------------------------------------------------------------------
-# Make Xcode believe the resulting directory is actually a framework
-
-if False:
-    create_symlink(framework_prefix + "usd.framework/libusd.dylib", framework_prefix + "pxr")
-
-#-------------------------------------------------------------------------------
 print "Deploying to /Library/Pixar"
 
 if install:
@@ -461,21 +297,6 @@ curr_dir = os.getcwd()
 
 # Copy the python build to the egg
 os.system("cp -R " + "local/lib/python/pxr " + egg_path)
-
-#-------------------------------------------------------------------------------
-print "Rpath the python libraries"
-
-for module in libs:
-    path_parts = module.split('/')
-    lib = path_parts[-1].split('.')[0] + ".dylib"
-    dylib_path = os.path.join(egg_path, os.path.join(*path_parts[:-1]), lib)
-    libraries = get_libraries(dylib_path)
-    for library in libraries:
-        if False and not is_library_okay(library):
-            library_filename = os.path.split(library)[1]
-            new_library_path = normalize_library_path(library).split('/')[-1]
-            new_library_path = os.path.join(install_prefix, framework_prefix, new_library_path)
-            rewrite_path(library, new_library_path, dylib_path)
 
 #-------------------------------------------------------------------------------
 print "Copy the egg into site-packages"
