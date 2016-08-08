@@ -88,7 +88,7 @@ if os.path.exists("./local/share/usd"):
         os.system("rm -rf ./local/share/usd.bak")
     os.system("mv ./local/share/usd ./local/share/usd.bak")
 
-os.system("cp -R ./local/share/usd.bak/plugins/ " + framework_prefix)
+os.system("cp -R -v ./local/share/usd.bak/plugins/ " + framework_prefix)
 
 pluginfos = glob.glob(framework_prefix + "*/resources/pluginfo.json")
 for p in pluginfos:
@@ -97,28 +97,7 @@ for p in pluginfos:
     s = s.replace("../../../../lib", "..")
     f = open(p, "w")
     f.write(s)
-
-#-------------------------------------------------------------------------------
-print "Publishing schemas"
-
-schemas = [
-    "pxr/usd/lib/usd",
-    "pxr/usd/lib/usdGeom",
-    "pxr/usd/lib/usdHydra",
-    "pxr/usd/lib/usdRi",
-    "pxr/usd/lib/usdShade"
-]
-
-
-if False:
-    for schema in schemas:
-        split_path = schema.split('/')
-        plugin = split_path[-1]
-
-        src_path = os.path.join(src_dir, schema, 'generatedSchema.usda')
-        out_path = framework_prefix + plugin + ".framework/Resources/generatedSchema.usda"
-        copy_newer(src_path, out_path)
-
+    f.close()
 
 #-------------------------------------------------------------------------------
 print "Publishing dylibs"
@@ -219,7 +198,7 @@ if install:
     if exists:
         os.system("sudo rm -rf " + install_prefix)
     os.system("sudo mkdir " + install_prefix)
-    os.system("sudo cp -R usd.framework " + install_prefix + "/")
+    os.system("sudo cp -v -R usd.framework " + install_prefix + "/")
 
     #os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "Headers" + " " + "./usd.framework/Headers")
     #os.system("sudo ln -sf " + install_prefix + "/" + framework_prefix + "Resources" + " " + "./usd.framework/Resources")
