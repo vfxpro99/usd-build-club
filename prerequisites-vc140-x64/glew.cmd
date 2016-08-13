@@ -4,7 +4,7 @@ git clone https://github.com/vfxpro99/glew-build-club.git
 cd ..
 xcopy .\prereq\glew-build-club\include\GL\*.* .\local\include\GL\ /s /y
 cd .\prereq\glew-build-club
-mkdir build_win
+if not exist "build_win" mkdir build_win
 cd build_win
 cl /c -DSTATIC -DGLEW_BUILD -I"%current%\local\include" ..\src\glew.c
 lib /out:glew_static.lib glew.obj
