@@ -2,7 +2,7 @@ SET current=%cd%
 cd prereq
 git clone https://github.com/google/double-conversion.git
 
-if not exist "build_win\double-conversion" mkdir build\double-conversion
+if not exist "build\double-conversion" mkdir build\double-conversion
 cd build\double-conversion
 
 cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%" ..\..\double-conversion
