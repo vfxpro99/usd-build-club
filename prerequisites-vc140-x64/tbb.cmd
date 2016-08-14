@@ -1,6 +1,9 @@
 
 cd prereq
+
+if not exist "tbb.zip" ^
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('https://www.threadingbuildingblocks.org/sites/default/files/software_releases/windows/tbb44_20160128oss_win_0.zip', 'tbb.zip')"
+
 7z x .\tbb.zip
 cd ..
 xcopy .\prereq\tbb44_20160128oss\lib\intel64\vc14\tbb.* .\local\lib\ /s /y

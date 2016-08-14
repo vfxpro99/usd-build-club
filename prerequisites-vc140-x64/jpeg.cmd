@@ -13,8 +13,10 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\libjpeg-turbo
 
-msbuild libjpeg-turbo.sln /t:Build /p:Configuration=Release /p:Platform=x64
+cmake --build . --target install --config Release
+
+rem msbuild libjpeg-turbo.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 cd %current%
-xcopy .\prereq\libjpeg-turbo\build_win\Release\turbojpeg.* .\local\lib\ /s /y
-xcopy .\prereq\libjpeg-turbo\turbojpeg*.h .\local\include\ /s /y
+rem xcopy .\prereq\libjpeg-turbo\build_win\Release\turbojpeg.* .\local\lib\ /s /y
+rem xcopy .\prereq\libjpeg-turbo\turbojpeg*.h .\local\include\ /s /y
