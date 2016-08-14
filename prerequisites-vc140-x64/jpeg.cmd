@@ -6,8 +6,8 @@ SET current=%cd%
 cd prereq
 git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
 
-if not exist "build/libjpeg-turbo" mkdir build/libjpeg-turbo
-cd build/libjpeg-turbo
+if not exist "build\libjpeg-turbo" mkdir build\libjpeg-turbo
+cd build\libjpeg-turbo
 
 cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
