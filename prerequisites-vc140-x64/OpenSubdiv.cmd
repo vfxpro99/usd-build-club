@@ -19,6 +19,15 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\OpenSubdiv
 
 rem msbuild OpenSubdiv.sln /t:Build /p:Configuration=Release /p:Platform=x64
+echo "Building OpenSubdiv Debug"
+cmake --build . --target install --config Debug
+
+cd ..\..\..\local\lib
+ren osdCPU.lib osdCPU_debug.lib
+ren osdGPU.lib osdGPU_debug.lib
+cd ..\..\prereq\build\OpenSubdiv
+
+echo "Building OpenSubdiv Release"
 cmake --build . --target install --config Release
 
 cd %current%
