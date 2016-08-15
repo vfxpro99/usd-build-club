@@ -8,6 +8,7 @@ Building USD on Windows
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
+  ..\usd-build-club\prerequisites-vc140-x64\python.cmd
   ..\usd-build-club\prerequisites-vc140-x64\zlib.cmd
   ..\usd-build-club\prerequisites-vc140-x64\ptex.cmd
   ..\usd-build-club\prerequisites-vc140-x64\jpeg.cmd
