@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ ! -f local/lib/libpng.a ]; then
 
   if [ ! -f prereq ]; then

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ROOT=$(pwd)
 cd prereq
 
@@ -11,4 +11,3 @@ fi
 cd Jinja2-2.8
 sudo python setup.py install
 cd ${ROOT}
-

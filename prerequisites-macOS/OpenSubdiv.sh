@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -f local/lib/libosdCPU.a ]; then
   exit 0

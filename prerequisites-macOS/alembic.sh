@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -f local/lib/libAlembic.dylib ]; then
   if [ ! -f prereq ]; then

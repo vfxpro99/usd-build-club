@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ ! -f local/lib/libhdf5.a ]; then
 
   if [ ! -f prereq ]; then

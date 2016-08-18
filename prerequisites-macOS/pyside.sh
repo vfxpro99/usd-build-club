@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ROOT=$(pwd)
 PREREQ_SCRIPTDIR=`dirname $0`

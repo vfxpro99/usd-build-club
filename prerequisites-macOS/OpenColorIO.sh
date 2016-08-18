@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ ! -f local/lib/libOpenColorIO.a ]; then
 
   if [ ! -f prereq ]; then

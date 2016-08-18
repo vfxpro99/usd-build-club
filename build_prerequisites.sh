@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PREREQ_SCRIPTDIR=`dirname $0`
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jinja2.sh

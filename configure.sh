@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CONFIGURE_SCRIPTDIR=`dirname $0`
 ROOT=$(pwd)
@@ -47,4 +47,3 @@ if [ $# > 1 ]; then
       -DBoost_INCLUDE_DIR=${BUILDDIR}/include -DBoost_LIBRARY_DIR=${BUILDDIR}/lib
   fi
 fi
-
