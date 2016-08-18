@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 BOOTSTRAP_SCRIPTDIR=`dirname $0`
 

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 if [ ! -f local/lib/libOpenImageIO.dylib ]; then
   if [ ! -f prereq ]; then

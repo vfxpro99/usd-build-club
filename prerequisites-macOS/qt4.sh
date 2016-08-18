@@ -1,5 +1,4 @@
-
-#! /bin/sh
+#!/bin/sh
 if [ -f /usr/local/lib/libQt4Core.dylib ]; then
   exit 0
 fi

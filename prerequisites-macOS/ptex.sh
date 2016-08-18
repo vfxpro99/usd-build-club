@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 if [ ! -f local/lib/libPtex.a ]; then
 

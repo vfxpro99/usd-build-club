@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 CONFIGURE_SCRIPTDIR=`dirname $0`
 ROOT=$(pwd)

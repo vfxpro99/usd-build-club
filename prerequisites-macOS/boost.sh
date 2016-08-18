@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 if [ ! -f local/lib/libboost_python.dylib ]; then
   if [ ! -f prereq ]; then

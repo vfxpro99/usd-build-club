@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 if [ -f local/lib/libHalf.12.0.0.dylib ]; then
   exit 0
 fi

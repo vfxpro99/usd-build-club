@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 if [ ! -f local/include/numpy/_numpyconfig.h ]; then
 
