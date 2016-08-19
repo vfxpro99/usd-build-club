@@ -41,8 +41,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
       -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
       -DBUILD_WITH_INSTALL_RPATH=1 \
       ${ROOT}/prereq/openexr/IlmBase
-make -j 4
-make install
+cmake --build . --target install --config Release
 
 cd ../openexr
 
@@ -52,7 +51,6 @@ cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
       -DBUILD_WITH_INSTALL_RPATH=1 \
       -DILMBASE_PACKAGE_PREFIX=${ROOT}/local \
       ${ROOT}/prereq/openexr/OpenEXR
-make -j 4
-make install
+cmake --build . --target install --config Release
 
 cd ${ROOT}

@@ -31,8 +31,7 @@ if [ ! -f local/lib/libpng.a ]; then
         -DPNG_TESTS=OFF \
         -DCMAKE_PREFIX_PATH=${ROOT}/local \
         -DCMAKE_INSTALL_PREFIX=${ROOT}/local ..
-  make -j 4
-  make install
+  cmake --build . --target install --config Release
 
   cd ${ROOT}
 fi

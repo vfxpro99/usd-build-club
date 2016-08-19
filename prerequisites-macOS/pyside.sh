@@ -17,8 +17,7 @@ cd build/shiboken
 
 cmake -DCMAKE_INSTALL_PREFIX=${QT_BUILD_ROOT} -DALTERNATIVE_QT_INCLUDE_DIR=${QT_BUILD_ROOT} \
       ../../shiboken-1.2.2
-
-make -j 4; make install
+cmake --build . --target install --config Release
 cd ${ROOT}/prereq
 
 # pyside
@@ -36,7 +35,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${QT_BUILD_ROOT} -DALTERNATIVE_QT_INCLUDE_DIR=${QT_
       -DBUILD_TESTS=False -DENABLE_ICECC=0
       ../../pyside-qt4.8+1.2.2
 
-make -j 4; make install
+cmake --build . --target install --config Release
 cd ${ROOT}/prereq
 
 # pyside-tools
@@ -50,7 +49,6 @@ cd build/pyside-tools
 
 cmake -DCMAKE_INSTALL_PREFIX=${QT_BUILD_ROOT} -DALTERNATIVE_QT_INCLUDE_DIR=${QT_BUILD_ROOT} \
       ../../Tools-0.2.15
-
-make -j 4; make install
+cmake --build . --target install --config Release
 
 cd ${ROOT}

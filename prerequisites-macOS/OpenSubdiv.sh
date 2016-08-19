@@ -60,8 +60,7 @@ cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
       -DBUILD_WITH_INSTALL_RPATH=1 \
       ../../OpenSubdiv
 
-make -j 4
-make install
+cmake --build . --target install --config Release
 
 cd ${ROOT}
 

@@ -31,7 +31,6 @@ if [ ! -f local/lib/libdouble-conversion.a ]; then
 
   # building with shared libraries off because the rpath generated is wrong
   cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../double-conversion
-  make -j 4
-  make install
+  cmake --build . --target install --config Release
   cd ${ROOT}
 fi

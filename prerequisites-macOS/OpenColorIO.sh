@@ -34,8 +34,6 @@ if [ ! -f local/lib/libOpenColorIO.a ]; then
     -DCMAKE_VERBOSE_MAKEFILE=OFF \
     ../../OpenColorIO
 
-  make -j 4
-  make install
-
+  cmake --build . --target install --config Release
   cd ${ROOT}
 fi

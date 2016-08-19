@@ -37,7 +37,6 @@ if [ ! -f local/lib/libAlembic.dylib ]; then
   	-DALEMBIC_PYILMBASE_ROOT="${ROOT}/local" \
   	..
 
-  make -j 4
-  make install
+  cmake --build . --target install --config Release
   cd ${ROOT}
 fi

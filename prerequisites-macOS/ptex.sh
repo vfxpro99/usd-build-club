@@ -24,8 +24,7 @@ if [ ! -f local/lib/libPtex.a ]; then
   fi
   cd ptex;mkdir build;cd build
   cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local ..
-  make -j 4
-  make install
+  cmake --build . --target install --config Release
 
   cd ${ROOT}
 

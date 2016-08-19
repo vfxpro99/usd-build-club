@@ -24,8 +24,7 @@ if [ ! -f local/lib/libtiff.a ]; then
   fi
   cd libtiff
   ./configure --disable-dependency-tracking --prefix=${ROOT}/local --enable-cxx=0
-  make -j 4
-  make install
+  cmake --build . --target install --config Release
 
   cd ${ROOT}
 

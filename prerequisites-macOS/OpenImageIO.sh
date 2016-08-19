@@ -42,8 +42,7 @@ if [ ! -f local/lib/libOpenImageIO.dylib ]; then
     -DPTEX_LOCATION=${ROOT}/local \
     ../../oiio
 
-  make -j 4;
-  make install
+  cmake --build . --target install --config Release
 
   cd ${ROOT}
 
