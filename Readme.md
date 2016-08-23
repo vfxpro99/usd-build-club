@@ -1,10 +1,15 @@
 
 Building USD on Windows
 -----------------------
+Note that the windows build is a work in progress, and the 
+branch may not yet be in a buildable state.
 ```
   mkdir Projects
   cd Projects
-  git clone https://github.com/JamieKenyonFoundry/USD.git
+  git clone https://github.com/PixarAnimationStudios/USD.git
+  cd USD
+  git checkout dev-win-ip
+  cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
@@ -33,11 +38,15 @@ Building USD on OSX
   mkdir Projects
   cd Projects
   git clone https://github.com/PixarAnimationStudios/USD.git
+  cd USD
+  git checkout dev
+  cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
-  echo get coffee... In a little while you're going to need to enter a sudo password
-  ../usd-build-club/bootstrap.sh -p -b
+  ../usd-build-club/build_prerequisites.sh
+  ../usd-build-club/configure.sh Xcode
+  cmake --build . --target install --config Release
 ```
 
 Options for bootstrap.sh:
