@@ -3,26 +3,17 @@ if [ -f local/lib/libHalf.12.0.0.dylib ]; then
   exit 0
 fi
 
-if [ ! -f prereq ]; then
-  mkdir -p prereq
-fi
-if [ ! -f local/lib ]; then
-  mkdir -p local/lib
-fi
-if [ ! -f local/bin ]; then
-  mkdir -p local/bin
-fi
-if [ ! -f local/include ]; then
-  mkdir -p local/include
-fi
+mkdir -p prereq
+mkdir -p local/lib
+mkdir -p local/bin
+mkdir -p local/include
 
 ROOT=$(pwd)
 cd prereq
 if [ ! -f openexr/.git/config ]; then
   git clone git://github.com/openexr/openexr.git
-else
-  cd openexr; git pull; cd ..
 fi
+cd openexr; git pull; cd ..
 
 if [ -f build/ilmbase ]; then
   rm -rf build/ilmbase

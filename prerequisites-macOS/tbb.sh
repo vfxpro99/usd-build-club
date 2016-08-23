@@ -2,24 +2,21 @@
 
 if [ ! -f local/lib/libtbb.dylib ]; then
 
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include
 
   ROOT=$(pwd)
   cd prereq
-  curl -L -o tbb.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb43_20141204oss_src.tgz
-  tar -zxf tbb.tgz
+  if [ ! -f tbb.tgz ]; then
+    curl -L -o tbb.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb43_20141204oss_src.tgz
+  fi
+  if [ ! tbb43_20141204oss/README ]; then
+    tar -zxf tbb.tgz
+  fi
   cd tbb43_20141204oss
+
   make -j 4
   cd ${ROOT}
   # only copy libtbb because the malloc libs are very problematic

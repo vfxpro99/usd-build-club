@@ -1,18 +1,10 @@
 #!/bin/bash
 if [ ! -f local/lib/libdouble-conversion.a ]; then
 
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include/double-conversion ]; then
-    mkdir -p local/include/double-conversion
-  fi
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include/double-conversion
 
   ROOT=$(pwd)
   cd prereq

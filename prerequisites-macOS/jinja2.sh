@@ -1,5 +1,7 @@
 #!/bin/bash
 ROOT=$(pwd)
+
+mkdir -p prereq
 cd prereq
 
 if [ ! -d Jinja2-2.8 ]; then
@@ -8,6 +10,7 @@ if [ ! -d Jinja2-2.8 ]; then
   tar -xf jinja2.tar
   rm jinja2.tar
 fi
+
 cd Jinja2-2.8
 sudo python setup.py install
 cd ${ROOT}

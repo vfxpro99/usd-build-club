@@ -3,9 +3,7 @@ if [ -f /usr/local/lib/libQt4Core.dylib ]; then
   exit 0
 fi
 
-if [ ! -f prereq ]; then
-  mkdir -p prereq
-fi
+mkdir -p prereq
 
 ROOT=$(pwd)
 PREREQ_SCRIPTDIR=`dirname $0`

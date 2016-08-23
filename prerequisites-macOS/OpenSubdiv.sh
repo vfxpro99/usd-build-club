@@ -4,33 +4,14 @@ if [ -f local/lib/libosdCPU.a ]; then
   exit 0
 fi
 
-if [ ! -f prereq ]; then
-  mkdir -p prereq
-fi
-if [ ! -f local/lib ]; then
-  mkdir -p local/lib
-fi
-if [ ! -f local/bin ]; then
-  mkdir -p local/bin
-fi
-if [ ! -f local/include ]; then
-  mkdir -p local/include
-fi
-if [ ! -f local/include/opensubdiv/far ]; then
-  mkdir -p local/include/opensubdiv/far
-fi
-if [ ! -f local/include/opensubdiv/hbr ]; then
-  mkdir -p local/include/opensubdiv/hbr
-fi
-if [ ! -f local/include/opensubdiv/osd ]; then
-  mkdir -p local/include/opensubdiv/osd
-fi
-if [ ! -f local/include/opensubdiv/sdc ]; then
-  mkdir -p local/include/opensubdiv/sdc
-fi
-if [ ! -f local/include/opensubdiv/vtr ]; then
-  mkdir -p local/include/opensubdiv/vtr
-fi
+mkdir -p prereq
+mkdir -p local/lib
+mkdir -p local/bin
+mkdir -p local/include/opensubdiv/far
+mkdir -p local/include/opensubdiv/hbr
+mkdir -p local/include/opensubdiv/osd
+mkdir -p local/include/opensubdiv/sdc
+mkdir -p local/include/opensubdiv/vtr
 
 SCRIPTDIR=`dirname $0`
 
@@ -63,17 +44,6 @@ cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
 cmake --build . --target install --config Release
 
 cd ${ROOT}
-
-#cp lib/*.a ${ROOT}/local/lib
-#cp lib/*.dylib ${ROOT}/local/lib
-#cd ..
-#cp opensubdiv/*.h ${ROOT}/local/include/opensubdiv
-#cp opensubdiv/far/*.h ${ROOT}/local/include/opensubdiv/far
-#cp opensubdiv/hbr/*.h ${ROOT}/local/include/opensubdiv/hbr
-#cp opensubdiv/osd/*.h ${ROOT}/local/include/opensubdiv/osd
-#cp opensubdiv/sdc/*.h ${ROOT}/local/include/opensubdiv/sdc
-#cp opensubdiv/vtr/*.h ${ROOT}/local/include/opensubdiv/vtr
-#cd ${ROOT}
 
 if [ ! -d "${ROOT}/local/include/opensubdiv3" ]; then
   cp -R ${ROOT}/local/include/opensubdiv ${ROOT}/local/include/opensubdiv3

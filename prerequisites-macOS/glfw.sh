@@ -1,6 +1,11 @@
 #!/bin/bash
 
 if [ ! -f local/lib/libGLFW.a ]; then
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include
+
   ROOT=$(pwd)
 
   GLFW_SCRIPTDIR=`dirname $0`
