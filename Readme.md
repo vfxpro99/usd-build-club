@@ -8,7 +8,7 @@ branch may not yet be in a buildable state.
   cd Projects
   git clone https://github.com/PixarAnimationStudios/USD.git
   cd USD
-  git checkout dev-win-ip
+  git checkout dev_win_ip
   cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
