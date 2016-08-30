@@ -14,7 +14,7 @@ if [ ! -f local/lib/libboost_python.dylib ]; then
   cd boost-build-club; git pull; cd ..
 
   if [ ! -f boost.tgz ]; then
-    curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz;
+    curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_61_0.tar.gz;
     rc=$?
     if [ $rc -ne 0 ]; then
       echo Failed to retrieve boost archive
@@ -22,7 +22,7 @@ if [ ! -f local/lib/libboost_python.dylib ]; then
     fi
   fi
 
-  if [ ! -f boost_1_60/README.md ]; then
+  if [ ! -f boost_1_61/README.md ]; then
     tar -zxf boost.tgz
     rc=$?
     if [ $rc -ne 0 ]; then
@@ -31,7 +31,7 @@ if [ ! -f local/lib/libboost_python.dylib ]; then
     fi
   fi
 
-  cd boost_1_60_0
+  cd boost_1_61_0
   cp ../boost-build-club/* .
   chmod 744 build-OSX-shared.sh;./build-OSX-shared.sh
   cp stage-OSX/lib/* ${ROOT}/local/lib
