@@ -12,7 +12,7 @@ if [ ! -f local/lib/libtbb.dylib ]; then
   if [ ! -f tbb.tgz ]; then
     curl -L -o tbb.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb43_20141204oss_src.tgz
   fi
-  if [ ! tbb43_20141204oss/README ]; then
+  if [ ! -f tbb43_20141204oss/README ]; then
     tar -zxf tbb.tgz
   fi
   cd tbb43_20141204oss
