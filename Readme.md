@@ -49,21 +49,3 @@ Building USD on OSX
   cmake --build . --target install --config Release
 ```
 
-Options for bootstrap.sh:
--------------------------
-
-Specify source directory:
-  -s=/path/to/USD
-  -src=/path/to/USD
-
-Configure a debug build:
-  -d --debug
-
-Use make to build instead of Xcode:
-  -m --make
-
-Build the prerequisite libraries such as boost and so on:
-  -p --prerequisites
-
-Perform the build after configuration:
-  -b --build
