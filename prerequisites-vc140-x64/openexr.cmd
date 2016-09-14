@@ -1,13 +1,17 @@
 echo zlib is a prerequisite for OpenEXR
 
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
 cd prereq
+
 git clone git://github.com/meshula/openexr.git
 
 if not exist "build\IlmBase" mkdir build\IlmBase
 cd build\IlmBase
 cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\openexr\IlmBase
-cmake --build . --target install --config Release
+cmake --build . --target install --config Release -- /maxcpucount:8
 
 rem msbuild ilmBase.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
