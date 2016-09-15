@@ -12,6 +12,8 @@ git clone https://github.com/PixarAnimationStudios/OpenSubdiv.git
 
 cd OpenSubdiv
 git pull
+REM checkout the dev branch, since 3.0.5 ptex detection was broken by changes in ptex changes.
+git checkout dev
 cd ..
 
 cd build\OpenSubdiv
@@ -19,18 +21,17 @@ cd build\OpenSubdiv
 REM Optional Stuff:
 REM -DCUDA_TOOLKIT_ROOT_DIR=[path to CUDA Toolkit]
 REM -DMAYA_LOCATION=[path to Maya]
-REM ptex is disabled because the OpenSubdiv version detection seems broken
 
 cmake -G "Visual Studio 14 2015 Win64"^
       -DPTEX_LOCATION=%current%/local/^
       -DGLEW_LOCATION=%current%/local^
       -DGLFW_LOCATION=%current%/local^
       -DTBB_LOCATION=%current%/local^
-      -DNO_EXAMPLES=0^
-      -DNO_TUTORIALS=0^
-      -DNO_REGRESSION=0^
+      -DNO_EXAMPLES=1^
+      -DNO_TUTORIALS=1^
+      -DNO_REGRESSION=1^
       -DNO_MAYA=1^
-      -DNO_PTEX=1^
+      -DNO_PTEX=0^
       -DNO_DOC=1^
       -DNO_OMP=1^
       -DNO_TBB=0^
