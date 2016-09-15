@@ -1,6 +1,8 @@
 
 set SCRIPT_DIR=%~dp0
 
+if not exist "prereq" ^
+mkdir prereq
 cd prereq
 
 if not exist "tbb.zip" ^

@@ -1,4 +1,7 @@
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
 cd prereq
 
 if not exist "build\glfw" ^
@@ -17,6 +20,6 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\glfw
 
-cmake --build . --target install --config Release
+cmake --build . --target install --config Release -- /maxcpucount:16
 
 cd %current%

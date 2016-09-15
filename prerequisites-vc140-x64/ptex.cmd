@@ -1,4 +1,8 @@
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
+
 cd prereq
 
 if not exist "ptex\CMakeLists.txt" ^
@@ -19,8 +23,9 @@ cmake -G "Visual Studio 14 2015 Win64" ^
       -DZLIB_LIBRARY="%current%\local\lib\zlib.lib" ^
       ..\..\ptex
 
+rem // This build is not thread-safe, must use maxcpucount:1
 if exist "ptex.sln" ^
-cmake --build . --target install --config Release
+cmake --build . --target install --config Release -- /maxcpucount:1
 
 cd ../../..
 

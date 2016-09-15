@@ -3,6 +3,21 @@ Building USD on Windows
 -----------------------
 Note that the windows build is a work in progress, and the 
 branch may not yet be in a buildable state.
+
+Prereqs:
+ 1. Install Python and Pip
+ 1. pip install PySide
+ 1. pip install pyd (unclear if this is necessary or not)
+ 1. Ensure PySide tools (in python/scripts) are visible on %PATH%
+ 1. Install CMake and make sure its on your %PATH%
+ 1. Install NASM, make sure it's on your %PATH% in the working terminal
+ 1. Install 7-Zip, make sure 7z is on your %PATH% in the working terminal
+ 1. Download & unzip win-bison (and win-flex), no need to be on the path
+ 1. Download Qt via the binary installer, default install works at the time of this writing
+ 1. Ensure qmake.exe is on the %PATH% in the working terminal
+
+In a **64-bit VS2015** Developer command prompt:
+
 ```
   mkdir Projects
   cd Projects
@@ -23,13 +38,20 @@ branch may not yet be in a buildable state.
   ..\usd-build-club\prerequisites-vc140-x64\boost.cmd
   ..\usd-build-club\prerequisites-vc140-x64\tbb.cmd
   ..\usd-build-club\prerequisites-vc140-x64\glew.cmd
+  ..\usd-build-club\prerequisites-vc140-x64\glext.cmd
   ..\usd-build-club\prerequisites-vc140-x64\openexr.cmd
   ..\usd-build-club\prerequisites-vc140-x64\OpenSubdiv.cmd
   ..\usd-build-club\prerequisites-vc140-x64\OpenImageIO.cmd
   ..\usd-build-club\configure.cmd
   cd prereq\build\usd
-  cmake --build . --target install --config Release
+  cmake --build . --target install --config Release -- /maxcpucount:16
 ```
+
+Using the install:
+ 1. Add [PATH TO STAGE]\local\bin to %PATH%
+ 1. Add [PATH TO STAGE]\local\lib to %PATH%
+ 1. Add [PATH TO STAGE]\local\lib\python to %PYTHONPATH%
+ 1. Run python> from pxr import Usd
 
 Building USD on OSX
 -------------------
