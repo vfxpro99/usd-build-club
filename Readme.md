@@ -44,11 +44,10 @@ In a **64-bit VS2015** Developer command prompt:
   ..\usd-build-club\prerequisites-vc140-x64\OpenSubdiv.cmd
   ..\usd-build-club\prerequisites-vc140-x64\OpenImageIO.cmd
   ..\usd-build-club\configure.cmd
-  cd prereq\build\usd
   cmake --build . --target install --config Release -- /maxcpucount:16
 ```
 
-For a debug build (at least currently), two files must be edited in the USD source directory:
+For debug builds (at least currently), OpenSubdiv must be compiled in debug config (edit OpenSubdiv.cmd) and two files must be edited in the USD source directory:
 
 cmake/defaults/msvcdefaults.cmake
   - uncomment add_definitions("/DTBB_USE_DEBUG=1")
