@@ -4,7 +4,7 @@ if not exist "prereq" ^
 mkdir prereq
 cd prereq
 
-if not exists "boost-build-club\README.md" ^
+if not exist "boost-build-club\README.md" ^
 git clone https://github.com/vfxpro99/boost-build-club.git
 
 cd boost-build-club
