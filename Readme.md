@@ -8,6 +8,7 @@ Prereqs:
  1. Install Python and Pip
  1. pip install PySide
  1. pip install pyd (unclear if this is necessary or not)
+ 1. pip install pyopengl (required for usdview)
  1. Ensure PySide tools (in python/scripts) are visible on %PATH%
  1. Install CMake and make sure its on your %PATH%
  1. Install NASM, make sure it's on your %PATH% in the working terminal
@@ -43,15 +44,24 @@ In a **64-bit VS2015** Developer command prompt:
   ..\usd-build-club\prerequisites-vc140-x64\OpenSubdiv.cmd
   ..\usd-build-club\prerequisites-vc140-x64\OpenImageIO.cmd
   ..\usd-build-club\configure.cmd
-  cd prereq\build\usd
   cmake --build . --target install --config Release -- /maxcpucount:16
 ```
+
+For debug builds (at least currently), OpenSubdiv must be compiled in debug config (edit OpenSubdiv.cmd) and two files must be edited in the USD source directory:
+
+cmake/defaults/msvcdefaults.cmake
+  - uncomment add_definitions("/DTBB_USE_DEBUG=1")
+
+cmake/defaults/Packages.cmake
+  - line 45: set(TBB_USE_DEBUG_BUILD ON)
 
 Using the install:
  1. Add [PATH TO STAGE]\local\bin to %PATH%
  1. Add [PATH TO STAGE]\local\lib to %PATH%
  1. Add [PATH TO STAGE]\local\lib\python to %PYTHONPATH%
- 1. Run python> from pxr import Usd
+
+Test the build:
+ 1. python> from pxr import Usd
 
 Building USD on OSX
 -------------------
