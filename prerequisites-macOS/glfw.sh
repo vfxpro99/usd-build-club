@@ -1,6 +1,11 @@
 #!/bin/bash
 
 if [ ! -f local/lib/libGLFW.a ]; then
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include
+
   ROOT=$(pwd)
 
   GLFW_SCRIPTDIR=`dirname $0`
@@ -15,7 +20,7 @@ if [ ! -f local/lib/libGLFW.a ]; then
   mkdir -p build/glfw
   cd build/glfw
 
-  cmake -G "Visual Studio 14 2015 Win64" \
+  cmake -G "Xcode" \
         -DCMAKE_PREFIX_PATH="${ROOT}/local" \
         -DCMAKE_INSTALL_PREFIX="${ROOT}/local" ../../glfw
 

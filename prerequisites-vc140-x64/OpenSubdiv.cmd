@@ -1,4 +1,7 @@
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
 cd prereq
 
 if not exist "build\OpenSubdiv" ^
@@ -9,18 +12,40 @@ git clone https://github.com/PixarAnimationStudios/OpenSubdiv.git
 
 cd OpenSubdiv
 git pull
+REM checkout the dev branch, since 3.0.5 ptex detection was broken by changes in ptex changes.
+git checkout dev
 cd ..
 
 cd build\OpenSubdiv
 
+REM Optional Stuff:
+REM -DCUDA_TOOLKIT_ROOT_DIR=[path to CUDA Toolkit]
+REM -DMAYA_LOCATION=[path to Maya]
+
 cmake -G "Visual Studio 14 2015 Win64"^
+      -DPTEX_LOCATION=%current%/local/^
+      -DGLEW_LOCATION=%current%/local^
+      -DGLFW_LOCATION=%current%/local^
+      -DTBB_LOCATION=%current%/local^
+      -DNO_EXAMPLES=1^
+      -DNO_TUTORIALS=1^
+      -DNO_REGRESSION=1^
+      -DNO_MAYA=1^
+      -DNO_PTEX=0^
+      -DNO_DOC=1^
+      -DNO_OMP=1^
+      -DNO_TBB=0^
+      -DNO_CUDA=1^
+      -DNO_OPENCL=1^
+      -DNO_OPENGL=0^
+      -DNO_CLEW=0^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DGLEW_LOCATION="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\OpenSubdiv
 
 rem msbuild OpenSubdiv.sln /t:Build /p:Configuration=Release /p:Platform=x64
 echo "Building OpenSubdiv Debug"
-cmake --build . --target install --config Debug
+cmake --build . --target install --config Debug -- /maxcpucount:8
 
 cd ..\..\..\local\lib
 ren osdCPU.lib osdCPU_debug.lib
@@ -28,7 +53,7 @@ ren osdGPU.lib osdGPU_debug.lib
 cd ..\..\prereq\build\OpenSubdiv
 
 echo "Building OpenSubdiv Release"
-cmake --build . --target install --config Release
+cmake --build . --target install --config Release -- /maxcpucount:8
 
 cd %current%
 

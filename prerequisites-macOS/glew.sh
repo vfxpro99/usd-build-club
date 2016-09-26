@@ -1,28 +1,22 @@
 #!/bin/bash
 
 if [ ! -f local/lib/libGLEW.a ]; then
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include
 
   ROOT=$(pwd)
   cd prereq
+
   if [ ! -f glew/.git/config ]; then
     git clone https://github.com/nigels-com/glew.git
-  else
-    cd glew; git pull; cd ..
   fi
-  mkdir glew_build
-  cd glew_build
+  cd glew; git pull; cd ..
+
+  mkdir -p build/glew
+  cd build/glew
+
   make -C ${ROOT}/prereq/glew extensions
   make -C ${ROOT}/prereq/glew all
   make -C ${ROOT}/prereq/glew GLEW_DEST=${ROOT}/local install

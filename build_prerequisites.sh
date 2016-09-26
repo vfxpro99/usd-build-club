@@ -42,6 +42,7 @@ echo --- OpenEXR ---
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenEXR.sh
 rc=$?
 if [ $rc != 0 ]; then
+  echo OpenEXR build did not finish with a clean exit code, stopping
   exit $rc
 fi
 

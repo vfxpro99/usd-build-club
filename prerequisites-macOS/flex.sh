@@ -1,28 +1,20 @@
 #!/bin/bash
 
-if [ ! -f prereq ]; then
-  mkdir -p prereq
-fi
-if [ ! -f local/lib ]; then
-  mkdir -p local/lib
-fi
-if [ ! -f local/bin ]; then
-  mkdir -p local/bin
-fi
-if [ ! -f local/include ]; then
-  mkdir -p local/include
-fi
+if [ ! -f local/bin/flex ]; then
+	mkdir -p prereq
+	mkdir -p local/lib
+	mkdir -p local/bin
+	mkdir -p local/include
 
-ROOT=$(pwd)
-pushd prereq
+	ROOT=$(pwd)
+	cd prereq
 
-if [ ! -f flex-2.5.39/.git/config ]; then
-  git clone https://github.com/vfxpro99/flex-2.5.39.git
-else
-  cd flex-2.5.39; git pull; cd ..
+	if [ ! -f flex-2.5.39/.git/config ]; then
+	  git clone https://github.com/vfxpro99/flex-2.5.39.git
+	fi
+	cd flex-2.5.39; git pull
+	./configure --prefix ${ROOT}/local
+	make -j 4
+	make install
+	cd ${ROOT}
 fi
-cd flex-2.5.39
-./configure --prefix ${ROOT}/local
-make -j 4
-make install
-cd ${ROOT}

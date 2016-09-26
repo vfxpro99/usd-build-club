@@ -1,37 +1,31 @@
 #!/bin/bash
-if [ ! -f local/lib/libpng.a ]; then
+mkdir -p prereq
+mkdir -p local/lib
+mkdir -p local/bin
+mkdir -p local/include
 
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
+CONFIGURATION="Release"
 
-  CONFIGURATION="Release"
-
-  ROOT=$(pwd)
-  cd prereq
-  if [ ! -f libpng/.git/config ]; then
-    git clone git://github.com/glennrp/libpng.git
-  else
-    cd libpng; git pull; cd ..
-  fi
-  cd libpng;
-  # checkout last known good on OSX
-  git checkout 830608b
-  mkdir build;cd build
-  cmake \
-        -DPNG_TESTS=OFF \
-        -DCMAKE_PREFIX_PATH=${ROOT}/local \
-        -DCMAKE_INSTALL_PREFIX=${ROOT}/local ..
-  cmake --build . --target install --config Release
-
-  cd ${ROOT}
+ROOT=$(pwd)
+cd prereq
+if [ ! -f libpng/.git/config ]; then
+  git clone git://github.com/glennrp/libpng.git
+else
+  cd libpng; git pull; cd ..
 fi
+
+# checkout last known good on OSX
+
+cd libpng
+git checkout 830608b
+cd ..
+
+mkdir -p build/png; cd build/png
+cmake \
+      -DPNG_TESTS=OFF \
+      -DCMAKE_PREFIX_PATH=${ROOT}/local \
+      -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../libpng
+
+cmake --build . --target install --config Release
+
+cd ${ROOT}

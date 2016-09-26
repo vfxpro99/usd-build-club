@@ -2,28 +2,22 @@
 
 if [ ! -f local/lib/libPtex.a ]; then
 
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
+  mkdir -p prereq
+  mkdir -p local/lib
+  mkdir -p local/bin
+  mkdir -p local/include
 
   ROOT=$(pwd)
   cd prereq
   if [ ! -f ptex/.git/config ]; then
     git clone git://github.com/wdas/ptex.git
-  else
-    cd ptex; git pull; cd ..
   fi
-  cd ptex;mkdir build;cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local ..
+  cd ptex; git pull; cd ..
+
+  mkdir -p build/ptex
+  cd build/ptex
+
+  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../ptex
   cmake --build . --target install --config Release
 
   cd ${ROOT}

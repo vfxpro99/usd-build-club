@@ -1,4 +1,8 @@
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
+
 cd prereq
 
 if not exist "zlib/CMakeLists.txt" ^
@@ -13,10 +17,10 @@ mkdir build\zlib
 
 cd build\zlib
 
-cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%" ..\..\zlib
-cmake --build . --target install --config Release
-rem msbuild zlib.sln /t:Build /p:Configuration=Release /p:Platform=x64
+cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\zlib
+cmake --build . --target install --config Release -- /maxcpucount:8 
+
 cd %current%
-rem xcopy .\prereq\zlib\zlib.h .\local\include\ /s /y
-rem xcopy .\prereq\build\zlib\zconf.h .\local\include /s /y
-rem xcopy .\prereq\build\zlib\Release\zlib.* .\local\lib /s /y
+
+rem // xcopy .\inst\zlib\include\* .\local\include\ /s /y
+rem // xcopy .\inst\zlib\lib\* .\local\lib\ /s /y

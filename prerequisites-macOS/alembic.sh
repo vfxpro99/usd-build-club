@@ -1,42 +1,29 @@
 #!/bin/bash
 
-if [ ! -f local/lib/libAlembic.dylib ]; then
-  if [ ! -f prereq ]; then
-    mkdir -p prereq
-  fi
-  if [ ! -f local/lib ]; then
-    mkdir -p local/lib
-  fi
-  if [ ! -f local/bin ]; then
-    mkdir -p local/bin
-  fi
-  if [ ! -f local/include ]; then
-    mkdir -p local/include
-  fi
+mkdir -p prereq
+mkdir -p local/lib
+mkdir -p local/bin
+mkdir -p local/include
+mkdir -p build/alembic
 
-  ROOT=$(pwd)
-  cd prereq
-  if [ ! -f alembic/.git/config ]; then
-    git clone git://github.com/alembic/alembic.git
-  else
-    cd alembic; git pull; cd ..
-  fi
-  cd alembic
-
-  mkdir alembic_build
-  cd alembic_build
-
-  cmake -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
-  	-DBOOST_INCLUDEDIR="${ROOT}/local/include" \
-  	-DBOOST_LIBRARYDIR="${ROOT}/local/lib" \
-  	-DBoost_INCLUDE_DIR="${ROOT}/local/include" \
-  	-DBoost_LIBRARY_DIR="${ROOT}/local/lib" \
-  	-DHDF5_ROOT="${ROOT}/local" \
-  	-DALEMBIC_PYILMBASE_PYIMATH_LIB="${ROOT}/local/lib/libPyImath.dylib" \
-  	-DILMBASE_ROOT="${ROOT}/local" \
-  	-DALEMBIC_PYILMBASE_ROOT="${ROOT}/local" \
-  	..
-
-  cmake --build . --target install --config Release
-  cd ${ROOT}
+ROOT=$(pwd)
+cd prereq
+if [ ! -f alembic/.git/config ]; then
+  git clone git://github.com/alembic/alembic.git
 fi
+cd alembic; git pull; cd ..
+
+cmake -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
+	-DBOOST_INCLUDEDIR="${ROOT}/local/include" \
+	-DBOOST_LIBRARYDIR="${ROOT}/local/lib" \
+	-DBoost_INCLUDE_DIR="${ROOT}/local/include" \
+	-DBoost_LIBRARY_DIR="${ROOT}/local/lib" \
+	-DHDF5_ROOT="${ROOT}/local" \
+	-DALEMBIC_PYILMBASE_PYIMATH_LIB="${ROOT}/local/lib/libPyImath.dylib" \
+	-DILMBASE_ROOT="${ROOT}/local" \
+	-DALEMBIC_PYILMBASE_ROOT="${ROOT}/local" \
+	../../alembic
+
+cmake --build . --target install --config Release
+
+cd ${ROOT}

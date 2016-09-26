@@ -3,7 +3,12 @@ echo http://www.nasm.us/pub/nasm/releasebuilds
 echo nasm must be in the path.
 
 SET current=%cd%
+
+if not exist "prereq" ^
+mkdir prereq
+
 cd prereq
+
 git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
 
 if not exist "build\libjpeg-turbo" mkdir build\libjpeg-turbo
@@ -13,7 +18,7 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\libjpeg-turbo
 
-cmake --build . --target install --config Release
+cmake --build . --target install --config Release -- /maxcpucount:8
 
 rem msbuild libjpeg-turbo.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
