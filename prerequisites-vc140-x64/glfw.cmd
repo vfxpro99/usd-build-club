@@ -4,9 +4,6 @@ if not exist "prereq" ^
 mkdir prereq
 cd prereq
 
-if not exist "build\glfw" ^
-mkdir build\glfw
-
 if not exist "glfw\CMakeLists.txt" ^
 git clone https://github.com/glfw/glfw.git
 
@@ -14,6 +11,8 @@ cd glfw
 git pull
 cd ..
 
+if not exist "build\glfw" ^
+mkdir build\glfw
 cd build\glfw
 
 cmake -G "Visual Studio 14 2015 Win64"^
