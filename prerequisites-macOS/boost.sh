@@ -1,10 +1,16 @@
 #!/bin/bash
 
-if [ ! -f local/lib/libboost_python.dylib ]; then
+LOCAL=local
+
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+if [ ! -f $LOCAL/lib/libboost_python.dylib ]; then
   mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
+  mkdir -p $LOCAL/lib
+  mkdir -p $LOCAL/bin
+  mkdir -p $LOCAL/include
 
   ROOT=$(pwd)
   cd prereq
@@ -34,7 +40,7 @@ if [ ! -f local/lib/libboost_python.dylib ]; then
   cd boost_1_61_0
   cp ../boost-build-club/* .
   chmod 744 build-OSX-shared.sh;./build-OSX-shared.sh
-  cp stage-OSX/lib/* ${ROOT}/local/lib
-  cp -R boost ${ROOT}/local/include/boost
   cd ${ROOT}
+  cp prereq/boost_1_61_0/stage-OSX/lib/* $LOCAL/lib
+  cp -R prereq/boost_1_61_0/boost $LOCAL/include
 fi

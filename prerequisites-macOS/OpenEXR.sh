@@ -1,12 +1,19 @@
 #!/bin/bash
-if [ ! -f local/lib/libHalf.12.0.0.dylib ]; then
+
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
+
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+if [ ! -f $LOCAL/lib/libHalf.12.0.0.dylib ]; then
 
   mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
+  mkdir -p $LOCAL/lib
+  mkdir -p $LOCAL/bin
+  mkdir -p $LOCAL/include
 
-  ROOT=$(pwd)
   cd prereq
   if [ ! -f openexr/.git/config ]; then
     git clone git://github.com/openexr/openexr.git
@@ -25,7 +32,7 @@ if [ ! -f local/lib/libHalf.12.0.0.dylib ]; then
 
   cd build/ilmbase
 
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL} \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
@@ -34,11 +41,11 @@ if [ ! -f local/lib/libHalf.12.0.0.dylib ]; then
 
   cd ../openexr
 
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL} \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
-        -DILMBASE_PACKAGE_PREFIX=${ROOT}/local \
+        -DILMBASE_PACKAGE_PREFIX=${LOCAL} \
         ${ROOT}/prereq/openexr/OpenEXR
   cmake --build . --target install --config Release
 

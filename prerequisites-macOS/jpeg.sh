@@ -1,12 +1,18 @@
 #!/bin/bash
 
-if [ ! -f local/lib/libjpeg.a ]; then
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
 
-  ROOT=$(pwd)
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
+
+if [ ! -f $LOCAL/lib/libjpeg.a ]; then
   cd prereq
   if [ ! -f jpeg.tgz ]; then
     curl http://www.ijg.org/files/jpegsrc.v6b.tar.gz > jpeg.tgz
@@ -15,7 +21,7 @@ if [ ! -f local/lib/libjpeg.a ]; then
     tar -xf jpeg.tgz
   fi
   cd jpeg-6b
-  ./configure --disable-dependency-tracking --prefix=${ROOT}/local
+  ./configure --disable-dependency-tracking --prefix=${LOCAL}
   make install
   make install-lib
 

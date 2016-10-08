@@ -1,12 +1,19 @@
 #!/bin/bash
+
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
+
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
 mkdir -p prereq
-mkdir -p local/lib
-mkdir -p local/bin
-mkdir -p local/include
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
 
 CONFIGURATION="Release"
 
-ROOT=$(pwd)
 cd prereq
 if [ ! -f libpng/.git/config ]; then
   git clone git://github.com/glennrp/libpng.git
@@ -23,8 +30,8 @@ cd ..
 mkdir -p build/png; cd build/png
 cmake \
       -DPNG_TESTS=OFF \
-      -DCMAKE_PREFIX_PATH=${ROOT}/local \
-      -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../libpng
+      -DCMAKE_PREFIX_PATH=${LOCAL} \
+      -DCMAKE_INSTALL_PREFIX=${LOCAL} ../../libpng
 
 cmake --build . --target install --config Release
 

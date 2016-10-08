@@ -1,13 +1,18 @@
 #!/bin/bash
 
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
+
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
+
 if [ ! -f local/lib/libtiff.a ]; then
-
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
-
-  ROOT=$(pwd)
   cd prereq
 
   if [ ! -f libtiff/.git/config ]; then
@@ -16,12 +21,12 @@ if [ ! -f local/lib/libtiff.a ]; then
   cd libtiff
   git pull
 
-  ./configure --disable-dependency-tracking --prefix=${ROOT}/local --enable-cxx=0
+  ./configure --disable-dependency-tracking --prefix=${LOCAL} --enable-cxx=0
   make -j 4
   make install
 
   cd ${ROOT}
 
-  install_name_tool -id @rpath/libtiff.5.dylib ./local/lib/libtiff.5.dylib
+  install_name_tool -id @rpath/libtiff.5.dylib $LOCAL/lib/libtiff.5.dylib
 
 fi

@@ -1,12 +1,18 @@
 #!/bin/bash
 
-if [ ! -f local/lib/libGLEW.a ]; then
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
 
-  ROOT=$(pwd)
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
+
+if [ ! -f local/lib/libGLEW.a ]; then
   cd prereq
 
   if [ ! -f glew/.git/config ]; then
@@ -19,8 +25,8 @@ if [ ! -f local/lib/libGLEW.a ]; then
 
   make -C ${ROOT}/prereq/glew extensions
   make -C ${ROOT}/prereq/glew all
-  make -C ${ROOT}/prereq/glew GLEW_DEST=${ROOT}/local install
+  make -C ${ROOT}/prereq/glew GLEW_DEST=${LOCAL} install
   cd ${ROOT}
 
-  install_name_tool -id @rpath/libGLEW.2.0.0.dylib ./local/lib/libGLEW.2.0.0.dylib
+  install_name_tool -id @rpath/libGLEW.2.0.0.dylib $LOCAL/lib/libGLEW.2.0.0.dylib
 fi

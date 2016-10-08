@@ -6,6 +6,10 @@ SOURCEDIR="`cd ${CONFIGURE_SCRIPTDIR}/../USD;pwd`"
 cd ${ROOT}
 BUILDDIR=${ROOT}/local
 
+if [ $# > 2 ]; then
+  BUILDDIR=$2
+fi
+
 echo "build from USD sources at ${SOURCEDIR}/pxr"
 echo "local dir for prerequisites is ${BUILDDIR}"
 

@@ -1,12 +1,19 @@
 #!/bin/bash
-if [ ! -f local/lib/libdouble-conversion.a ]; then
+ROOT=$(pwd)
 
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include/double-conversion
+LOCAL=${ROOT}/local
 
-  ROOT=$(pwd)
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include/double-conversion
+
+if [ ! -f $LOCAL/lib/libdouble-conversion.a ]; then
+
   cd prereq
   if [ ! -f double-conversion/.git/config ]; then
     # https://github.com/google/double-conversion/issues/33
@@ -22,7 +29,7 @@ if [ ! -f local/lib/libdouble-conversion.a ]; then
   cd build/double-conversion
 
   # building with shared libraries off because the rpath generated is wrong
-  cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${ROOT}/local ../../double-conversion
+  cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${LOCAL} ../../double-conversion
   cmake --build . --target install --config Release
   cd ${ROOT}
 fi

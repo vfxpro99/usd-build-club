@@ -1,13 +1,18 @@
 #!/bin/bash
 
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
+
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
+
 if [ ! -f local/lib/libGLFW.a ]; then
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
-
-  ROOT=$(pwd)
-
   GLFW_SCRIPTDIR=`dirname $0`
   source ${GLFW_SCRIPTDIR}/init_local.sh
 
@@ -21,8 +26,8 @@ if [ ! -f local/lib/libGLFW.a ]; then
   cd build/glfw
 
   cmake -G "Xcode" \
-        -DCMAKE_PREFIX_PATH="${ROOT}/local" \
-        -DCMAKE_INSTALL_PREFIX="${ROOT}/local" ../../glfw
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" ../../glfw
 
   cmake --build . --target install --config Release
 

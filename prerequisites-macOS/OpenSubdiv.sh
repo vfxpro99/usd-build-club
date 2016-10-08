@@ -1,19 +1,25 @@
 #!/bin/bash
 
-if [ ! -f local/lib/libosdCPU.a ]; then
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
 
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include/opensubdiv/far
-  mkdir -p local/include/opensubdiv/hbr
-  mkdir -p local/include/opensubdiv/osd
-  mkdir -p local/include/opensubdiv/sdc
-  mkdir -p local/include/opensubdiv/vtr
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include/opensubdiv/far
+mkdir -p $LOCAL/include/opensubdiv/hbr
+mkdir -p $LOCAL/include/opensubdiv/osd
+mkdir -p $LOCAL/include/opensubdiv/sdc
+mkdir -p $LOCAL/include/opensubdiv/vtr
+
+if [ ! -f local/lib/libosdCPU.a ]; then
 
   SCRIPTDIR=`dirname $0`
 
-  ROOT=$(pwd)
   cd prereq
   if [ ! -f OpenSubdiv/.git/config ]; then
     git clone git://github.com/PixarAnimationStudios/OpenSubdiv.git
@@ -32,8 +38,8 @@ if [ ! -f local/lib/libosdCPU.a ]; then
 
   cd build/OpenSubdiv
 
-  cmake -DCMAKE_INSTALL_PREFIX=${ROOT}/local \
-        -DGLEW_LOCATION=${ROOT}/local \
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL} \
+        -DGLEW_LOCATION=${LOCAL} \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
@@ -43,8 +49,8 @@ if [ ! -f local/lib/libosdCPU.a ]; then
 
   cd ${ROOT}
 
-  if [ ! -d "${ROOT}/local/include/opensubdiv3" ]; then
-    cp -R ${ROOT}/local/include/opensubdiv ${ROOT}/local/include/opensubdiv3
+  if [ ! -d "${LOCAL}/include/opensubdiv3" ]; then
+    cp -R ${LOCAL}/include/opensubdiv ${LOCAL}/include/opensubdiv3
   fi
 
 fi

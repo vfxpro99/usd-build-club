@@ -1,12 +1,18 @@
 #!/bin/bash
 
-if [ ! -f local/include/numpy/_numpyconfig.h ]; then
-  mkdir -p prereq
-  mkdir -p local/lib
-  mkdir -p local/bin
-  mkdir -p local/include
+ROOT=$(pwd)
+LOCAL=${ROOT}/local
 
-  ROOT=$(pwd)
+if [ $# > 1 ]; then
+  LOCAL=$1
+fi
+
+mkdir -p prereq
+mkdir -p $LOCAL/lib
+mkdir -p $LOCAL/bin
+mkdir -p $LOCAL/include
+
+if [ ! -f local/include/numpy/_numpyconfig.h ]; then
   cd prereq
 
   if [ ! -f numpy/.git/config ]; then
@@ -16,7 +22,7 @@ if [ ! -f local/include/numpy/_numpyconfig.h ]; then
 
   python setup.py build
   python setup.py install
-  cp -R numpy/core/include/numpy ${ROOT}/local/include
-  cp -R build/src.macosx-*-intel-2.7/numpy/core/include/numpy ${ROOT}/local/include
+  cp -R numpy/core/include/numpy ${LOCAL}/include
+  cp -R build/src.macosx-*-intel-2.7/numpy/core/include/numpy ${LOCAL}/include
   cd ${ROOT}
 fi
