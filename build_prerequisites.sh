@@ -120,7 +120,7 @@ fi
 # echo --- qt4 ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/qt4.sh $LOCAL
 
-# echo --- pyside ---
-#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh $LOCAL
+echo --- pyside ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh
 
 exit 0
