@@ -3,7 +3,7 @@
 ROOT=$(pwd)
 LOCAL=${ROOT}/local
 
-if [ $# > 1 ]; then
+if [ $# -ge 1 ]; then
   LOCAL=$1
 fi
 
