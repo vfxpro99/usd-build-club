@@ -12,7 +12,7 @@ mkdir -p $LOCAL/lib
 mkdir -p $LOCAL/bin
 mkdir -p $LOCAL/include
 
-if [ ! -f local/lib/libGLEW.a ]; then
+if [ ! -f $LOCAL/lib/libGLEW.a ]; then
   cd prereq
 
   if [ ! -f glew/.git/config ]; then
