@@ -7,6 +7,8 @@ if [ $# -ge 1 ]; then
   LOCAL=$1
 fi
 
+echo 'Installing OpenEXR to ' $LOCAL
+
 if [ ! -f $LOCAL/lib/libHalf.12.0.0.dylib ]; then
 
   mkdir -p prereq
