@@ -14,7 +14,7 @@ echo "build from USD sources at ${SOURCEDIR}/pxr"
 echo "local dir for prerequisites is ${BUILDDIR}"
 
 if [ $# -ge 1 ]; then
-  if [[ "$1" -eq "Maya" ]]; then
+  if [[ "$1" = "Maya" ]]; then
     echo "Configuring for Xcode & Maya"
     cmake ${SOURCEDIR} \
       -DPXR_BUILD_MAYA_PLUGIN=1 \
@@ -40,7 +40,7 @@ if [ $# -ge 1 ]; then
       -G Xcode
     exit 
   fi
-  if [[ "$1" -eq "Xcode" ]]; then
+  if [[ "$1" = "Xcode" ]]; then
     echo "Configuring for Xcode"
     cmake ${SOURCEDIR} \
       -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
