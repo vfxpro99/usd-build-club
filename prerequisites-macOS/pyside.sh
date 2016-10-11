@@ -2,7 +2,7 @@
 
 # requires Qt 4.8.7
 
-sudo pip install -U PySide
+sudo -H pip install -U PySide
 
 # repair PySide installation
 
