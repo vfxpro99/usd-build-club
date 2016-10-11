@@ -12,6 +12,8 @@ mkdir -p $LOCAL/lib
 mkdir -p $LOCAL/bin
 mkdir -p $LOCAL/include
 
+echo "Installing glew to " $LOCAL
+
 if [ ! -f $LOCAL/lib/libGLEW.a ]; then
   cd prereq
 
