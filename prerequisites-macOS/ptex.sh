@@ -22,7 +22,7 @@ if [ ! -f local/lib/libPtex.a ]; then
   mkdir -p build/ptex
   cd build/ptex
 
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL} ../../ptex
+  cmake -DCMAKE_INSTALL_PREFIX="${LOCAL}" ../../ptex
   cmake --build . --target install --config Release
 
   cd ${ROOT}

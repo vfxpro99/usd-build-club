@@ -26,7 +26,7 @@ if [ ! -f $LOCAL/lib/libhdf5.a ]; then
   cd build/hdf5
 
   cmake -DHDF5_BUILD_HL_LIB=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=./hdf5-stage \
-        -DCMAKE_INSTALL_PREFIX=${LOCAL} ../../hdf5
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" ../../hdf5
   cmake --build . --target install --config Release
   cd ${ROOT}
 fi

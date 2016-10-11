@@ -22,7 +22,8 @@ cd alembic; git pull; cd ..
 
 cd build/alembic
 
-cmake -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage -DCMAKE_INSTALL_PREFIX=${LOCAL} \
+cmake -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage \
+    -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
 	-DBOOST_INCLUDEDIR="${LOCAL}/include" \
 	-DBOOST_LIBRARYDIR="${LOCAL}/lib" \
 	-DBoost_INCLUDE_DIR="${LOCAL}/include" \
