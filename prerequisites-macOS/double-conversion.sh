@@ -12,6 +12,8 @@ mkdir -p $LOCAL/lib
 mkdir -p $LOCAL/bin
 mkdir -p $LOCAL/include/double-conversion
 
+echo "Installing double-conversion to " ${LOCAL}
+
 if [ ! -f $LOCAL/lib/libdouble-conversion.a ]; then
 
   cd prereq
