@@ -9,6 +9,9 @@ if [ $# -ge 1 ]; then
   LOCAL=$1
 fi
 
+# make sure command lines are installed
+xcode-select --install
+
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jinja2.sh $LOCAL
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/bison.sh $LOCAL
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/flex.sh $LOCAL
@@ -120,7 +123,7 @@ fi
 # echo --- qt4 ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/qt4.sh $LOCAL
 
-echo --- pyside ---
-source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh
+#echo --- pyside ---
+#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh
 
 exit 0

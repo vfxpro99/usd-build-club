@@ -3,13 +3,29 @@ if [ -f /usr/local/lib/libQt4Core.dylib ]; then
   exit 0
 fi
 
-mkdir -p prereq
-
 ROOT=$(pwd)
 PREREQ_SCRIPTDIR=`dirname $0`
-QT_DIR=qt-everywhere-opensource-src-4.8.7
 
+mkdir -p prereq
 cd prereq
+
+curl -L -o qt-unified-mac-x64-online.dmg \
+           http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg
+
+hdiutil attach -mountpoint /Volumes/Qt5-USD-tmp qt-unified-mac-x64-online.dmg
+open /Volumes/Qt5-USD-tmp
+#sudo open /Volumes/Qt\ 4.8.7/Qt.mpkg
+#hdiutil detach qt-opensource-mac-4.8.7.dmg
+
+cd ${ROOT}
+
+echo -e "\n\n\nAfter the Qt installer completes, please run pyside.sh \n\n\n\n"
+
+exit 0
+
+
+
+QT_DIR=qt-everywhere-opensource-src-4.8.7
 
 if [ ! -f ${QT_DIR}/README ]; then
   curl -L -o qt-everywhere.tgz http://download.qt.io/official_releases/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz
