@@ -29,20 +29,7 @@ In a **64-bit VS2015** Developer command prompt:
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
-  ..\usd-build-club\prerequisites-vc140-x64\python.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\zlib.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\ptex.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\jpeg.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\png.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\tiff.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\double-conversion.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\boost.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\tbb.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\glew.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\glext.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\openexr.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\OpenSubdiv.cmd
-  ..\usd-build-club\prerequisites-vc140-x64\OpenImageIO.cmd
+  ..\usd-build-club\build_prerequisites.cmd
   ..\usd-build-club\configure.cmd
   cmake --build . --target install --config Release -- /maxcpucount:16
 ```
