@@ -37,6 +37,7 @@ HDF5 will successfully build, as will Alembic, after you play this party game.
   cd stage
   ..\usd-build-club\build_prerequisites.cmd
   ..\usd-build-club\configure.cmd
+  cd prereq\build\USD
   cmake --build . --target install --config Release -- /maxcpucount:16
 ```
 
