@@ -1,7 +1,7 @@
 
 Building USD on Windows
 -----------------------
-Note that the windows build is a work in progress, and the 
+Note that the windows build is a work in progress, and the
 branch may not yet be in a buildable state.
 
 Prereqs:
@@ -17,7 +17,13 @@ Prereqs:
  1. Download Qt via the binary installer, default install works at the time of this writing
  1. Ensure qmake.exe is on the %PATH% in the working terminal
 
-In a **64-bit VS2015** Developer command prompt:
+Run the commands below in a **64-bit VS2015** Developer command prompt.
+
+Please note that the HDF5 integer and floating point detection logic works
+by failing and MSVC will pop up numerous Assertion dialogs. You will need
+to "Ignore" and "Cancel" each and every one of them. Yes, this is super annoying.
+HDF5 will successfully build, as will Alembic, after you play this party game.
+
 
 ```
   mkdir Projects
