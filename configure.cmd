@@ -9,6 +9,7 @@ REM // USE_PTEX=0 because ptex integration is currently broken with the latest v
 cmake ..\..\..\..\USD ^
       -DPXR_BUILD_MAYA_PLUGIN=0 ^
       -DPXR_BUILD_KATANA_PLUGIN=0 ^
+      -DPXR_BUILD_ALEMBIC_PLUGIN=0 ^
       -DCMAKE_INSTALL_PREFIX="%builddir%" ^
       -DCMAKE_PREFIX_PATH="%builddir%" ^
       -DALEMBIC_DIR="%builddir%" ^

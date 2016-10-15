@@ -27,11 +27,12 @@ REM We are intentionally ONLY building the static library here, as there are
 REM known issues with linking OpenSubdiv and USD with mixed static/dynamic
 REM configurations.
 
-cl /c -DSTATIC -DGLEW_STATIC -I"%current%\local\include" ..\src\glew.c
-lib /out:glew32s.lib glew.obj
+REM cl /c -DGLEW_BUILD -DSTATIC -DGLEW_STATIC -I"%current%\local\include" ..\src\glew.c
+REM lib /out:glew32s.lib glew.obj
 
-REM cl /c -DGLEW_BUILD -I"%current%\local\include" ..\src\glew.c
-REM link /dll /out:glew.dll glew.obj opengl32.lib
+cl /c -DGLEW_BUILD -I"%current%\local\include" ..\src\glew.c
+link /dll /out:glew.dll glew.obj opengl32.lib
+
 REM cl /c -DSTATIC -DGLEW_MX -DGLEW_BUILD -I"%current%\local\include" ..\src\glew.c
 REM lib /out:glew_mx_static.lib glew.obj
 REM cl /c -DGLEW_MX -DGLEW_BUILD -I"%current%\local\include" ..\src\glew.c
