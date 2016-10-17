@@ -117,6 +117,13 @@ if [ $rc -ne 0 ]; then
   echo OpenImageIO build did not finish with a clean exit code, continuing nonetheless
 fi
 
+echo --- PyOpenGL ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/PyOpenGL.sh
+rc=$?
+if [ $rc -ne 0 ]; then
+  echo PyOpenGL installation did not finish with a clean exit code, continuing nonetheless
+fi
+
 # echo --- qt4 ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/qt4.sh $LOCAL
 
