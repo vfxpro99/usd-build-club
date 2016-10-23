@@ -4,7 +4,7 @@ Note that the windows build is a work in progress, and the
 branch may not yet be in a buildable state.
 
 Prereqs:
- 1. Install Python and Pip
+ 1. Install Python 2.7 and Pip. When using the python.msi installer, installing pip, and putting Python in %PATH% are both options that should be selected.
  1. pip install PySide
  1. pip install pyd (unclear if this is necessary or not)
  1. pip install pyopengl (required for usdview)
