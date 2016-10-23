@@ -1,4 +1,3 @@
-
 Building USD on Windows
 -----------------------
 Note that the windows build is a work in progress, and the
@@ -9,7 +8,7 @@ Prereqs:
  1. pip install PySide
  1. pip install pyd (unclear if this is necessary or not)
  1. pip install pyopengl (required for usdview)
- 1. Ensure PySide tools (in python/scripts) are visible on %PATH%
+ 1. Ensure PySide tools (in python27/scripts) are visible on %PATH%. pip probably put it there already.
  1. Install CMake and make sure its on your %PATH%
  1. Install NASM, make sure it's on your %PATH% in the working terminal
  1. Install 7-Zip, make sure 7z is on your %PATH% in the working terminal
