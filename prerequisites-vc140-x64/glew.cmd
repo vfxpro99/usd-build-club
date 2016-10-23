@@ -18,10 +18,8 @@ cd .\prereq\glew-build-club
 if not exist "build_win" mkdir build_win
 cd build_win
 
-REM
-REM WARNING: You must run the 64-bit developer command prompt for the following.
-REM build to compile correctly.
-REM
+REM ensure a 64 bit development environment using VS2015
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
 REM We are intentionally ONLY building the static library here, as there are
 REM known issues with linking OpenSubdiv and USD with mixed static/dynamic
