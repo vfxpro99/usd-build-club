@@ -10,9 +10,12 @@ Prereqs:
  1. pip install pyopengl (required for usdview)
  1. Ensure PySide tools (in python27/scripts) are visible on %PATH%. pip probably put it there already.
  1. Install CMake and make sure its on your %PATH%
- 1. Install NASM, make sure it's on your %PATH% in the working terminal
+ 1. Install NASM from http://www.nasm.us/. Make sure it's on your %PATH% in the working terminal
  1. Install 7-Zip, make sure 7z is on your %PATH% in the working terminal
- 1. Download & unzip win-bison (and win-flex), no need to be on the path
+ 1. Download & unzip win-flex and bison from https://sourceforge.net/projects/winflexbison/, put them in the %PATH%.
+
+Qt is no longer required for a build of USD, or usdview. PySide is sufficient, so the next two steps can be omitted.
+
  1. Download Qt via the binary installer, default install works at the time of this writing
  1. Ensure qmake.exe is on the %PATH% in the working terminal
 
