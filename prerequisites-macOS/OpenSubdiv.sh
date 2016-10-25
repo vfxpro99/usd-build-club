@@ -40,6 +40,7 @@ if [ ! -f local/lib/libosdCPU.a ]; then
 
   cmake -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
         -DGLEW_LOCATION="${LOCAL}" \
+        -DGLFW_LOCATION="${LOCAL}" \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
