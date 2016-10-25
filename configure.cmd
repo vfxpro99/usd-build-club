@@ -5,8 +5,12 @@ SET builddir=%cd%\local
 if not exist "prereq\build\USD" mkdir prereq\build\USD
 cd prereq\build\USD
 
+REM ensure a 64 bit development environment using VS2015
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+
 REM // USE_PTEX=0 because ptex integration is currently broken with the latest version of ptex
 cmake ..\..\..\..\USD ^
+      -DPXR_VALIDATE_GENERATED_CODE=OFF ^
       -DPXR_BUILD_MAYA_PLUGIN=0 ^
       -DPXR_BUILD_KATANA_PLUGIN=0 ^
       -DPXR_BUILD_ALEMBIC_PLUGIN=0 ^
