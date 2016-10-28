@@ -36,6 +36,13 @@ if [ $rc -ne 0 ]; then
   exit $rc
 fi
 
+echo --- glfw ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/glfw.sh $LOCAL
+rc=$?
+if [ $rc -ne 0 ]; then
+  exit $rc
+fi
+
 #echo --- numpy ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/numpy.sh $LOCAL
 
