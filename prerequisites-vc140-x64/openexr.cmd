@@ -33,7 +33,11 @@ rem xcopy .\prereq\build\IlmBase\Imath\Release\Imath-2_2.* .\local\lib\ /s /y
 cd prereq
 if not exist "build\OpenEXR" mkdir build\OpenEXR
 cd build\OpenEXR
-cmake -G "Visual Studio 14 2015 Win64" -DILMBASE_PACKAGE_PREFIX="%current%\local" -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\openexr\OpenEXR
+
+cmake -G "Visual Studio 14 2015 Win64" -DILMBASE_PACKAGE_PREFIX="%current%\local" ^
+ -DZLIB_ROOT="%current%\local" -DCMAKE_INSTALL_PREFIX="%current%\local" ^
+ ..\..\openexr\OpenEXR
+
 cmake --build . --target install --config Release
 rem msbuild openEXR.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
