@@ -4,11 +4,15 @@ if not exist "prereq" ^
 mkdir prereq
 cd prereq
 
+echo "Retrieving Alembic at version 1.6.1 for compatibility"
+
 if not exist "alembic/.git/config" ^
 git clone git://github.com/alembic/alembic.git
 
 cd alembic
 git pull
+rem todo - have a command line switch to allow top of tree
+git checkout a3aa758
 cd ..
 
 if not exist "build\alembic" ^
