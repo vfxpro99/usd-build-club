@@ -7,8 +7,10 @@ cd prereq
 if not exist "build\OpenSubdiv" ^
 mkdir build\OpenSubdiv
 
+echo "Building OpenSubdiv from vfxpro99 dev fork due to GLEW issues"
+
 if not exist "OpenSubdiv\CMakeLists.txt" ^
-git clone https://github.com/PixarAnimationStudios/OpenSubdiv.git
+git clone https://github.com/vfxpro99/OpenSubdiv.git
 
 cd OpenSubdiv
 git pull
