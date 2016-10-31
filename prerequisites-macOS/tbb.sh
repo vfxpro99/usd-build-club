@@ -27,9 +27,9 @@ cd tbb2017_20160916oss
 make -j 4
 cd ${ROOT}
 # only copy libtbb because the malloc libs are very problematic
-cp prereq/tbb44_20151115oss/build/macos_intel64_*_release/libtbb.dylib $LOCAL/lib
-cp -R prereq/tbb44_20151115oss/include/serial $LOCAL/include/serial
-cp -R prereq/tbb44_20151115oss/include/tbb $LOCAL/include/tbb
+cp prereq/tbb2017_20160916oss/build/macos_intel64_*_release/libtbb.dylib $LOCAL/lib
+cp -R prereq/tbb2017_20160916oss/include/serial $LOCAL/include/serial
+cp -R prereq/tbb2017_20160916oss/include/tbb $LOCAL/include/tbb
 cd local/lib
 install_name_tool -id @rpath/libtbb.dylib $LOCAL/lib/libtbb.dylib
 #install_name_tool -id @rpath/libtbbmalloc.dylib $LOCAL/lib/libtbbmalloc.dylib
