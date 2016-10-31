@@ -12,14 +12,17 @@ mkdir -p $LOCAL/lib
 mkdir -p $LOCAL/bin
 mkdir -p $LOCAL/include
 
+echo "Building TBB from 2017 Update 1, due to license"
+
 cd prereq
 if [ ! -f tbb44.tgz ]; then
-  curl -L -o tbb44.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb44_20151115oss_src.tgz
+  curl -L -o tbb44.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb2017_20160916oss_src.tgz
 fi
-if [ ! -f tbb44_20151115oss/README ]; then
+
+if [ ! -f tbb2017_20160916/README ]; then
   tar -zxf tbb44.tgz
 fi
-cd tbb44_20151115oss
+cd tbb2017_20160916
 
 make -j 4
 cd ${ROOT}
