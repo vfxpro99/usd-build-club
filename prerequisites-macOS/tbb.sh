@@ -19,10 +19,10 @@ if [ ! -f tbb44.tgz ]; then
   curl -L -o tbb44.tgz https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb2017_20160916oss_src.tgz
 fi
 
-if [ ! -f tbb2017_20160916/README ]; then
+if [ ! -f tbb2017_20160916oss/README ]; then
   tar -zxf tbb44.tgz
 fi
-cd tbb2017_20160916
+cd tbb2017_20160916oss
 
 make -j 4
 cd ${ROOT}
