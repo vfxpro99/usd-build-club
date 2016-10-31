@@ -6,4 +6,4 @@ else
   sudo easy_install pip
 fi
 
-pip install PyOpenGL PyOpenGL-accelerate
+sudo pip install PyOpenGL PyOpenGL-accelerate
