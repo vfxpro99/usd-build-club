@@ -19,6 +19,7 @@ if [ $# -ge 1 ]; then
     cmake ${SOURCEDIR} \
       -DPXR_BUILD_MAYA_PLUGIN=1 \
       -DMAYA_LOCATION=/Applications/Autodesk/maya2017/Maya.app/Contents \
+      -DTBB_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DPXR_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbb.dylib \
       -DPXR_MALLOC_LIBRARY:path=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbbmalloc.dylib \
       -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents//Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/ \
@@ -35,10 +36,10 @@ if [ $# -ge 1 ]; then
       -DQT_USE_FRAMEWORKS=0 \
       -DQT_ROOT_DIR="${BUILDDIR}" \
       -DPTEX_LOCATION="${BUILDDIR}" \
-      -DTBB_ROOT_DIR="${BUILDDIR}" \
+      -DTBB_ROOT_DIR=/Applications/Autodesk/maya2017/include \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    exit 
+    exit
   fi
   if [[ "$1" = "Xcode" ]]; then
     echo "Configuring for Xcode"
@@ -57,7 +58,7 @@ if [ $# -ge 1 ]; then
       -DTBB_ROOT_DIR="${BUILDDIR}" \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    exit 
+    exit
   fi
   echo "Configuring for make"
   cmake ${SOURCEDIR} \
