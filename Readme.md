@@ -92,7 +92,7 @@ to /Applications/Autodesk/maya2017, replacing the folders that are already there
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage_maya
   cd stage_maya
-  ../usd-build-club/build_prerequisites-macos_maya.sh
+  ../usd-build-club/build_prerequisites-macos-maya.sh
   ../usd-build-club/configure.sh Maya
   cmake --build . --target install --config Release
 ```
