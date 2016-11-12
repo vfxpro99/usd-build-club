@@ -77,3 +77,23 @@ Building USD on OSX
   cmake --build . --target install --config Release
 ```
 
+Building USD on macOS for Maya
+------------------------------
+Building USD on macOS for Maya is only supported for Maya 2017. 
+Obtain the Maya 2017 devkit, and copy the contents of the downloaded DMG file
+to /Applications/Autodesk/maya2017, replacing the folders that are already there.
+
+```
+  cd ~/Library;mkdir Pixar;cd Pixar
+  git clone https://github.com/PixarAnimationStudios/USD.git
+  cd USD
+  git checkout dev
+  cd ..
+  git clone https://github.com/vfxpro99/usd-build-club.git
+  mkdir stage_maya
+  cd stage_maya
+  ../usd-build-club/build_prerequisites-macos_maya.sh
+  ../usd-build-club/configure.sh Maya
+  cmake --build . --target install --config Release
+```
+
