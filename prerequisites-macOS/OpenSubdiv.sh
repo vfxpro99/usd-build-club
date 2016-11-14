@@ -44,6 +44,7 @@ if [ ! -f local/lib/libosdCPU.a ]; then
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
+        -DNO_OMP=1 \
         ../../OpenSubdiv
 
   cmake --build . --target install --config Release

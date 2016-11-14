@@ -19,6 +19,7 @@ if [ $# -ge 1 ]; then
     cmake ${SOURCEDIR} \
       -DPXR_BUILD_MAYA_PLUGIN=1 \
       -DMAYA_LOCATION=/Applications/Autodesk/maya2017/Maya.app/Contents \
+      -DMAYA_INCLUDE_DIR=/Applications/Autodesk/maya2017/include \
       -DTBB_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DPXR_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbb.dylib \
       -DPXR_MALLOC_LIBRARY:path=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbbmalloc.dylib \
