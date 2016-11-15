@@ -90,10 +90,32 @@ to /Applications/Autodesk/maya2017, replacing the folders that are already there
   git checkout dev
   cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
-  mkdir stage_maya
-  cd stage_maya
+  mkdir USD_maya
+  cd USD_maya
   ../usd-build-club/build_prerequisites-macos-maya.sh
   ../usd-build-club/configure.sh Maya
   cmake --build . --target install --config Release
+  mv local/third_party/maya/plugin/pxrUsd.plugin local/third_party/maya/plugin/pxrUsd.bundle
 ```
 
+Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env according 
+to the directions at http://graphics.pixar.com/usd/docs/Maya-USD-Plugins.html.
+Noting that Maya does not expand tilde for user home directory, typical settings are -
+
+````
+MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/
+MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/share/usd/plugins/usdMaya/resources/
+PYTHONPATH=$PYTHON_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/lib/python/
+```
+
+Open Maya and open the Plugin manager, found at Windows > Settings/Preferences > Plugin-manager.
+Click Loaded beside pxrUsd.bundle, and click Autoload if you want the plugin automatically loaded at start.
+
+Note that the bundle will not load as yet, the rpaths are not set up.
+
+````
+// Error: line 1: Unable to dynamically load : /Users/dp/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle
+dlopen(/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle, 1): Library not loaded: @rpath/libpxrUsdMayaGL.dylib
+  Referenced from: /Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle
+  Reason: image not found // 
+````
