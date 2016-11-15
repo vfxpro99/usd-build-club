@@ -83,6 +83,8 @@ Building USD on macOS for Maya is only supported for Maya 2017.
 Obtain the Maya 2017 devkit, and copy the contents of the downloaded DMG file
 to /Applications/Autodesk/maya2017, replacing the folders that are already there.
 
+Unzip in place the boost archive found at Applications/Autodesk/maya2017/devkit/Alembic/include.
+
 ```
   cd ~/Library;mkdir Pixar;cd Pixar
   git clone https://github.com/PixarAnimationStudios/USD.git
@@ -111,11 +113,4 @@ PYTHONPATH=$PYTHON_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/lib/python/
 Open Maya and open the Plugin manager, found at Windows > Settings/Preferences > Plugin-manager.
 Click Loaded beside pxrUsd.bundle, and click Autoload if you want the plugin automatically loaded at start.
 
-Note that the bundle will not load as yet, the rpaths are not set up.
-
-````
-// Error: line 1: Unable to dynamically load : /Users/dp/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle
-dlopen(/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle, 1): Library not loaded: @rpath/libpxrUsdMayaGL.dylib
-  Referenced from: /Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/pxrUsd.bundle
-  Reason: image not found // 
-````
+Note that although the bundle will load, it currently crashes.
