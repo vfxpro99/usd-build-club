@@ -18,13 +18,11 @@ if [ $# -ge 1 ]; then
     echo "Configuring for Xcode & Maya"
     cmake ${SOURCEDIR} \
       -DPXR_BUILD_MAYA_PLUGIN=1 \
-      -DMAYA_LOCATION=/Applications/Autodesk/maya2017/Maya.app/Contents \
-      -DMAYA_INCLUDE_DIR=/Applications/Autodesk/maya2017/include \
+      -DMAYA_LOCATION=/Applications/Autodesk/maya2017 \
       -DTBB_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DPXR_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbb.dylib \
+      -DTBB_ROOT_DIR=/Applications/Autodesk/maya2017/include \
       -DPXR_MALLOC_LIBRARY:path=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbbmalloc.dylib \
-      -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents//Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/ \
-      -DCMAKE_OSX_DEPLOYMENT_TARGET=10.10 \
       -DPXR_INSTALL_LOCATION=/Users/Shared/Autodesk/maya/2017/plug-ins/pxrUsd \
       -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
       -DCMAKE_PREFIX_PATH="${BUILDDIR}" \
@@ -37,7 +35,6 @@ if [ $# -ge 1 ]; then
       -DQT_USE_FRAMEWORKS=0 \
       -DQT_ROOT_DIR="${BUILDDIR}" \
       -DPTEX_LOCATION="${BUILDDIR}" \
-      -DTBB_ROOT_DIR=/Applications/Autodesk/maya2017/include \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
     exit
