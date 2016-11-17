@@ -132,7 +132,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 # echo --- qt4 ---
-#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/qt4.sh $LOCAL
+#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/qt_4_8_7.sh $LOCAL
 
 #echo --- pyside ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh
