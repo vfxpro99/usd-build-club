@@ -32,10 +32,7 @@ if [ $# -ge 1 ]; then
       -DDOUBLE_CONVERSION_DIR="${BUILDDIR}" \
       -DGLEW_LOCATION="${BUILDDIR}" \
       -DOIIO_LOCATION="${BUILDDIR}" \
-      -DOPENEXR_ROOT_DIR=/Applications/Autodesk/maya2017/devkit/Alembic/include/AlembicPrivate/ilmbase \
-      -DOPENEXR_LIBRARY_DIR=/Applications/Autodesk/maya2017/devkit/Alembic/lib \
-      -DOPENEXR_INCLUDE_DIR=/Applications/Autodesk/maya2017/devkit/Alembic/include/AlembicPrivate/ilmbase \
-      -DOPENEXR_Half_LIBRARY=/Applications/Autodesk/maya2017/devkit/Alembic/lib/libAlembicHalf.a \
+      -DOPENEXR_ROOT_DIR="${BUILDDIR}" \
       -DOPENSUBDIV_ROOT_DIR="${BUILDDIR}" \
       -DQT_ROOT_DIR="${BUILDDIR}" \
       -DPTEX_LOCATION="${BUILDDIR}" \
