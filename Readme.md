@@ -79,11 +79,10 @@ Building USD on OSX
 
 Building USD on macOS for Maya
 ------------------------------
+
 Building USD on macOS for Maya is only supported for Maya 2017. 
 Obtain the Maya 2017 devkit, and copy the contents of the downloaded DMG file
 to /Applications/Autodesk/maya2017, replacing the folders that are already there.
-
-Unzip in place the boost archive found at Applications/Autodesk/maya2017/devkit/Alembic/include.
 
 ```
   cd ~/Library;mkdir Pixar;cd Pixar
@@ -94,10 +93,7 @@ Unzip in place the boost archive found at Applications/Autodesk/maya2017/devkit/
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir USD_maya
   cd USD_maya
-  ../usd-build-club/build_prerequisites-macos-maya.sh
-  ../usd-build-club/configure.sh Maya
-  cmake --build . --target install --config Release
-  mv local/third_party/maya/plugin/pxrUsd.plugin local/third_party/maya/plugin/pxrUsd.bundle
+  ../usd-build-club/build-macos-maya.sh
 ```
 
 Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env according 
@@ -112,5 +108,3 @@ PYTHONPATH=$PYTHON_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/lib/python/
 
 Open Maya and open the Plugin manager, found at Windows > Settings/Preferences > Plugin-manager.
 Click Loaded beside pxrUsd.bundle, and click Autoload if you want the plugin automatically loaded at start.
-
-Note that although the bundle will load, it currently crashes.
