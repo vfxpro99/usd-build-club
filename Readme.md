@@ -163,6 +163,8 @@ find_path(MAYA_DEVKIT_INC_DIR
 
 ```
 
+Continue with the build process as follows.
+
 ```
   cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
