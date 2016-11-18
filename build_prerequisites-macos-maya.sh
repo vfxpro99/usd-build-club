@@ -14,7 +14,7 @@ fi
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/flex.sh $LOCAL
 
 echo --- boost ---
-source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/boost.sh $LOCAL
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/boost_maya_2017.sh $LOCAL
 
 # $? is the result of the most recent command
 rc=$?
