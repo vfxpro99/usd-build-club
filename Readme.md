@@ -194,7 +194,7 @@ Noting that Maya does not expand tilde for user home directory, typical settings
 ````
 MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/plugin/
 MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/third_party/maya/share/usd/plugins/usdMaya/resources/
-PYTHONPATH=$PYTHON_PATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/lib/python/
+PYTHONPATH=$PYTHONPATH:/Users/vfxpro99/Library/Pixar/USD_maya/local/lib/python/
 ```
 
 Open Maya and open the Plugin manager, found at Windows > Settings/Preferences > Plugin-manager.
