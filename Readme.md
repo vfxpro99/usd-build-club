@@ -92,7 +92,10 @@ to /Applications/Autodesk/maya2017, replacing the folders that are already there
   git checkout dev
 ```
 
-Apply the following patch
+Apply the following patch by saving it in to the USD root directory as FindMaya.patch, then 
+```
+git apply FindMaya.patch
+```
 
 ```
 
