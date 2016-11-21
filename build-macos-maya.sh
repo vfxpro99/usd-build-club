@@ -5,7 +5,18 @@ if [ ! -f /Applications/Autodesk/maya2017/include/maya/MFn.h ]; then
   exit 1
 fi
 
+if hash cmake 2>/dev/null; then
+  echo "Detected cmake."
+else
+  echo "cmake not detected, please install it, and try again"
+  exit 1
+fi
+
 PREREQ_SCRIPTDIR=`dirname $0`
+
+echo "-------------------------------------------------"
+echo "1/4 Building Prerequsities for the maya plugin"
+echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/build_prerequisites-macos-maya.sh
 rc=$?
@@ -14,6 +25,10 @@ if [ $rc -ne 0 ]; then
   exit $rc
 fi
 
+echo "-------------------------------------------------"
+echo "2/4 Configuring the build for the Maya plugin"
+echo "-------------------------------------------------"
+
 source ${PREREQ_SCRIPTDIR}/configure.sh Maya
 rc=$?
 if [ $rc -ne 0 ]; then
@@ -21,12 +36,21 @@ if [ $rc -ne 0 ]; then
   exit $rc
 fi
 
+echo "-------------------------------------------------"
+echo "3/4 Building and installing the Maya plugin"
+echo "-------------------------------------------------"
 cmake --build . --target install --config Release
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build for Maya, exiting"
   exit $rc
 fi
+
+echo "Note that the cmake directory link warnings are apparently harmless."
+
+echo "-------------------------------------------------"
+echo "4/4 Finalizing the build of the Maya plugin"
+echo "-------------------------------------------------"
 
 echo "temp: moving broken plugin out of the way"
 mv local/share/usd/plugins/hdStream/resources/plugInfo.json local/share/usd/plugins/hdStream/resources/plugInfo.jsonbak

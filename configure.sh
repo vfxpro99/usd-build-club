@@ -42,7 +42,7 @@ if [ $# -ge 1 ]; then
       -DPTEX_LOCATION="${BUILDDIR}" \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    exit
+    return
   fi
   if [[ "$1" = "Xcode" ]]; then
     echo "Configuring for Xcode"
@@ -60,7 +60,7 @@ if [ $# -ge 1 ]; then
       -DTBB_ROOT_DIR="${BUILDDIR}" \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    exit
+    return
   fi
   echo "Configuring for make"
   cmake ${SOURCEDIR} \

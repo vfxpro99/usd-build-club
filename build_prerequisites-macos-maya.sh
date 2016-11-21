@@ -136,5 +136,3 @@ fi
 
 #echo --- pyside ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/pyside.sh
-
-exit 0
