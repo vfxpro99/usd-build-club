@@ -62,6 +62,12 @@ Test the build:
 Building USD on OSX
 -------------------
 
+Building USD this way will create a local cache of all the libraries
+USD depends on as well as USD itself.
+
+Pick this method if you need to exercise absolute control over the 
+libraries and don't want to mix them in with your system paths.
+
 ```
   mkdir Projects
   cd Projects
@@ -76,6 +82,23 @@ Building USD on OSX
   ../usd-build-club/configure.sh Xcode
   cmake --build . --target install --config Release
 ```
+
+Building USD on OSX using Homebrew
+----------------------------------
+
+Building USD this way will use brew to create all the libraries
+USD depends on into /usr/local and will build USD there itself.
+
+Pick this method if you want USD tools to be available from the 
+command line, and it's fine if everything is mingled into /usr.
+
+```
+mkdir Projects
+cd Projects
+git clone https://github.com/vfxpro99/usd-build-club.git
+./usd-build-club/build-macos-brew.sh
+```
+
 
 Building USD on macOS for Maya
 ------------------------------
