@@ -19,14 +19,17 @@ if [ ! -f $LOCAL/lib/libhdf5.a ]; then
   if [ ! -f hdf5/.git/config ]; then
     git clone git://github.com/vfxpro99/hdf5.git
   fi
-  
+
   cd hdf5; git pull
   cd ..
 
   cd build/hdf5
 
-  cmake -DHDF5_BUILD_HL_LIB=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=./hdf5-stage \
-        -DCMAKE_INSTALL_PREFIX="${LOCAL}" ../../hdf5
+  cmake \
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+        -DHDF5_BUILD_HL_LIB=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=./hdf5-stage \
+        ../../hdf5
   cmake --build . --target install --config Release
   cd ${ROOT}
 fi

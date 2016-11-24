@@ -34,7 +34,9 @@ if [ ! -f $LOCAL/lib/libHalf.12.0.0.dylib ]; then
 
   cd build/ilmbase
 
-  cmake -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+  cmake \
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \
@@ -43,7 +45,9 @@ if [ ! -f $LOCAL/lib/libHalf.12.0.0.dylib ]; then
 
   cd ../openexr
 
-  cmake -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+  cmake \
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
         -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
         -DBUILD_WITH_INSTALL_RPATH=1 \

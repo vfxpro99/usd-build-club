@@ -22,6 +22,7 @@ mkdir -p build/oiio
 cd build/oiio
 
 cmake \
+  -DCMAKE_PREFIX_PATH="${LOCAL}" \
   -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
   -DCMAKE_INSTALL_NAME_DIR=@rpath \
   -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \

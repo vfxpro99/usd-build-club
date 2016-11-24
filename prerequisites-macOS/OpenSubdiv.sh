@@ -38,7 +38,9 @@ if [ ! -f local/lib/libosdCPU.a ]; then
 
   cd build/OpenSubdiv
 
-  cmake -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+  cmake \
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
         -DGLEW_LOCATION="${LOCAL}" \
         -DGLFW_LOCATION="${LOCAL}" \
         -DCMAKE_INSTALL_NAME_DIR=@rpath \
