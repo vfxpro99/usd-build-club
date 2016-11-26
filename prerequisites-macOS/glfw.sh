@@ -26,7 +26,8 @@ if [ ! -f local/lib/libGLFW.a ]; then
   cd build/glfw
 
   cmake -G "Xcode" \
-        -DCMAKE_PREFIX_PATH=$LOCAL \
+        -DCMAKE_PREFIX_PATH="${LOCAL}" \
+        -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
         -DCMAKE_INSTALL_PREFIX="${LOCAL}" ../../glfw
 
   cmake --build . --target install --config Release

@@ -23,11 +23,13 @@ mkdir -p build/OpenColorIO
 cd build/OpenColorIO
 
 cmake \
+  -DCMAKE_PREFIX_PATH="${LOCAL}" \
   -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+  -DCMAKE_CXX_FLAGS="-std=c++11" \
   -DCMAKE_INSTALL_NAME_DIR=@rpath \
   -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
-  -DBUILD_WITH_INSTALL_RPATH=1 \
   -DCMAKE_VERBOSE_MAKEFILE=OFF \
+  -DEXTERNAL_INCLUDE_DIRS="${LOCAL}/include" \
   ../../OpenColorIO
 
 cmake --build . --target install --config Release

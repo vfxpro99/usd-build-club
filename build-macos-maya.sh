@@ -52,9 +52,6 @@ echo "-------------------------------------------------"
 echo "4/4 Finalizing the build of the Maya plugin"
 echo "-------------------------------------------------"
 
-echo "temp: moving broken plugin out of the way"
-mv local/share/usd/plugins/hdStream/resources/plugInfo.json local/share/usd/plugins/hdStream/resources/plugInfo.jsonbak
-
 echo "temp: Renaming plugin per Maya convention"
 mv local/third_party/maya/plugin/pxrUsd.dylib local/third_party/maya/plugin/pxrUsd.bundle
 
