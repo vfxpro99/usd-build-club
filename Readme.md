@@ -1,3 +1,15 @@
+
+This project includes recipes to build Pixar's Universal Scene Description, it's
+Python bindings, and all necessary prerequisites for:
+
+1. macOS
+2. Windows
+3. Maya on macOS
+4. macOS, using Homebrew
+
+The Linux scripts are still work in progress.
+
+
 Building USD on Windows
 -----------------------
 Note that the windows build is a work in progress, and the
@@ -65,7 +77,7 @@ Building USD on OSX
 Building USD this way will create a local cache of all the libraries
 USD depends on as well as USD itself.
 
-Pick this method if you need to exercise absolute control over the 
+Pick this method if you need to exercise absolute control over the
 libraries and don't want to mix them in with your system paths.
 
 ```
@@ -89,7 +101,7 @@ Building USD on OSX using Homebrew
 Building USD this way will use brew to create all the libraries
 USD depends on into /usr/local and will build USD there itself.
 
-Pick this method if you want USD tools to be available from the 
+Pick this method if you want USD tools to be available from the
 command line, and it's fine if everything is mingled into /usr.
 
 ```
@@ -103,7 +115,7 @@ git clone https://github.com/vfxpro99/usd-build-club.git
 Building USD on macOS for Maya
 ------------------------------
 
-Building USD on macOS for Maya is only supported for Maya 2017. 
+Building USD on macOS for Maya is only supported for Maya 2017.
 Obtain the Maya 2017 devkit, and copy the contents of the downloaded DMG file
 to /Applications/Autodesk/maya2017, replacing the folders that are already there.
 
@@ -115,7 +127,7 @@ to /Applications/Autodesk/maya2017, replacing the folders that are already there
   git checkout dev
 ```
 
-Apply the following patch by saving it in to the USD root directory as FindMaya.patch, then 
+Apply the following patch by saving it in to the USD root directory as FindMaya.patch, then
 ```
 git apply FindMaya.patch
 ```
@@ -166,7 +178,7 @@ index 0a742be..e07d6ca 100644
              include/maya/MFn.h
 @@ -150,12 +145,14 @@ find_path(MAYA_LIBRARY_DIR
  list(APPEND MAYA_INCLUDE_DIRS ${MAYA_INCLUDE_DIR})
- 
+
  find_path(MAYA_DEVKIT_INC_DIR
 -       GL/glext.h
 +       tbb/tbb.h
@@ -191,12 +203,12 @@ index 0a742be..e07d6ca 100644
 @@ -192,7 +190,6 @@ foreach(MAYA_LIB
          NO_CMAKE_SYSTEM_PATH
      )
- 
+
 -
      if (MAYA_${MAYA_LIB}_LIBRARY)
          list(APPEND MAYA_LIBRARIES ${MAYA_${MAYA_LIB}_LIBRARY})
      endif()
--- 
+--
 2.8.4 (Apple Git-73)
 
 
@@ -213,7 +225,7 @@ Continue with the build process as follows.
   ../usd-build-club/build-macos-maya.sh
 ```
 
-Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env according 
+Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env according
 to the directions at http://graphics.pixar.com/usd/docs/Maya-USD-Plugins.html.
 Noting that Maya does not expand tilde for user home directory, typical settings are -
 
