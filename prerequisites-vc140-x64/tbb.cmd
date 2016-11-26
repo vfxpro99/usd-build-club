@@ -1,4 +1,4 @@
-
+ECHO building TBB
 set SCRIPT_DIR=%~dp0
 
 if not exist "prereq" ^

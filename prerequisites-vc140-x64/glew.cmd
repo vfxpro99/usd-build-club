@@ -1,4 +1,10 @@
+ECHO buiding glew
+
 SET current=%cd%
+
+REM ensure a 64 bit development environment using VS2015
+IF NOT %VisualStudioVersion%=="14.0" ^
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
 if not exist "prereq" ^
 mkdir prereq
@@ -17,9 +23,6 @@ xcopy .\prereq\glew-build-club\include\GL\*.* .\local\include\GL\ /s /y
 cd .\prereq\glew-build-club
 if not exist "build_win" mkdir build_win
 cd build_win
-
-REM ensure a 64 bit development environment using VS2015
-call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
 REM We are intentionally ONLY building the static library here, as there are
 REM known issues with linking OpenSubdiv and USD with mixed static/dynamic

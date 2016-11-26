@@ -1,3 +1,5 @@
+
+ECHO building png
 SET current=%cd%
 
 if not exist "prereq" ^

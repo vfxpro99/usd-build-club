@@ -1,3 +1,5 @@
+ECHO Building Alembic
+
 SET current=%cd%
 
 if not exist "prereq" ^

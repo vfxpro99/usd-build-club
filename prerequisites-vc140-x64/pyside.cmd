@@ -1,4 +1,4 @@
-
+ECHO building PySide
 set SCRIPT_DIR=%~dp0
 
 cd prereq

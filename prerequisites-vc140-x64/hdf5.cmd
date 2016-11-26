@@ -1,3 +1,6 @@
+
+ECHO building hdf5
+
 SET current=%cd%
 
 if not exist "prereq" ^

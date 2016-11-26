@@ -1,3 +1,5 @@
+ECHO building double-conversion
+
 SET current=%cd%
 
 if not exist "prereq" ^

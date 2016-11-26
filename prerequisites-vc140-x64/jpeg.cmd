@@ -1,6 +1,13 @@
-echo building libjpeg-turbo requires nasm available from
-echo http://www.nasm.us/pub/nasm/releasebuilds
-echo nasm must be in the path.
+
+ECHO building libjpeg-turbo
+
+where /q nasm
+IF ERRORLEVEL 1 (
+    ECHO nasm is missing. Ensure it is installed and placed in your PATH.
+    EXIT /B
+) ELSE (
+    ECHO nasm found
+)
 
 SET current=%cd%
 

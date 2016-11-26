@@ -1,3 +1,5 @@
+ECHO building glfw
+
 SET current=%cd%
 
 if not exist "prereq" ^

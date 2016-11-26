@@ -34,10 +34,10 @@ Qt is no longer required for a build of USD, or usdview. PySide is sufficient, s
 Run the commands below in a **64-bit VS2015** Developer command prompt.
 
 Please note that the HDF5 integer and floating point detection logic works
-by failing and MSVC will pop up numerous Assertion dialogs. You will need
-to "Ignore" and "Cancel" each and every one of them. Yes, this is super annoying.
-HDF5 will successfully build, as will Alembic, after you play this party game.
-
+by failing and MSVC will pop up numerous Assertion dialogs. Thus, it's necessary
+to "Ignore" and "Cancel" each and every one of them. This party game is super
+annoying, and HDF5 support in Alembic is being phased out. For the moment, Alembic
+is being compiled without HDF5 support.
 
 ```
   mkdir Projects
@@ -70,6 +70,29 @@ Using the install:
 
 Test the build:
  1. python> from pxr import Usd
+
+Building USD on Windows - Experimental
+--------------------------------------
+
+Install the required programs such as python and so on as above. The *build-windows.cmd*
+script takes two optional arguments: *debug* to build as Debug instead of Release,
+and *prereq* to build the prerequisites before building USD itself. Note that this
+batch file does not perform the modifications noted above for OpenSubdiv, and so that
+step must still be peformed manually.
+
+```
+  mkdir Projects
+  cd Projects
+  git clone https://github.com/PixarAnimationStudios/USD.git
+  cd USD
+  git checkout dev_win_ip
+  cd ..
+  git clone https://github.com/vfxpro99/usd-build-club.git
+  mkdir stage
+  cd stage
+  ..\usd-build-club\build-windows.cmd
+```
+
 
 Building USD on OSX
 -------------------

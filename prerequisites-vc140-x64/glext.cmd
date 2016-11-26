@@ -1,4 +1,6 @@
 
+ECHO Getting glext.h
+
 set stage=%cd%
 
 if not exist "local/include/GL" ^

@@ -1,3 +1,6 @@
+
+ECHO building OpenImageIO
+
 SET current=%cd%
 
 if not exist "prereq" ^

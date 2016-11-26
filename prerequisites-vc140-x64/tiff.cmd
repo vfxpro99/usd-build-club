@@ -1,3 +1,4 @@
+ECHO building tiff
 SET current=%cd%
 
 if not exist "prereq" ^

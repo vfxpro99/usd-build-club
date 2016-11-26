@@ -1,3 +1,4 @@
+ECHO building zlib
 SET current=%cd%
 
 if not exist "prereq" ^

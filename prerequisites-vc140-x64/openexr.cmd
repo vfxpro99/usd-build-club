@@ -1,3 +1,6 @@
+
+ECHO building OpenEXR
+
 echo zlib is a prerequisite for OpenEXR
 
 SET current=%cd%
@@ -6,7 +9,12 @@ if not exist "prereq" ^
 mkdir prereq
 cd prereq
 
+IF NOT EXIST "openexr\README" ^
 git clone git://github.com/meshula/openexr.git
+
+cd openexr
+git pull
+cd ..
 
 if not exist "build\IlmBase" mkdir build\IlmBase
 cd build\IlmBase

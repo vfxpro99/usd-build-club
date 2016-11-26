@@ -1,3 +1,5 @@
+ECHO Buidling boost
+
 SET current=%cd%
 
 if not exist "prereq" ^

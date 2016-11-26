@@ -1,3 +1,6 @@
+
+ECHO building OpenSubdiv
+
 SET current=%cd%
 
 if not exist "prereq" ^

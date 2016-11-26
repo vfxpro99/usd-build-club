@@ -1,3 +1,5 @@
+
+ECHO building ptex
 SET current=%cd%
 
 if not exist "prereq" ^
