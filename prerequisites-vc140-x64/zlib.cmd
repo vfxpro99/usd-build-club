@@ -17,8 +17,11 @@ mkdir build\zlib
 
 cd build\zlib
 
-cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\zlib
-cmake --build . --target install --config Release -- /maxcpucount:8 
+cmake -G "Visual Studio 14 2015 Win64"^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      ..\..\zlib
+cmake --build . --target install --config Release -- /maxcpucount:8
 
 cd %current%
 

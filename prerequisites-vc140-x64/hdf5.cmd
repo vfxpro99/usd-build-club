@@ -16,8 +16,11 @@ mkdir build\hdf5
 cd build\hdf5
 
 cmake -G "Visual Studio 14 2015 Win64"^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
       -DHDF5_BUILD_HL_LIB=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=./hdf5-stage^
-      -DCMAKE_INSTALL_PREFIX=%current%\local ..\..\hdf5
+      ..\..\hdf5
+
 cmake --build . --target install --config Release -- /maxcpucount:8
 
 cd %current%

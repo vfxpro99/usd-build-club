@@ -25,10 +25,13 @@ REM -DCUDA_TOOLKIT_ROOT_DIR=[path to CUDA Toolkit]
 REM -DMAYA_LOCATION=[path to Maya]
 
 cmake -G "Visual Studio 14 2015 Win64"^
-      -DPTEX_LOCATION=%current%/local/^
-      -DGLEW_LOCATION=%current%/local^
-      -DGLFW_LOCATION=%current%/local^
-      -DTBB_LOCATION=%current%/local^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      -DPTEX_LOCATION="%current%/local/"^
+      -DGLEW_LOCATION="%current%\local"^
+      -DGLEW_LOCATION="%current%/local"^
+      -DGLFW_LOCATION="%current%/local"^
+      -DTBB_LOCATION="%current%/local"^
       -DNO_EXAMPLES=1^
       -DNO_TUTORIALS=1^
       -DNO_REGRESSION=1^
@@ -41,9 +44,7 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DNO_OPENCL=1^
       -DNO_OPENGL=0^
       -DNO_CLEW=0^
-      -DCMAKE_PREFIX_PATH="%current%\local"^
-      -DGLEW_LOCATION="%current%\local"^
-      -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\OpenSubdiv
+       ..\..\OpenSubdiv
 
 rem msbuild OpenSubdiv.sln /t:Build /p:Configuration=Release /p:Platform=x64
 echo "Building OpenSubdiv Debug"

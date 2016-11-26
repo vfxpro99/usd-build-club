@@ -10,7 +10,11 @@ git clone git://github.com/meshula/openexr.git
 
 if not exist "build\IlmBase" mkdir build\IlmBase
 cd build\IlmBase
-cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%\local" ..\..\openexr\IlmBase
+cmake -G "Visual Studio 14 2015 Win64"^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      ..\..\openexr\IlmBase
+
 cmake --build . --target install --config Release -- /maxcpucount:8
 
 rem msbuild ilmBase.sln /t:Build /p:Configuration=Release /p:Platform=x64
@@ -34,9 +38,12 @@ cd prereq
 if not exist "build\OpenEXR" mkdir build\OpenEXR
 cd build\OpenEXR
 
-cmake -G "Visual Studio 14 2015 Win64" -DILMBASE_PACKAGE_PREFIX="%current%\local" ^
- -DZLIB_ROOT="%current%\local" -DCMAKE_INSTALL_PREFIX="%current%\local" ^
- ..\..\openexr\OpenEXR
+cmake -G "Visual Studio 14 2015 Win64"^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      -DILMBASE_PACKAGE_PREFIX="%current%\local" ^
+      -DZLIB_ROOT="%current%\local"^
+      ..\..\openexr\OpenEXR
 
 cmake --build . --target install --config Release
 rem msbuild openEXR.sln /t:Build /p:Configuration=Release /p:Platform=x64

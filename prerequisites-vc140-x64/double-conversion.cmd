@@ -16,7 +16,11 @@ mkdir build\double-conversion
 
 cd build\double-conversion
 
-cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="%current%"\local ..\..\double-conversion
+cmake -G "Visual Studio 14 2015 Win64"^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      ..\..\double-conversion
+
 cmake --build . --target install --config Release
 rem msbuild double-conversion.sln /t:Build /p:Configuration=Release /p:Platform=x64
 

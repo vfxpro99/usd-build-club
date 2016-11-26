@@ -20,7 +20,9 @@ mkdir build\alembic
 cd build\alembic
 
 cmake  -G "Visual Studio 14 2015 Win64"^
-    -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage -DCMAKE_INSTALL_PREFIX="%current%\local"^
+    -DCMAKE_PREFIX_PATH="%current%\local"^
+    -DCMAKE_INSTALL_PREFIX="%current%\local"^
+    -DUSE_PYILMBASE=1 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=alembic-stage^
 	-DBOOST_INCLUDEDIR="%current%\local\include"^
 	-DBOOST_LIBRARYDIR="%current%\local\lib"^
 	-DBoost_INCLUDE_DIR="%current%\local\include"^

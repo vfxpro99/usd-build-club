@@ -18,7 +18,8 @@ mkdir build\ptex
 cd build\ptex
 
 cmake -G "Visual Studio 14 2015 Win64" ^
-      -DCMAKE_INSTALL_PREFIX="%current%\local" ^
+      -DCMAKE_PREFIX_PATH="%current%\local"^
+      -DCMAKE_INSTALL_PREFIX="%current%\local"^
       -DZLIB_INCLUDE_DIR="%current%\local\include" ^
       -DZLIB_LIBRARY="%current%\local\lib\zlib.lib" ^
       ..\..\ptex
