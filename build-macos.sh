@@ -13,7 +13,7 @@ echo "-------------------------------------------------"
 echo "1/5 Building Prerequsities for USD"
 echo "-------------------------------------------------"
 
-source ${PREREQ_SCRIPTDIR}/build_prerequisites.sh
+source ${PREREQ_SCRIPTDIR}/build-prerequisites-macos.sh
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build prerequisites, exiting"
@@ -39,7 +39,7 @@ echo "-------------------------------------------------"
 echo "3/5 Configuring the Xcode build for USD"
 echo "-------------------------------------------------"
 
-source ${PREREQ_SCRIPTDIR}/configure.sh Xcode
+source ${PREREQ_SCRIPTDIR}/configure-macos.sh Xcode
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to configure build for Xcode, exiting"

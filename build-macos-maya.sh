@@ -18,7 +18,7 @@ echo "-------------------------------------------------"
 echo "1/4 Building Prerequsities for the maya plugin"
 echo "-------------------------------------------------"
 
-source ${PREREQ_SCRIPTDIR}/build_prerequisites-macos-maya.sh
+source ${PREREQ_SCRIPTDIR}/build-prerequisites-macos-maya.sh
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build prerequisites, exiting"
@@ -29,7 +29,7 @@ echo "-------------------------------------------------"
 echo "2/4 Configuring the build for the Maya plugin"
 echo "-------------------------------------------------"
 
-source ${PREREQ_SCRIPTDIR}/configure.sh Maya
+source ${PREREQ_SCRIPTDIR}/configure-macos.sh Maya
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to configure build for Maya, exiting"

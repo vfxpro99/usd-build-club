@@ -49,7 +49,7 @@ is being compiled without HDF5 support.
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
-  ..\usd-build-club\build_prerequisites.cmd
+  ..\usd-build-club\build-prerequisites-windows.cmd
   ..\usd-build-club\configure.cmd
   cd prereq\build\USD
   cmake --build . --target install --config Release -- /maxcpucount:16
@@ -94,8 +94,8 @@ step must still be peformed manually.
 ```
 
 
-Building USD on OSX
--------------------
+Building USD on macOS
+---------------------
 
 Building USD this way will create a local cache of all the libraries
 USD depends on as well as USD itself.
@@ -103,9 +103,9 @@ USD depends on as well as USD itself.
 Pick this method if you need to exercise absolute control over the
 libraries and don't want to mix them in with your system paths.
 
+Run the following in your projects directory:
+
 ```
-  mkdir Projects
-  cd Projects
   git clone https://github.com/PixarAnimationStudios/USD.git
   cd USD
   git checkout dev
@@ -113,19 +113,53 @@ libraries and don't want to mix them in with your system paths.
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
-  ../usd-build-club/build_prerequisites.sh
+  ../usd-build-club/build-prerequisites-macos.sh
   ../usd-build-club/configure.sh Xcode
   cmake --build . --target install --config Release
 ```
 
-Building USD on OSX using Homebrew
-----------------------------------
+Building USD on macOS - Experimental
+------------------------------------
+
+Building USD this way will create a local cache of all the libraries
+USD depends on as well as USD itself.
+
+Pick this method if you need to exercise absolute control over the
+libraries and don't want to mix them in with your system paths.
+
+The script will prompt for any necessary dependencies not managed
+by the script itself, such as cmake.
+
+Run the following in your project directory:
+
+```
+  git clone https://github.com/vfxpro99/usd-build-club.git
+  mkdir stage
+  cd stage
+  ../usd-build-club/build-macos.sh
+```
+
+
+Building USD on macOS using Homebrew
+------------------------------------
 
 Building USD this way will use brew to create all the libraries
 USD depends on into /usr/local and will build USD there itself.
 
 Pick this method if you want USD tools to be available from the
 command line, and it's fine if everything is mingled into /usr.
+
+Use homebrew with caution.
+
+Please be aware that brew installs many things globally, which can
+really confuse cmake. For example, consider a case where brew has
+installed Field3d, but your local build environment does not include
+Field3d. If you subsequently try to build OpenImageIO in your local
+build environment, cmake will discover the global Field3d and link it.
+At this point, the boost rpaths will become cross linked between brew's
+global boost, and your local boost if you have one. This can cause
+absolute havoc if versions differ. Boost, glew, tbb, and more are all
+subject to this inadvertent behavior.
 
 ```
 mkdir Projects
