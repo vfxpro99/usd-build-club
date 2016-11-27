@@ -63,7 +63,7 @@ call ..\usd-build-club\configure.cmd
 IF "%release%"=="true" GOTO BuildRelease
 
 echo "Building as Debug USD"
-cmake --build . --target install --config Release -- /maxcpucount:16
+cmake --build . --target install --config Debug -- /maxcpucount:16
 GOTO Finished
 
 :BuildRelease

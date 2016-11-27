@@ -12,7 +12,7 @@ powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://down
 if not exist "boost.tar" ^
 7z x boost.tar.gz
 
-if not exist "boost_1_61_0\READMEx.md" ^
+if not exist "boost_1_61_0\INSTALL" ^
 7z x -ttar boost.tar
 
 if not exist "boost-build-club\README.md" ^
