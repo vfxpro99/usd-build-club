@@ -6,6 +6,7 @@ if not exist "prereq\build\USD" mkdir prereq\build\USD
 cd prereq\build\USD
 
 REM ensure a 64 bit development environment using VS2015
+IF NOT "%VisualStudioVersion%"=="14.0" ^
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
 REM // USE_PTEX=0 because ptex integration is currently broken with the latest version of ptex

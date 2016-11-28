@@ -1,4 +1,4 @@
-ECHO Buidling boost
+ECHO Building boost
 
 SET current=%cd%
 
@@ -6,12 +6,15 @@ if not exist "prereq" ^
 mkdir prereq
 cd prereq
 
+ECHO fetching boost archive
 if not exist "boost.tar.gz" ^
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/sourceforge/boost/boost_1_61_0.tar.gz', 'boost.tar.gz')"
 
+ECHO unzipping boost archive
 if not exist "boost.tar" ^
 7z x boost.tar.gz
 
+ECHO untarring boost tarball
 if not exist "boost_1_61_0\INSTALL" ^
 7z x -ttar boost.tar
 
@@ -22,6 +25,7 @@ cd boost-build-club
 git pull
 cd ..
 
+EChO building boost
 xcopy .\boost-build-club\* .\boost_1_61_0\ /s /y
 cd .\boost_1_61_0
 call build-win-shared.bat

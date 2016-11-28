@@ -3,7 +3,7 @@ REM arguments: debug, to build debug instead of release
 REM            prereq, to build the prerequisites before performing the main build
 
 REM ensure a 64 bit development environment using VS2015
-IF NOT %VisualStudioVersion%=="14.0" ^
+IF NOT "%VisualStudioVersion%"=="14.0" ^
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
 REM check for required helper apps

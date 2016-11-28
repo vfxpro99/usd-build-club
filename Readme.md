@@ -42,10 +42,10 @@ is being compiled without HDF5 support.
 ```
   mkdir Projects
   cd Projects
-  git clone https://github.com/PixarAnimationStudios/USD.git
-  cd USD
-  git checkout dev_win_ip
-  cd ..
+    git clone https://github.com/PixarAnimationStudios/USD.git
+    cd USD
+    git checkout dev_win_ip
+    cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
