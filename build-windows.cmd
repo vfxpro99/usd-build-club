@@ -54,11 +54,11 @@ REM prerequisites
 IF NOT "%prereq%"=="true" GOTO Build
 
 echo "Building prerequisite libraries for USD"
-call ..\usd-build-club\build_prerequisites.cmd
+call ..\usd-build-club\build-prerequisites-windows.cmd
 
 :Build
 
-call ..\usd-build-club\configure.cmd
+call ..\usd-build-club\configure-windows.cmd
 
 IF "%release%"=="true" GOTO BuildRelease
 
