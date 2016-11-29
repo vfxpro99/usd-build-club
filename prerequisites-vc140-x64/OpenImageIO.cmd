@@ -12,7 +12,12 @@ git clone https://github.com/OpenImageIO/oiio.git
 
 cd oiio
 git pull
-git checkout 0b5df2944e0b772af88efa7180ff6e7c88804908
+REM following checkout is safe
+REM git checkout 0b5df2944e0b772af88efa7180ff6e7c88804908
+REM following checkout deadlocks
+REM git checkout 7c0f2bed640ddc3ee324b703722517cd44dc953b
+REM use the stable release branch
+git checkout release
 cd ..
 
 if not exist "build\oiio" mkdir build\oiio
@@ -36,7 +41,6 @@ cmake -G "Visual Studio 14 2015 Win64"^
     ..\..\oiio
 
 cmake --build . --target install --config Release -- /maxcpucount:16
-
 rem msbuild oiio.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 cd %current%

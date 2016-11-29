@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo building release branch of OpenImageIO
+
 ROOT=$(pwd)
 LOCAL=${ROOT}/local
 
@@ -16,7 +18,10 @@ cd prereq
 if [ ! -f oiio/.git/config ]; then
   git clone git://github.com/OpenImageIO/oiio.git
 fi
-cd oiio; git pull; cd ..
+cd oiio
+git pull
+git checkout release
+cd ..
 
 mkdir -p build/oiio
 cd build/oiio

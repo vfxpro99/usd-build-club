@@ -14,7 +14,7 @@ mkdir -p $LOCAL/bin
 mkdir -p $LOCAL/include
 mkdir -p prereq/build/alembic
 
-echo "Retrieving Alembic 1.6.1 for compatibility"
+echo "Building Alembic release 1.6.1"
 
 cd prereq
 if [ ! -f alembic/.git/config ]; then

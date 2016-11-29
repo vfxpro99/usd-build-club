@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo building libpng
+
 ROOT=$(pwd)
 LOCAL=${ROOT}/local
 

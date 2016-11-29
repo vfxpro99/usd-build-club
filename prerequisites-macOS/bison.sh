@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "building bison"
+
 ROOT=$(pwd)
 
 LOCAL=${ROOT}/local

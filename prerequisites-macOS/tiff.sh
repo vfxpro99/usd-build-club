@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo building tiff
+
 ROOT=$(pwd)
 LOCAL=${ROOT}/local
 

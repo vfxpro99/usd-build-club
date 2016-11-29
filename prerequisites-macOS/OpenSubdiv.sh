@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo building OpenSubdiv
+
 ROOT=$(pwd)
 LOCAL=${ROOT}/local
 
