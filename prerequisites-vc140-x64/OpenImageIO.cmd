@@ -12,6 +12,7 @@ git clone https://github.com/OpenImageIO/oiio.git
 
 cd oiio
 git pull
+git checkout 0b5df2944e0b772af88efa7180ff6e7c88804908
 cd ..
 
 if not exist "build\oiio" mkdir build\oiio
