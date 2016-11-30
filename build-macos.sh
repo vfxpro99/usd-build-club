@@ -48,7 +48,7 @@ fi
 echo "-------------------------------------------------"
 echo "4/5 Building and installing USD"
 echo "-------------------------------------------------"
-cmake --build . --target install --config Debug
+cmake --build . --target install --config Release
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build USD, exiting"
