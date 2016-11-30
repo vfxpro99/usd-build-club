@@ -39,7 +39,7 @@ cd ${ROOT}/../USD
 git checkout dev
 git pull
 
-git apply maya/FindMaya.patch
+git apply ${PREREQ_SCRIPTDIR}/maya/FindMaya.patch
 
 cd ${ROOT}
 
