@@ -15,7 +15,7 @@ fi
 PREREQ_SCRIPTDIR=`dirname $0`
 
 echo "-------------------------------------------------"
-echo "1/4 Building Prerequsities for the maya plugin"
+echo "1/5 Building Prerequsities for the maya plugin"
 echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/build-prerequisites-macos-maya.sh
@@ -26,7 +26,25 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo "-------------------------------------------------"
-echo "2/4 Configuring the build for the Maya plugin"
+echo "2/5 Getting the latest USD dev code"
+echo "-------------------------------------------------"
+
+if [ ! -f ../USD/.git/config ]; then
+  cd ..
+  git clone https://github.com/PixarAnimationStudios/USD.git
+  cd stage
+fi
+
+cd ../USD
+git checkout dev
+git pull
+
+git apply maya/FindMaya.patch
+
+cd ../stage
+
+echo "-------------------------------------------------"
+echo "3/5 Configuring the build for the Maya plugin"
 echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/configure-macos.sh Maya
@@ -37,7 +55,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo "-------------------------------------------------"
-echo "3/4 Building and installing the Maya plugin"
+echo "4/5 Building and installing the Maya plugin"
 echo "-------------------------------------------------"
 cmake --build . --target install --config Release
 rc=$?
@@ -49,7 +67,7 @@ fi
 echo "Note that the cmake directory link warnings are apparently harmless."
 
 echo "-------------------------------------------------"
-echo "4/4 Finalizing the build of the Maya plugin"
+echo "5/5 Finalizing the build of the Maya plugin"
 echo "-------------------------------------------------"
 
 echo "temp: Renaming plugin per Maya convention"

@@ -56,8 +56,6 @@ if [ $rc -ne 0 ]; then
   exit $rc
 fi
 
-echo "Note that the cmake directory link warnings are apparently harmless."
-
 echo "-------------------------------------------------"
 echo "5/5 Finalizing the build"
 echo "-------------------------------------------------"
