@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 DIR="$(dirname ${BASH_SOURCE[0]})"
+ROOT=$(pwd)
 
 # We use brew to get standard stuff we don't want/need to build
 #/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -10,11 +11,13 @@ echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >>
 brew update
 brew upgrade
 
+brew install cmake
+brew install python
+
 sudo easy_install -U pip
 sudo pip install --upgrade PyOpenGL PyOpenGL-accelerate
 sudo pip install --upgrade jinja2
 
-brew install cmake
 brew install cartr/qt4/qt              # this is a patched Qt4 which works on Sierra
 brew install cartr/qt4/pyside
 brew install cartr/qt4/pyside-tools
@@ -34,6 +37,8 @@ echo "--- Building USD ---"
 git clone https://github.com/PixarAnimationStudios/USD.git
 cd USD
 git checkout dev
+
+cd $(ROOT)
 mkdir build
 cd build
 
