@@ -27,13 +27,12 @@ echo "-------------------------------------------------"
 if [ ! -f ../USD/.git/config ]; then
   cd ..
   git clone https://github.com/PixarAnimationStudios/USD.git
-  cd stage
 fi
 
-cd ../USD
+cd ${ROOT}/../USD
 git checkout dev
 git pull
-cd ../stage
+cd ${ROOT}
 
 echo "-------------------------------------------------"
 echo "3/5 Configuring the Xcode build for USD"

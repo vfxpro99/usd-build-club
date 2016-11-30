@@ -13,6 +13,7 @@ else
 fi
 
 PREREQ_SCRIPTDIR=`dirname $0`
+ROOT=$(pwd)
 
 echo "-------------------------------------------------"
 echo "1/5 Building Prerequsities for the maya plugin"
@@ -32,16 +33,15 @@ echo "-------------------------------------------------"
 if [ ! -f ../USD/.git/config ]; then
   cd ..
   git clone https://github.com/PixarAnimationStudios/USD.git
-  cd stage
 fi
 
-cd ../USD
+cd ${ROOT}/../USD
 git checkout dev
 git pull
 
 git apply maya/FindMaya.patch
 
-cd ../stage
+cd ${ROOT}
 
 echo "-------------------------------------------------"
 echo "3/5 Configuring the build for the Maya plugin"
