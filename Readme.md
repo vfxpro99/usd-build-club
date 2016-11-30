@@ -166,6 +166,7 @@ mkdir Projects
 cd Projects
 git clone https://github.com/vfxpro99/usd-build-club.git
 ./usd-build-club/build-macos-brew.sh
+export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python
 ```
 
 

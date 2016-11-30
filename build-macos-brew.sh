@@ -40,6 +40,6 @@ cd build
 # for macOS we *must* build through Xcode or it won't work!
 # cmake can't find OpenSubdiv unless you help it.
 cmake -G "Xcode" -DOPENSUBDIV_ROOT_DIR=/usr/local/ ..
-cmake --build .
-sudo cmake --build . --target install
+sudo cmake --build . --target install --config Release
+
 echo "--- DONE ---"
