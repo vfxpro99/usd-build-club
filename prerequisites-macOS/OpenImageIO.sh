@@ -35,13 +35,15 @@ cmake \
   -DBUILD_WITH_INSTALL_RPATH=1 \
   -DOPENEXR_CUSTOM_INCLUDE_DIR:STRING="${LOCAL}/include" \
   -DOPENEXR_CUSTOM_LIB_DIR="${LOCAL}/lib" \
-  -DBOOST_ROOT="${LOCAL}" \
-  -DBOOST_LIBRARYDIR="${LOCAL}/lib" \
-  -DBoost_USE_STATIC_LIBS:INT=0 \
-  -DBoost_LIBRARY_DIR_RELEASE="${LOCAL}/lib" \
-  -DBoost_LIBRARY_DIR_DEBUG="${LOCAL}/lib" \
   -DOCIO_PATH="${LOCAL}" \
   -DPTEX_LOCATION="${LOCAL}" \
+  -DBoost_USE_STATIC_LIBS:INT=0 \
+  -DBOOST_ROOT="${LOCAL}" \
+  -DBOOST_LIBRARYDIR="${LOCAL}/lib" \
+  -DBoost_LIBRARY_DIR="${LOCAL}/lib" \
+  -DBoost_LIBRARY_DIR_RELEASE="${LOCAL}/lib" \
+  -DBoost_LIBRARY_DIR_DEBUG="${LOCAL}/lib" \
+  -DBoost_INCLUDE_DIR="${LOCAL}/include" \
   ../../oiio
 
 cmake --build . --target install --config Release
