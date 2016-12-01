@@ -75,9 +75,9 @@ mv local/third_party/maya/plugin/pxrUsd.dylib local/third_party/maya/plugin/pxrU
 
 echo "temp: Fixing up rpaths"
 
-PLUG_ROOT=$(pwd)/local/third_party/maya/lib
-LIB_ROOT=$(pwd)/local/lib
-BUNDLE=$(pwd)/local/third_party/maya/plugin/pxrUsd.bundle
+PLUG_ROOT=${ROOT}/local/third_party/maya/lib
+LIB_ROOT=${ROOT}/local/lib
+BUNDLE=${ROOT}/local/third_party/maya/plugin/pxrUsd.bundle
 
 install_name_tool -change @rpath/libpxrUsdMayaGL.dylib ${PLUG_ROOT}/libpxrUsdMayaGL.dylib ${BUNDLE}
 install_name_tool -change @rpath/libusdMaya.dylib ${PLUG_ROOT}/libusdMaya.dylib ${BUNDLE}
@@ -120,7 +120,8 @@ install_name_tool -change @rpath/libboost_system.dylib ${LIB_ROOT}/libboost_syst
 
 install_name_tool -change @rpath/libGLEW.2.0.0.dylib ${LIB_ROOT}/libGLEW.2.0.0.dylib ${BUNDLE}
 install_name_tool -change @rpath/libHalf.12.dylib ${LIB_ROOT}/libHalf.12.dylib ${BUNDLE}
-install_name_tool -change @rpath/libOpenImageIO.1.8.dylib ${LIB_ROOT}/libOpenImageIO.1.8.dylib ${BUNDLE}
-install_name_tool -change @rpath/libOpenImageIO_Util.1.8.dylib ${LIB_ROOT}/libOpenImageIO_Util.1.8.dylib ${BUNDLE}
+install_name_tool -change @rpath/libOpenImageIO.1.7.dylib ${LIB_ROOT}/libOpenImageIO.1.7.dylib ${BUNDLE}
+install_name_tool -change @rpath/libOpenImageIO_Util.1.7.dylib ${LIB_ROOT}/libOpenImageIO_Util.1.7.dylib ${BUNDLE}
 install_name_tool -change @rpath/libosdCPU.3.1.0.dylib ${LIB_ROOT}/libosdCPU.3.1.0.dylib ${BUNDLE}
 install_name_tool -change @rpath/libosdGPU.3.1.0.dylib ${LIB_ROOT}/libosdGPU.3.1.0.dylib ${BUNDLE}
+install_name_tool -change @rpath/libPtex.dylib ${LIB_ROOT}/libPtex.dylib ${BUNDLE}

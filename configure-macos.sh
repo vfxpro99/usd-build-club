@@ -19,12 +19,13 @@ if [ $# -ge 1 ]; then
     cmake ${SOURCEDIR} \
       -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
       -DCMAKE_PREFIX_PATH="${BUILDDIR}" \
-      -DPXR_INSTALL_LOCATION=/Users/Shared/Autodesk/maya/2017/plug-ins/pxrUsd \
+      -DPXR_INSTALL_LOCATION="$HOME/Library/Pixar/USD_maya/local/third_party/maya/plugin/" \
       -DPXR_BUILD_MAYA_PLUGIN=1 \
       -DPXR_BUILD_IMAGING=1 -DPXR_BUILD_USD_IMAGING=1 \
       -DPXR_BUILD_ALEMBIC_PLUGIN=0 \
       -DMAYA_LOCATION=/Applications/Autodesk/maya2017 \
       -DTBB_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
+      -DMAYA_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DPXR_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbb.dylib \
       -DTBB_ROOT_DIR=/Applications/Autodesk/maya2017/include \
       -DPXR_MALLOC_LIBRARY:path=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbbmalloc.dylib \
