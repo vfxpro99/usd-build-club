@@ -139,36 +139,10 @@ Run the following in your project directory:
   ../usd-build-club/build-macos.sh
 ```
 
-
-Building USD on macOS using Homebrew
-------------------------------------
-
-Building USD this way will use brew to create all the libraries
-USD depends on into /usr/local and will build USD there itself.
-
-Pick this method if you want USD tools to be available from the
-command line, and it's fine if everything is mingled into /usr.
-
-Use homebrew with caution.
-
-Please be aware that brew installs many things globally, which can
-really confuse cmake. For example, consider a case where brew has
-installed Field3d, but your local build environment does not include
-Field3d. If you subsequently try to build OpenImageIO in your local
-build environment, cmake will discover the global Field3d and link it.
-At this point, the boost rpaths will become cross linked between brew's
-global boost, and your local boost if you have one. This can cause
-absolute havoc if versions differ. Boost, glew, tbb, and more are all
-subject to this inadvertent behavior.
-
-```
-mkdir Projects
-cd Projects
-git clone https://github.com/vfxpro99/usd-build-club.git
-./usd-build-club/build-macos-brew.sh
-export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python
-```
-
+Building USD on macOS using Brew
+--------------------------------
+Don't. The brew script is experimental, and will make it impossible to
+build and run any of the DCC plugins, such as the USD Maya plugin.
 
 Building USD on macOS for Maya
 ------------------------------
