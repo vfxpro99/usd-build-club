@@ -76,9 +76,8 @@ Building USD on Windows - Experimental
 
 Install the required programs such as python and so on as above. The *build-windows.cmd*
 script takes two optional arguments: *debug* to build as Debug instead of Release,
-and *prereq* to build the prerequisites before building USD itself. Note that this
-batch file does not perform the modifications noted above for OpenSubdiv, and so that
-step must still be peformed manually.
+and *prereq* to build the prerequisites before building USD itself. Note that at this time,
+only *release* option works.
 
 ```
   mkdir Projects
@@ -141,8 +140,15 @@ Run the following in your project directory:
 
 Building USD on macOS using Brew
 --------------------------------
-Don't. The brew script is experimental, and will make it impossible to
-build and run any of the DCC plugins, such as the USD Maya plugin.
+
+Brew installs things relative to its install directory. If you install brew
+into an isolated directory, the brew script *build-macos-brew.sh* will cleanly 
+build USD into that isolated directory. If you run the script with brew 
+installed in the default location in /usr, USD and its dependencies will be
+installed globally, and this will make it impossible to build the Maya 
+plugin. It may also interfere with other applications or utilities installed
+in the /usr/local path, so be carefully when using this script.
+
 
 Building USD on macOS for Maya
 ------------------------------
