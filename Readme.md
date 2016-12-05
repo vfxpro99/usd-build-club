@@ -90,7 +90,7 @@ step must still be peformed manually.
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
-  ..\usd-build-club\build-windows.cmd prereq
+  ..\usd-build-club\build-windows.cmd prereq release
 ```
 
 
