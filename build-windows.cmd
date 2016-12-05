@@ -48,7 +48,8 @@ set prereq=true
 IF NOT "%~1"=="prereq" IF NOT "%~2"=="prereq" set prereq=false
 
 set release=true
-IF NOT "%~1"=="debug" IF NOT "%~2"=="debug" set release=false
+IF "%~1"=="debug" set release=false
+IF "%~2"=="debug" set release=false
 
 REM prerequisites
 IF NOT "%prereq%"=="true" GOTO Build
