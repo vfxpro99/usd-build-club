@@ -6,4 +6,4 @@ else
   sudo easy_install pip
 fi
 
-sudo pip install jinja2
+sudo pip install --upgrade jinja2

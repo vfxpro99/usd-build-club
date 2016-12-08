@@ -1,50 +1,100 @@
-#!/bin/bash -x
+#!/bin/bash
 
-DIR="$(dirname ${BASH_SOURCE[0]})"
+SCRIPT_DIR="$(dirname ${BASH_SOURCE[0]})"
 ROOT=$(pwd)
+BREW=$ROOT/homebrew/bin/brew
 
-# We use brew to get standard stuff we don't want/need to build
-#/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+echo "-------------------------------------------------"
+echo "1/5 Installing brew"
+echo "-------------------------------------------------"
+
+
+if [ ! -f "${BREW}" ]; then
+  source ${SCRIPT_DIR}/brew/brew-install.sh
+fi
+exit 1
+
+PATH=${PATH}:$ROOT/homebrew/bin
+
+
+# We use $BREW to get standard stuff we don't want/need to build
+#/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Home$BREW/install/master/install)"
 mkdir -p ~/Library/Python/2.7/lib/python/site-packages
-echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> ~/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> ~/Library/Python/2.7/lib/python/site-packages/homegpth
 
-brew update
-brew upgrade
+$BREW update
+$BREW upgrade
 
-brew install cmake
-brew install python
+
+echo "-------------------------------------------------"
+echo "2/5 Installing USD dependencies"
+echo "-------------------------------------------------"
+
+
+$BREW install cmake
+$BREW install python
 
 sudo easy_install -U pip
 sudo pip install --upgrade PyOpenGL PyOpenGL-accelerate
 sudo pip install --upgrade jinja2
 
-brew install cartr/qt4/qt              # this is a patched Qt4 which works on Sierra
-brew install cartr/qt4/pyside
-brew install cartr/qt4/pyside-tools
-brew install boost
-brew install boost-python
-brew install tbb
-brew install double-conversion
-brew install glew
-brew install openexr
-brew install homebrew/versions/glfw3
-brew install ptex
-brew install opencolorio
-brew install homebrew/science/openimageio
-brew install $DIR/brew/opensubdiv.rb
+$BREW install cartr/qt4/qt    # patched Qt4 for Sierra
+$BREW install cartr/qt4/pyside
+$BREW install cartr/qt4/pyside-tools
+$BREW install boost
+$BREW install boost-python
+$BREW install tbb
+$BREW install double-conversion
+$BREW install glew
+$BREW install openexr
+$BREW install glfw3
+$BREW install ptex
+$BREW install opencolorio
+$BREW install homebrew/science/openimageio
+$BREW install $DIR/brew/opensubdiv.rb
 
-echo "--- Building USD ---"
-git clone https://github.com/PixarAnimationStudios/USD.git
-cd USD
+echo "-------------------------------------------------"
+echo "3/5 Getting the latest USD dev code"
+echo "-------------------------------------------------"
+
+if [ ! -f ../USD/.git/config ]; then
+  cd ..
+  git clone https://github.com/PixarAnimationStudios/USD.git
+  cd $ROOT
+fi
+
+cd ../USD
 git checkout dev
 
-cd $(ROOT)
-mkdir build
+cd $ROOT
+mkdir -p build
 cd build
 
-# for macOS we *must* build through Xcode or it won't work!
-# cmake can't find OpenSubdiv unless you help it.
-cmake -G "Xcode" -DOPENSUBDIV_ROOT_DIR=/usr/local/ ..
-sudo cmake --build . --target install --config Release
+echo "-------------------------------------------------"
+echo "4/5 configuring USD"
+echo "-------------------------------------------------"
 
-echo "--- DONE ---"
+export PYTHONPATH=${ROOT}/homebrew/lib/python2.7/site-packages/
+
+cmake -G "Xcode" ../../USD \
+      -DOPENSUBDIV_ROOT_DIR=${ROOT}/homebrew \
+      -DCMAKE_PREFIX_PATH=${ROOT}/homebrew \
+      -DCMAKE_INSTALL_PATH=${ROOT}/homebrew \
+      -DPYTHON_EXECUTABLE=${ROOT}/homebrew/bin/python \
+      -DPYTHON_INCLUDE_DIR=${ROOT}/homebrew/Frameworks/Python.framework/Versions/2.7/include/python2.7 \
+      -DPYTHON_LIBRARY=${ROOT}/homebrew/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib \
+      -DPYTHON_LIBRARIES=${ROOT}/homebrew/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib
+
+echo "-------------------------------------------------"
+echo "5/5 building USD"
+echo "-------------------------------------------------"
+
+cmake --build . --target install --config Release
+
+cd $ROOT
+
+echo "-------------------------------------------------"
+echo "USD build complete."
+echo "To initialize the environment:" 
+echo "source setvars-macos-brew.sh "
+echo "-------------------------------------------------"

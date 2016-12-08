@@ -141,14 +141,23 @@ Run the following in your project directory:
 Building USD on macOS using Brew
 --------------------------------
 
-Brew installs things relative to its install directory. If you install brew
-into an isolated directory, the brew script *build-macos-brew.sh* will cleanly 
-build USD into that isolated directory. If you run the script with brew 
-installed in the default location in /usr, USD and its dependencies will be
-installed globally, and this will make it impossible to build the Maya 
-plugin. It may also interfere with other applications or utilities installed
-in the /usr/local path, so be carefully when using this script.
+Building USD on macOS using Brew will install brew, USD's prerequisites,
+USD, and a local copy of python in your stage directory.
 
+```
+  git clone https://github.com/vfxpro99/usd-build-club.git
+  mkdir stage
+  cd stage
+  ../usd-build-club/build-macos-brew.sh
+```
+
+When the build is complete, run the following within a terminal
+to initialize the run time environment:
+
+```
+  cd /path/to/my/stage
+  source ../usd-build-club/setvars-macos-brew.sh
+```
 
 Building USD on macOS for Maya
 ------------------------------
