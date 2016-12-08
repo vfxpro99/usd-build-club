@@ -9,7 +9,7 @@ if [ $# -ge 1 ]; then
   LOCAL=$1
 fi
 
-#source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jinja2.sh $LOCAL
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/jinja2.sh $LOCAL
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/bison.sh $LOCAL
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/flex.sh $LOCAL
 
