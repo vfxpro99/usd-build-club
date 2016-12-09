@@ -50,7 +50,7 @@ $BREW install glfw3
 $BREW install ptex
 $BREW install opencolorio
 $BREW install homebrew/science/openimageio
-$BREW install $DIR/brew/opensubdiv.rb
+$BREW install $SCRIPT_DIR/brew/opensubdiv.rb
 
 echo "-------------------------------------------------"
 echo "3/5 Getting the latest USD dev code"
