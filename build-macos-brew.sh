@@ -12,7 +12,6 @@ echo "-------------------------------------------------"
 if [ ! -f "${BREW}" ]; then
   source ${SCRIPT_DIR}/brew/brew-install.sh
 fi
-exit 1
 
 PATH=${PATH}:$ROOT/homebrew/bin
 
