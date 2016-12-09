@@ -79,13 +79,8 @@ script takes two optional arguments: *debug* to build as Debug instead of Releas
 and *prereq* to build the prerequisites before building USD itself. Note that at this time,
 only *release* option works.
 
+In the project directory -
 ```
-  mkdir Projects
-  cd Projects
-  git clone https://github.com/PixarAnimationStudios/USD.git
-  cd USD
-  git checkout dev_win_ip
-  cd ..
   git clone https://github.com/vfxpro99/usd-build-club.git
   mkdir stage
   cd stage
