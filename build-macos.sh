@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# optional first argument: Debug
+
 if hash cmake 2>/dev/null; then
   echo "Detected cmake."
 else
@@ -47,8 +49,15 @@ fi
 
 echo "-------------------------------------------------"
 echo "4/5 Building and installing USD"
+if [[ "$1" = "Debug" ]]; then
+  echo "  Debug build in progress."
+  cmake --build . --target install --config Debug
+else
+  echo "  Release build in progress."
+  cmake --build . --target install --config Release
+fi
 echo "-------------------------------------------------"
-cmake --build . --target install --config Release
+
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build USD, exiting"

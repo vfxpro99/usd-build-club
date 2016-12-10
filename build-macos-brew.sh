@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# optional first argument: Debug
+
 SCRIPT_DIR="$(dirname ${BASH_SOURCE[0]})"
 ROOT=$(pwd)
 BREW=$ROOT/homebrew/bin/brew
@@ -85,10 +87,16 @@ cmake -G "Xcode" ../../USD \
       -DPYTHON_LIBRARIES=${ROOT}/homebrew/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib
 
 echo "-------------------------------------------------"
-echo "5/5 building USD"
+echo "5/5 Building and installing USD"
+if [[ "$1" = "Debug" ]]; then
+  echo "  Debug build in progress."
+  cmake --build . --target install --config Debug
+else
+  echo "  Release build in progress."
+  cmake --build . --target install --config Release
+fi
 echo "-------------------------------------------------"
 
-cmake --build . --target install --config Release
 
 cd $ROOT
 
