@@ -2,17 +2,26 @@
 
 # optional first argument: Debug
 
-if hash cmake 2>/dev/null; then
-  echo "Detected cmake."
-else
-  echo "cmake not detected, please install it, and try again"
-  exit 1
-fi
-
 PREREQ_SCRIPTDIR=`dirname $0`
+ROOT=$(pwd)
+BREW=$ROOT/homebrew/bin/brew
 
 echo "-------------------------------------------------"
-echo "1/5 Building Prerequsities for USD"
+echo "1/6 Checking Cmake"
+echo "-------------------------------------------------"
+
+if [ ! -f "$BREW" ]; then
+  source ${PREREQ_SCRIPTDIR}/brew/brew-install.sh
+fi
+
+$BREW update
+$BREW upgrade
+$BREW install cmake
+
+PATH=${PATH}:$ROOT/homebrew/bin
+
+echo "-------------------------------------------------"
+echo "2/6 Building Prerequsities for USD"
 echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/build-prerequisites-macos.sh
@@ -23,7 +32,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo "-------------------------------------------------"
-echo "2/5 Getting the latest USD dev code"
+echo "3/6 Getting the latest USD dev code"
 echo "-------------------------------------------------"
 
 if [ ! -f ../USD/.git/config ]; then
@@ -37,7 +46,7 @@ git pull
 cd ${ROOT}
 
 echo "-------------------------------------------------"
-echo "3/5 Configuring the Xcode build for USD"
+echo "4/6 Configuring the Xcode build for USD"
 echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/configure-macos.sh Xcode
@@ -48,7 +57,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo "-------------------------------------------------"
-echo "4/5 Building and installing USD"
+echo "5/6 Building and installing USD"
 if [[ "$1" = "Debug" ]]; then
   echo "  Debug build in progress."
   cmake --build . --target install --config Debug
@@ -65,7 +74,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo "-------------------------------------------------"
-echo "5/5 Finalizing the build"
+echo "6/6 Finalizing the build"
 echo "-------------------------------------------------"
 
 # done
