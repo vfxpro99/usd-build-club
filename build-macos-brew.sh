@@ -26,11 +26,9 @@ echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >>
 $BREW update
 $BREW upgrade
 
-
 echo "-------------------------------------------------"
 echo "2/5 Installing USD dependencies"
 echo "-------------------------------------------------"
-
 
 $BREW install cmake
 $BREW install python

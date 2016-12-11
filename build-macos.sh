@@ -11,7 +11,7 @@ echo "1/6 Checking Cmake"
 echo "-------------------------------------------------"
 
 if [ ! -f "$BREW" ]; then
-  source ${PREREQ_SCRIPTDIR}/brew/brew-install.sh
+  source $PREREQ_SCRIPTDIR/brew/brew-install.sh
 fi
 
 $BREW update
@@ -20,11 +20,19 @@ $BREW install cmake
 
 PATH=${PATH}:$ROOT/homebrew/bin
 
+if hash cmake 2>/dev/null; then
+  echo "Cmake up to date"
+else
+  echo "cmake not detected, exitting."
+  exit 1
+fi
+
 echo "-------------------------------------------------"
 echo "2/6 Building Prerequsities for USD"
 echo "-------------------------------------------------"
 
-source ${PREREQ_SCRIPTDIR}/build-prerequisites-macos.sh
+$PREREQ_SCRIPTDIR/build-prerequisites-macos.sh $ROOT/local
+
 rc=$?
 if [ $rc -ne 0 ]; then
   echo "Failed to build prerequisites, exiting"
@@ -40,10 +48,10 @@ if [ ! -f ../USD/.git/config ]; then
   git clone https://github.com/PixarAnimationStudios/USD.git
 fi
 
-cd ${ROOT}/../USD
+cd "$ROOT/../USD"
 git checkout dev
 git pull
-cd ${ROOT}
+cd "$ROOT"
 
 echo "-------------------------------------------------"
 echo "4/6 Configuring the Xcode build for USD"
