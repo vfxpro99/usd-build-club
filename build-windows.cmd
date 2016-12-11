@@ -46,8 +46,9 @@ IF ERRORLEVEL 1 (
 )
 
 REM arguments
-set prereq=true
-IF NOT "%~1"=="prereq" IF NOT "%~2"=="prereq" set prereq=false
+set prereq=false
+IF "%~1"=="prereq" set prereq=true
+IF "%~2"--"prereq" set prereq=true
 
 set release=true
 IF "%~1"=="debug" set release=false

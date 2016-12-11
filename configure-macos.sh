@@ -13,6 +13,8 @@ fi
 echo "build from USD sources at ${SOURCEDIR}/pxr"
 echo "local dir for prerequisites is ${BUILDDIR}"
 
+# Note TBB_LIBRARY will be removed soon, once the dev/master branches agree
+
 if [ $# -ge 1 ]; then
   if [[ "$1" = "Maya" ]]; then
     echo "Configuring for Xcode & Maya"
@@ -25,6 +27,7 @@ if [ $# -ge 1 ]; then
       -DPXR_BUILD_ALEMBIC_PLUGIN=0 \
       -DMAYA_LOCATION=/Applications/Autodesk/maya2017 \
       -DTBB_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
+      -DTBB_LIBRARIES=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DMAYA_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS \
       -DPXR_tbb_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/MacOS/libtbb.dylib \
       -DTBB_ROOT_DIR=/Applications/Autodesk/maya2017/include \
