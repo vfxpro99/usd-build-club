@@ -7,7 +7,7 @@ ROOT=$(pwd)
 BREW=$ROOT/homebrew/bin/brew
 
 echo "-------------------------------------------------"
-echo "1/7 Checking Cmake"
+echo "1/7 Validating brew and cmake"
 echo "-------------------------------------------------"
 
 if [ ! -f "$BREW" ]; then
@@ -16,35 +16,31 @@ fi
 
 PATH=${PATH}:$ROOT/homebrew/bin
 
+if hash cmake 2>/dev/null; then
+  echo "cmake up to date"
+else
+  $BREW install cmake
+fi
+
 $BREW update
 $BREW upgrade
-$BREW install cmake
-
-if hash cmake 2>/dev/null; then
-  echo "Cmake up to date"
-else
-  echo "cmake not detected, exiting."
-  exit 1
-fi
 
 echo "-------------------------------------------------"
 echo "2/7 Installing Qt and PySide for usdview"
 echo "-------------------------------------------------"
 
-$BREW install cartr/qt4/qt  
-
 if hash qmake 2>/dev/null; then
   echo "Qt up to date"
 else
-  echo "qmake not detected, usdview will not be available."
+  $BREW install cartr/qt4/qt  
 fi
 
-if [ ! -f $ROOT/local/bin/pyside-uic ]; then
+if [ ! -f "$ROOT/local/bin/pyside-uic" ]; then
   echo "Installing PySide. This takes several minutes."
   pip install --install-option="--prefix=$ROOT/local/" -U PySide
+else
+  echo "PySide up to date"
 fi
-
-echo "PySide up to date"
 
 echo "-------------------------------------------------"
 echo "3/7 Building Prerequsities for USD"
@@ -73,7 +69,7 @@ git pull
 cd "$ROOT"
 
 echo "-------------------------------------------------"
-echo "5/7 Configuring the Xcode build for USD"
+echo "5/7 Configuring an Xcode build for USD"
 echo "-------------------------------------------------"
 
 source ${PREREQ_SCRIPTDIR}/configure-macos.sh Xcode
@@ -104,4 +100,4 @@ echo "-------------------------------------------------"
 echo "7/7 Finalizing the build"
 echo "-------------------------------------------------"
 
-# done
+# currently nothing to do

@@ -121,9 +121,6 @@ USD depends on as well as USD itself.
 Pick this method if you need to exercise absolute control over the
 libraries and don't want to mix them in with your system paths.
 
-The script will prompt for any necessary dependencies not managed
-by the script itself, such as cmake.
-
 Run the following in your project directory:
 
 ```

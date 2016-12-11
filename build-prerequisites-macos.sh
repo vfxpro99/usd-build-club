@@ -125,7 +125,7 @@ if [ $rc -ne 0 ]; then
 fi
 
 echo --- PyOpenGL ---
-source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/PyOpenGL.sh
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/PyOpenGL.sh $LOCAL
 rc=$?
 if [ $rc -ne 0 ]; then
   echo PyOpenGL installation did not finish with a clean exit code, continuing nonetheless
