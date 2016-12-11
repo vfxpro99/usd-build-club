@@ -2,6 +2,8 @@
 REM arguments: debug, to build debug instead of release
 REM            prereq, to build the prerequisites before performing the main build
 
+SET current=%cd%
+
 REM ensure a 64 bit development environment using VS2015
 IF NOT "%VisualStudioVersion%"=="14.0" ^
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
@@ -55,21 +57,34 @@ REM prerequisites
 IF NOT "%prereq%"=="true" GOTO Build
 
 echo "Building prerequisite libraries for USD"
+cd %current%
 call ..\usd-build-club\build-prerequisites-windows.cmd
 
 :Build
 
+echo "Fetching latest USD"
+cd %current%
+cd ..
+if not exist "USD/.git/config" ^
+git clone https://github.com/PixarAnimationStudios/USD.git
+cd USD
+git checkout dev_win_ip
+git pull
+
+cd %current%
 call ..\usd-build-club\configure-windows.cmd
 
 IF "%release%"=="true" GOTO BuildRelease
 
 echo "Building as Debug USD"
+cd %current%\prereq\build\USD
 cmake --build . --target install --config Debug -- /maxcpucount:16
 GOTO Finished
 
 :BuildRelease
 
 echo "Building as Release USD"
+cd %current%\prereq\build\USD
 cmake --build . --target install --config Release -- /maxcpucount:16
 
 :Finished
