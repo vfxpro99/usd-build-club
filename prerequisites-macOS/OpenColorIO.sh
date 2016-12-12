@@ -19,7 +19,7 @@ if [ ! -f OpenColorIO/.git/config ]; then
 fi
 cd OpenColorIO
 git pull
-git checkout 87da508
+git checkout 2b12063
 cd ..
 
 mkdir -p build/OpenColorIO
@@ -33,6 +33,10 @@ cmake \
   -DCMAKE_INSTALL_NAME_DIR=@rpath \
   -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
   -DCMAKE_VERBOSE_MAKEFILE=OFF \
+  -DOCIO_BUILD_APPS=OFF \
+  -DOCIO_BUILD_DOCS=OFF \
+  -DOCIO_BUILD_TESTS=OFF \
+  -DOCIO_BUILD_JNIGLUE=OFF \
   -DEXTERNAL_INCLUDE_DIRS="${LOCAL}/include" \
   ../../OpenColorIO
 

@@ -46,13 +46,6 @@ fi
 #echo --- numpy ---
 #source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/numpy.sh $LOCAL
 
-echo --- OpenColorIO.sh ---
-source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenColorIO.sh $LOCAL
-rc=$?
-if [ $rc -ne 0 ]; then
-  echo OpenColorIO build did not finish with a clean exit code, continuing nonetheless
-fi
-
 echo --- OpenEXR ---
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenEXR.sh $LOCAL
 rc=$?
@@ -122,6 +115,13 @@ source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenImageIO.sh $LOCAL
 rc=$?
 if [ $rc -ne 0 ]; then
   echo OpenImageIO build did not finish with a clean exit code, continuing nonetheless
+fi
+
+echo --- OpenColorIO.sh ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenColorIO.sh $LOCAL
+rc=$?
+if [ $rc -ne 0 ]; then
+  echo OpenColorIO build did not finish with a clean exit code, continuing nonetheless
 fi
 
 echo --- PyOpenGL ---
