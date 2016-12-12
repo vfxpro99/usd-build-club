@@ -17,7 +17,10 @@ cd prereq
 if [ ! -f OpenColorIO/.git/config ]; then
   git clone git://github.com/imageworks/OpenColorIO.git
 fi
-cd OpenColorIO; git pull; cd ..
+cd OpenColorIO
+git pull
+git checkout 87da508
+cd ..
 
 mkdir -p build/OpenColorIO
 cd build/OpenColorIO
@@ -25,6 +28,7 @@ cd build/OpenColorIO
 cmake \
   -DCMAKE_PREFIX_PATH="${LOCAL}" \
   -DCMAKE_INSTALL_PREFIX="${LOCAL}" \
+  -DOCIO_USE_BOOST_PTR=1 \
   -DCMAKE_CXX_FLAGS="-std=c++11" \
   -DCMAKE_INSTALL_NAME_DIR=@rpath \
   -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
