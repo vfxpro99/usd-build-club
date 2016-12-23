@@ -16,7 +16,6 @@ fi
 
 PATH=$PATH:$ROOT/homebrew/bin
 PYTHONPATH=$PYTHONPATH:$ROOT/local/lib/python2.7/site-packages
-#DYLD_LIBRARY_PATH=$ROOT/local/lib/python2.7/site-packages/PySide
 
 if hash cmake 2>/dev/null; then
   echo "cmake up to date"
@@ -34,10 +33,11 @@ echo "-------------------------------------------------"
 if hash qmake 2>/dev/null; then
   echo "Qt up to date"
 else
-  $BREW install cartr/qt4/qt  
+  $BREW install cartr/qt4/qt
 fi
-  $BREW install cartr/qt4/pyside
-  $BREW install cartr/qt4/pyside-tools
+
+$BREW install cartr/qt4/pyside
+$BREW install cartr/qt4/pyside-tools
 
 #if [ ! -f "$ROOT/local/bin/pyside-uic" ]; then
 #  echo "Installing PySide. This takes several minutes."
@@ -45,6 +45,8 @@ fi
 #else
 #  echo "PySide up to date"
 #fi
+
+PYTHONPATH=$PYTHONPATH:$ROOT/homebrew/lib/python2.7/site-packages
 
 echo "-------------------------------------------------"
 echo "3/7 Building Prerequsities for USD"
