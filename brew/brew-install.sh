@@ -12,7 +12,8 @@ BREW="$HOMEBREW/bin/brew"
 OS_TYPE=$(uname)
 if [ ${OS_TYPE} == "Darwin" ]; then
   if [ ! -e "$BREW" ]; then
-    mkdir $HOMEBREW && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOMEBREW
+    mkdir -p $HOMEBREW
+    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOMEBREW
   fi
 
   # update
