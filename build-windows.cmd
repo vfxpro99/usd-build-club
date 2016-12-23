@@ -1,4 +1,6 @@
 
+@echo off
+
 REM arguments: debug, to build debug instead of release
 REM            prereq, to build the prerequisites before performing the main build
 
@@ -47,12 +49,12 @@ IF ERRORLEVEL 1 (
 
 REM arguments
 set prereq=false
-IF "%~1"=="prereq" set prereq=true
-IF "%~2"--"prereq" set prereq=true
+IF "%~1"=="prereq" (set prereq=true)
+IF "%~2"=="prereq" (set prereq=true)
 
 set release=true
-IF "%~1"=="debug" set release=false
-IF "%~2"=="debug" set release=false
+IF "%~1"=="debug" (set release=false)
+IF "%~2"=="debug" (set release=false)
 
 REM prerequisites
 IF NOT "%prereq%"=="true" GOTO Build
