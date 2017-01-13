@@ -54,6 +54,13 @@ if [ $rc -ne 0 ]; then
   exit $rc
 fi
 
+echo --- tbb ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/tbb.sh $LOCAL
+rc=$?
+if [ $rc -ne 0 ]; then
+  exit $rc
+fi
+
 echo --- OpenSubdiv ---
 source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/OpenSubdiv.sh $LOCAL
 rc=$?
@@ -87,13 +94,6 @@ source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/tiff.sh $LOCAL
 rc=$?
 if [ $rc -ne 0 ]; then
   echo tiff build did not finish with a clean exit code, continuing nonetheless
-fi
-
-echo --- tbb ---
-source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/tbb.sh $LOCAL
-rc=$?
-if [ $rc -ne 0 ]; then
-  exit $rc
 fi
 
 echo --- hdf5 ---

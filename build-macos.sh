@@ -14,8 +14,9 @@ if [ ! -f "$BREW" ]; then
   source $PREREQ_SCRIPTDIR/brew/brew-install.sh
 fi
 
-PATH=$PATH:$ROOT/homebrew/bin
-PYTHONPATH=$PYTHONPATH:$ROOT/local/lib/python2.7/site-packages
+PATH=$ROOT/homebrew/bin:$PATH
+PYTHONPATH=$ROOT/local/lib/python2.7/site-packages:$PYTHONPATH
+PYTHONPATH=$ROOT/homebrew/lib/python2.7/site-packages:$PYTHONPATH
 
 if hash cmake 2>/dev/null; then
   echo "cmake up to date"
@@ -45,8 +46,6 @@ $BREW install cartr/qt4/pyside-tools
 #else
 #  echo "PySide up to date"
 #fi
-
-PYTHONPATH=$PYTHONPATH:$ROOT/homebrew/lib/python2.7/site-packages
 
 echo "-------------------------------------------------"
 echo "3/7 Building Prerequsities for USD"
