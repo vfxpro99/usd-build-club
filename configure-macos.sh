@@ -36,7 +36,7 @@ if [ $# -ge 1 ]; then
       -DPYTHON_INCLUDE_DIR=/Applications/Autodesk/maya2017/Maya.app/Contents/Frameworks/Python.framework/Versions/2.7/include/python2.7 \
       -DPYTHON_LIBRARY=/Applications/Autodesk/maya2017/Maya.app/Contents/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib \
       -DPYTHON_LIBRARIES=/Applications/Autodesk/maya2017/Maya.app/Contents/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib \
-      -DPYSIDE_BIN_DIR="/Applications/Autodesk/maya2017/Maya.app/Contents/bin"
+      -DPYSIDE_BIN_DIR="/Applications/Autodesk/maya2017/Maya.app/Contents/bin" \
       -DALEMBIC_DIR="${BUILDDIR}" \
       -DDOUBLE_CONVERSION_DIR="${BUILDDIR}" \
       -DGLEW_LOCATION="${BUILDDIR}" \
