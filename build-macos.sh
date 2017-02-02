@@ -4,48 +4,41 @@
 
 PREREQ_SCRIPTDIR=`dirname $0`
 ROOT=$(pwd)
-BREW=$ROOT/homebrew/bin/brew
 
 echo "-------------------------------------------------"
-echo "1/7 Validating brew and cmake"
+echo "1/7 Validating cmake and brew"
 echo "-------------------------------------------------"
 
-if [ ! -f "$BREW" ]; then
-  source $PREREQ_SCRIPTDIR/brew/brew-install.sh
-fi
-
-PATH=$ROOT/homebrew/bin:$PATH
-PYTHONPATH=$ROOT/local/lib/python2.7/site-packages:$PYTHONPATH
-PYTHONPATH=$ROOT/homebrew/lib/python2.7/site-packages:$PYTHONPATH
+PATH=$ROOT/local/bin:$PATH
 
 if hash cmake 2>/dev/null; then
   echo "cmake up to date"
 else
-  $BREW install cmake
+  echo "Please install cmake and run this script again."
+  echo "cmake can be installed via homebrew"
+  echo "brew install cmake"
+  exit 1
+  #$PREREQ_SCRIPTDIR/prerequisites-macos/cmake.sh $ROOT/local
 fi
 
-$BREW update
-$BREW upgrade
+PYTHONPATH=$ROOT/local/lib/python2.7/site-packages:$PYTHONPATH
 
 echo "-------------------------------------------------"
-echo "2/7 Installing Qt and PySide for usdview"
+echo "2/7 PySide for usdview"
 echo "-------------------------------------------------"
 
 if hash qmake 2>/dev/null; then
-  echo "Qt up to date"
+  echo "qmake found, if PySide exists, usdview will be built"
 else
-  $BREW install cartr/qt4/qt
+  echo "Usdview uses PySide. PySide needs qmake in the path. qmake comes from Qt"
+  echo "One way to get it is via homebrew:"
+  echo ""
+  echo "brew install cartr/qt4/qt"
+  echo "brew install cartr/qt4/pyside"
+  echo "brew install cartr/qt4/pyside-tools"
+  echo ""
+  echo "qmake typically appears in /usr/local/Cellar/qt4/4.8.7/bin"
 fi
-
-$BREW install cartr/qt4/pyside
-$BREW install cartr/qt4/pyside-tools
-
-#if [ ! -f "$ROOT/local/bin/pyside-uic" ]; then
-#  echo "Installing PySide. This takes several minutes."
-#  pip install --install-option="--prefix=$ROOT/local/" -U PySide
-#else
-#  echo "PySide up to date"
-#fi
 
 echo "-------------------------------------------------"
 echo "3/7 Building Prerequsities for USD"
