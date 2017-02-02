@@ -2,11 +2,17 @@
 
 LOCAL=local
 
+# this directory contains lib/darwin-9.x.universal/python
+BLENDER_BUILD=/path/to/my/blenderbuild
+echo "fix the line above and delete this line and the exit"
+exit 1
+
+
 if [ $# -ge 1 ]; then
   LOCAL=$1
 fi
 
-if [ ! -f $LOCAL/lib/libboost_python.dylib ]; then
+if [ ! -f prereq/boost_1_51_0/stage/lib/libboost_python.a ]; then
   mkdir -p prereq
   mkdir -p $LOCAL/lib
   mkdir -p $LOCAL/bin
@@ -14,13 +20,9 @@ if [ ! -f $LOCAL/lib/libboost_python.dylib ]; then
 
   ROOT=$(pwd)
   cd prereq
-  if [ ! -f boost-build-club/.git/config ]; then
-     git clone https://github.com/vfxpro99/boost-build-club.git
-  fi
-  cd boost-build-club; git pull; cd ..
 
-  if [ ! -f boost.tgz ]; then
-    curl -L -o boost.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_60_0.tar.gz;
+  if [ ! -f boost-151.tgz ]; then
+    curl -L -o boost-151.tgz http://downloads.sourceforge.net/sourceforge/boost/boost_1_51_0.tar.gz;
     rc=$?
     if [ $rc -ne 0 ]; then
       echo Failed to retrieve boost archive
@@ -28,8 +30,8 @@ if [ ! -f $LOCAL/lib/libboost_python.dylib ]; then
     fi
   fi
 
-  if [ ! -f boost_1_60/README.md ]; then
-    tar -zxf boost.tgz
+  if [ ! -f boost_1_51_0/README.md ]; then
+    tar -zxf boost-151.tgz
     rc=$?
     if [ $rc -ne 0 ]; then
       echo Failed to extract boost archive
@@ -37,10 +39,22 @@ if [ ! -f $LOCAL/lib/libboost_python.dylib ]; then
     fi
   fi
 
-  cd boost_1_60_0
-  cp ../boost-build-club/* .
-  chmod 744 build-macos-blender-static.sh;./build-macos-blender-static.sh
-  cd ${ROOT}
-  cp prereq/boost_1_60_0/stage-OSX/lib/* $LOCAL/lib
-  cp -R prereq/boost_1_60_0/boost $LOCAL/include
+  cd boost_1_51_0
+  ./bootstrap.sh \
+    --with-python-version=3.5 \
+    --with-python-root=$BLENDER_BUILD/lib/darwin-9.x.universal/python \
+    --with-python=$BLENDER_BUILD/lib/darwin-9.x.universal/python/bin/python3.5m
+
+  ./bjam -j8 variant=release cxxflags='-stdlib=libstdc++' link=static \
+         threading=multi architecture=x86 address-model=32_64 \
+         --macosx-version=10.9 --macosx-version-min=10.6 \
+         --with-python \
+         stage -a
+         
+#          --with-filesystem --with-thread --with-regex --with-system \
+#          --with-date_time --with-wave --with-program_options --with-serialization --with-locale stage -a
+
+    cd ${ROOT}
+
+    cp prereq/boost_1_51_0/stage/lib/libboost_python.a $BLENDER_BUILD/lib/darwin-9.x.universal/boost/lib/
 fi

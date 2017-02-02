@@ -51,6 +51,13 @@ fi
 
 # todo jinja2 PyOpenGL PyOpenGLAccelerate
 
+echo --- boost python ---
+source ${PREREQ_SCRIPTDIR}/prerequisites-macOS/boost_blender.sh $LOCAL
+rc=$?
+if [ $rc -ne 0 ]; then
+  exit $rc
+fi
+
 echo "-------------------------------------------------"
 echo "4/7 Getting the latest USD dev code"
 echo "-------------------------------------------------"
@@ -72,7 +79,7 @@ echo "-------------------------------------------------"
 BUILDDIR="$ROOT/local"
 BLENDERDEPS="$ROOT/../lib/darwin-9.x.universal"
 
-export PYTHONPATH="${ROOT}/../blender.app/Contents/Resources/2.78/python/lib/python3.5:${ROOT}/../blender.app/Contents/Resources/2.78/python/lib/python3.5/site-packages"
+export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/python/lib/python3.5:/Applications/blender.app/Contents/Resources/2.78/python/lib/python3.5/site-packages"
 
 cmake ../USD \
   -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
@@ -81,13 +88,18 @@ cmake ../USD \
   -DDOUBLE_CONVERSION_DIR="${BUILDDIR}" \
   -DGLEW_LOCATION="${BLENDERDEPS}/glew" \
   -DOIIO_LOCATION="${BLENDERDEPS}/openimageio" \
-  -DOPENEXR_ROOT_DIR="${BLENDERDEPS}/openexr" \
+  -DOIIO_LIBRARY_DIR="${BLENDERDEPS}/openimageio/lib" \
+  -DOPENEXR_LIBRARY_DIR="${BLENDERDEPS}/openexr/lib" \
+  -DOPENEXR_INCLUDE_DIR="${BLENDERDEPS}/openexr/include" \
   -DOPENSUBDIV_ROOT_DIR="${BLENDERDEPS}/opensubdiv" \
   -DPTEX_LOCATION="${BUILDDIR}" \
-  -DTBB_ROOT_DIR="${BLENDERDEPS}/tbb" \
+    -DTBB_LIBRARY="${BLENDERDEPS}/tbb/lib" \
+    -DTBB_LIBRARIES="${BLENDERDEPS}/tbb/lib" \
+    -DPXR_tbb_LIBRARY="${BLENDERDEPS}/tbb/lib/libtbb.a" \
+    -DTBB_ROOT_DIR="${BLENDERDEPS}" \
   -DBoost_INCLUDE_DIR="${BLENDERDEPS}/boost/include" \
   -DBoost_LIBRARY_DIR="${BLENDERDEPS}/boost/lib" \
-  -DPYTHON_EXECUTABLE="${ROOT}/../blender.app/Contents/Resources/2.78/python/bin/python3.5m" \
+  -DPYTHON_EXECUTABLE="/Applications/blender.app/Contents/Resources/2.78/python/bin/python3.5m" \
   -DPYTHON_INCLUDE_DIR="${BLENDERDEPS}/python/include/python3.5m" \
   -DPYTHON_LIBRARY="${BLENDERDEPS}/python/lib/python3.5/libpython3.5m.a" \
   -DPYTHON_LIBRARIES="${BLENDERDEPS}/python/lib/python3.5/libpython3.5m.a" \
