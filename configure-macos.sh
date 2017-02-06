@@ -47,7 +47,7 @@ if [ $# -ge 1 ]; then
       -DPTEX_LOCATION="${BUILDDIR}" \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    return
+    exit 0 
   fi
   if [[ "$1" = "Xcode" ]]; then
     echo "Configuring for Xcode"
@@ -66,7 +66,7 @@ if [ $# -ge 1 ]; then
       -DPYSIDE_BIN_DIR="{$ROOT}/homebrew/bin" \
       -DBoost_INCLUDE_DIR="${BUILDDIR}/include" -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
       -G Xcode
-    return
+    exit 0
   fi
   echo "Configuring for make"
   cmake ${SOURCEDIR} \
