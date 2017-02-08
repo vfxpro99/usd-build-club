@@ -14,7 +14,6 @@ fi
 
 ROOT=$(pwd)
 PREREQ_SCRIPTDIR=`dirname $0`
-SOURCEDIR="`cd ${CONFIGURE_SCRIPTDIR}/../USD;pwd`"
 BUILDDIR="$ROOT/local"
 
 echo "-------------------------------------------------"
@@ -41,6 +40,8 @@ cd ${ROOT}/../USD
 git checkout dev
 git pull
 
+SOURCEDIR="`pwd`"
+
 git apply ${PREREQ_SCRIPTDIR}/maya/FindMaya.patch
 
 cd ${ROOT}
@@ -49,7 +50,7 @@ echo "-------------------------------------------------"
 echo "3/5 Configuring the build for the Maya plugin"
 echo "-------------------------------------------------"
 
-echo "Configuring for Xcode & Maya"
+echo "Configuring for Xcode & Maya in ${SOURCEDIR}"
 cmake ${SOURCEDIR} \
   -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
   -DCMAKE_PREFIX_PATH="${BUILDDIR}" \
