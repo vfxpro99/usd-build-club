@@ -94,15 +94,16 @@ fi
 
 echo "Note that the cmake directory link warnings are apparently harmless."
 
-echo "-------------------------------------------------"
-echo "5/5 Finalizing the build of the Maya plugin"
-echo "-------------------------------------------------"
-#echo "temp: copying plugin per Maya convention"
-cp local/third_party/maya/plugin/pxrUsd.dylib local/third_party/maya/plugin/pxrUsd.bundle
 
 PLUG_ROOT=@loader_path/../../../third_party/maya/lib
 LIB_ROOT=@loader_path/../../../lib
 BUNDLE=${ROOT}/local/third_party/maya/plugin/pxrUsd.bundle
+
+echo "-------------------------------------------------"
+echo "5/5 Finalizing the build of the Maya plugin at ${BUNDLE}"
+echo "-------------------------------------------------"
+#echo "temp: copying plugin per Maya convention"
+cp local/third_party/maya/plugin/pxrUsd.dylib local/third_party/maya/plugin/pxrUsd.bundle
 
 echo "temp: Fixing up rpaths in dylibs specific to Maya plug-in"
 install_name_tool -change @rpath/libpxrUsdMayaGL.dylib ${PLUG_ROOT}/libpxrUsdMayaGL.dylib ${BUNDLE}
@@ -140,6 +141,7 @@ install_name_tool -change @rpath/libvt.dylib ${LIB_ROOT}/libvt.dylib ${BUNDLE}
 install_name_tool -change @rpath/libwork.dylib ${LIB_ROOT}/libwork.dylib ${BUNDLE}
 
 echo "temp: Fixing up rpaths in boost dylibs required by USD"
+install_name_tool -change @rpath/libboost_date_time.dylib ${LIB_ROOT}/libboost_date_time.dylib ${BUNDLE}
 install_name_tool -change @rpath/libboost_iostreams.dylib ${LIB_ROOT}/libboost_iostreams.dylib ${BUNDLE}
 install_name_tool -change @rpath/libboost_program_options.dylib ${LIB_ROOT}/libboost_program_options.dylib ${BUNDLE}
 install_name_tool -change @rpath/libboost_python.dylib ${LIB_ROOT}/libboost_python.dylib ${BUNDLE}
@@ -151,6 +153,51 @@ install_name_tool -change @rpath/libGLEW.2.0.0.dylib ${LIB_ROOT}/libGLEW.2.0.0.d
 install_name_tool -change @rpath/libHalf.12.dylib ${LIB_ROOT}/libHalf.12.dylib ${BUNDLE}
 install_name_tool -change @rpath/libOpenImageIO.1.7.dylib ${LIB_ROOT}/libOpenImageIO.1.7.dylib ${BUNDLE}
 install_name_tool -change @rpath/libOpenImageIO_Util.1.7.dylib ${LIB_ROOT}/libOpenImageIO_Util.1.7.dylib ${BUNDLE}
-install_name_tool -change @rpath/libosdCPU.3.1.0.dylib ${LIB_ROOT}/libosdCPU.3.1.0.dylib ${BUNDLE}
-install_name_tool -change @rpath/libosdGPU.3.1.0.dylib ${LIB_ROOT}/libosdGPU.3.1.0.dylib ${BUNDLE}
+install_name_tool -change @rpath/libosdCPU.3.2.0.dylib ${LIB_ROOT}/libosdCPU.3.2.0.dylib ${BUNDLE}
+install_name_tool -change @rpath/libosdGPU.3.2.0.dylib ${LIB_ROOT}/libosdGPU.3.2.0.dylib ${BUNDLE}
 install_name_tool -change @rpath/libPtex.dylib ${LIB_ROOT}/libPtex.dylib ${BUNDLE}
+install_name_tool -change @rpath/libIlmImf-2_2.22.dylib ${LIB_ROOT}/libIlmImf-2_2.22.dylib ${BUNDLE}
+install_name_tool -change @rpath/libIlmImfUtil-2_2.22.dylib ${LIB_ROOT}/libIlmImfUtil-2_2.22.dylib ${BUNDLE}
+install_name_tool -change @rpath/libImath-2_2.22.dylib ${LIB_ROOT}/libImath-2_2.22.dylib ${BUNDLE}
+install_name_tool -change @rpath/libIthread-2_2.22.dylib ${LIB_ROOT}/libIthread-2_2.22.dylib ${BUNDLE}
+
+echo "temp: Fixing rpaths in OpenImageIO"
+install_name_tool -change @rpath/libIlmImf-2_2.22.dylib @loader_path/libIlmImf-2_2.22.dylib local/lib/libOpenImageIO.1.7.dylib
+install_name_tool -change @rpath/libIlmImfUtil-2_2.22.dylib @loader_path/libIlmImfUtil-2_2.22.dylib local/lib/libOpenImageIO.1.7.dylib
+install_name_tool -change @rpath/libImath-2_2.22.dylib @loader_path/lib/libImath-2_2.22.dylib local/lib/libOpenImageIO.1.7.dylib
+install_name_tool -change @rpath/libIthread-2_2.22.dylib @loader_path/lib/libIthread-2_2.22.dylib local/lib/libOpenImageIO.1.7.dylib
+
+
+
+
+INSTALL_ROOT=/tmp/maya-usd
+mkdir -p $INSTALL_ROOT/lib/python/pxr
+cp -R local/lib/python/pxr $INSTALL_ROOT/lib/python
+cp local/lib/*.dylib $INSTALL_ROOT/lib
+
+mkdir -p $INSTALL_ROOT/share/usd/plugins
+cp -R local/share/usd/plugins $INSTALL_ROOT/share/usd
+
+mkdir -p $INSTALL_ROOT/bin
+cp local/bin/usd* $INSTALL_ROOT/bin
+
+mkdir -p $INSTALL_ROOT/plugin
+cp -R local/plugin $INSTALL_ROOT
+
+mkdir -p $INSTALL_ROOT/third_party/maya/lib
+cp local/third_party/maya/lib/* $INSTALL_ROOT/third_party/maya/lib
+
+mkdir -p $INSTALL_ROOT/third_party/maya/plugin
+cp local/third_party/maya/plugin/* $INSTALL_ROOT/third_party/maya/plugin
+
+echo "Copy $INSTALL_ROOT/ to ~/Library/Pixar/ on the user's machine" > $INSTALL_ROOT/README.txt
+echo "Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env with the Maya.env found here." >> $INSTALL_ROOT/README.txt
+echo "Open Maya and open the Plugin manager (Windows > Settings/Preferences > Plugin-manager)" >> $INSTALL_ROOT/README.txt
+echo "Click Loaded beside pxrUsd.bundle, and click Autoload if you want the plugin automatically loaded at start." >> $INSTALL_ROOT/README.txt
+echo "" >> $INSTALL_ROOT/README.txt
+
+echo "MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:\$HOME/Library/Pixar/third_party/maya/plugin/" > $INSTALL_ROOT/Maya.env
+echo "MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:\$HOME/Library/Pixar/third_party/maya/share/usd/plugins/usdMaya/resources/" >> $INSTALL_ROOT/Maya.env
+echo "PYTHONPATH=$PYTHONPATH:\$HOME/Library/Pixar/lib/python/" >> $INSTALL_ROOT/Maya.env
+echo "" >> $INSTALL_ROOT/Maya.env
+
