@@ -92,16 +92,74 @@ pathed_python_libs = []
 for path in python_libs:
     pathed_python_libs.append("/tmp/maya-usd/lib/python/pxr/" + path)
 
-rewrite_paths(pathed_python_libs, "@loader_path/")
+rewrite_paths(pathed_python_libs, "@loader_path/../../../")
+
+# rewrite the Maya dylibs inside the Python Maya binding
+
+usdmaya_so = "/tmp/maya-usd/lib/python/pxr/UsdMaya/_usdMaya.so"
+
+bundle_libraries = get_libraries(usdmaya_so)
+for m_l in bundle_libraries:
+    if "libpx_vp20" in m_l:
+        rewrite_path(m_l, "@loader_path/../../../../third_party/maya/lib/libpx_vp20.dylib", usdmaya_so)
+    elif "libpxrUsdMayaGL" in m_l:
+        rewrite_path(m_l, "@loader_path/../../../../third_party/maya/lib/libpxrUsdMayaGL.dylib", usdmaya_so)
+    elif "libusdMaya" in m_l:
+        rewrite_path(m_l, "@loader_path/../../../../third_party/maya/lib/libusdMaya.dylib", usdmaya_so)
+
+pxrUsd_bundle = "/tmp/maya-usd/third_party/maya/plugin/pxrUsd.bundle"
+libpx_vp20_dylib = "/tmp/maya-usd/third_party/maya/lib/libpx_vp20.dylib"
+libpxrUsdMayaGL_dylib = "/tmp/maya-usd/third_party/maya/lib/libpxrUsdMayaGL.dylib"
+libusdMaya_dylib = "/tmp/maya-usd/third_party/maya/lib/libusdMaya.dylib"
 
 maya_libs = [
-    "/tmp/maya-usd/third_party/maya/lib/libpx_vp20.dylib",
-    "/tmp/maya-usd/third_party/maya/lib/libpxrUsdMayaGL.dylib",
-    "/tmp/maya-usd/third_party/maya/lib/libUsdMay.dylib",
-    "/tmp/maya-usd/third_party/maya/plugin/pxrUsd.bundle"
-]
+    libpx_vp20_dylib, libpxrUsdMayaGL_dylib, libusdMaya_dylib]
 
-rewrite_paths(pathed_python_libs, "@loader_path/../../../lib/")
+# first rewrite all the general libs
+rewrite_paths(maya_libs, "@loader_path/../../../lib/")
+
+# rewrite the bundle
+bundle = [pxrUsd_bundle]
+rewrite_paths(bundle, "@loader_path/../../../lib/")
+
+# then rewrite the maya libs in the bundle
+bundle_libraries = get_libraries(pxrUsd_bundle)
+for m_l in bundle_libraries:
+    if "libpx_vp20" in m_l:
+        rewrite_path(m_l, "@loader_path/../lib/libpx_vp20.dylib", pxrUsd_bundle)
+    elif "libpxrUsdMayaGL" in m_l:
+        rewrite_path(m_l, "@loader_path/../lib/libpxrUsdMayaGL.dylib", pxrUsd_bundle)
+    elif "libusdMaya" in m_l:
+        rewrite_path(m_l, "@loader_path/../lib/libusdMaya.dylib", pxrUsd_bundle)
+
+bundle_libraries = get_libraries(libpx_vp20_dylib)
+for m_l in bundle_libraries:
+    if "libpx_vp20" in m_l:
+        rewrite_path(m_l, "@loader_path/libpx_vp20.dylib", libpx_vp20_dylib)
+    elif "libpxrUsdMayaGL" in m_l:
+        rewrite_path(m_l, "@loader_path/libpxrUsdMayaGL.dylib", libpx_vp20_dylib)
+    elif "libusdMaya" in m_l:
+        rewrite_path(m_l, "@loader_path/libusdMaya.dylib", libpx_vp20_dylib)
+
+bundle_libraries = get_libraries(libpxrUsdMayaGL_dylib)
+for m_l in bundle_libraries:
+    if "libpx_vp20" in m_l:
+        rewrite_path(m_l, "@loader_path/libpx_vp20.dylib", libpxrUsdMayaGL_dylib)
+    elif "libpxrUsdMayaGL" in m_l:
+        rewrite_path(m_l, "@loader_path/libpxrUsdMayaGL.dylib", libpxrUsdMayaGL_dylib)
+    elif "libusdMaya" in m_l:
+        rewrite_path(m_l, "@loader_path/libusdMaya.dylib", libpxrUsdMayaGL_dylib)
+
+bundle_libraries = get_libraries(libusdMaya_dylib)
+for m_l in bundle_libraries:
+    if "libpx_vp20" in m_l:
+        rewrite_path(m_l, "@loader_path/libpx_vp20.dylib", libusdMaya_dylib)
+    elif "libpxrUsdMayaGL" in m_l:
+        rewrite_path(m_l, "@loader_path/libpxrUsdMayaGL.dylib", libusdMaya_dylib)
+    elif "libusdMaya" in m_l:
+        rewrite_path(m_l, "@loader_path/libusdMaya.dylib", libusdMaya_dylib)
+
+# now ALL the remaining libs
 
 usd_libs = os.listdir("/tmp/maya-usd/lib")
 pathed_usd_libs = []

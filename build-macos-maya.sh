@@ -42,8 +42,6 @@ git pull
 
 SOURCEDIR="`pwd`"
 
-git apply ${PREREQ_SCRIPTDIR}/maya/FindMaya.patch
-
 cd ${ROOT}
 
 echo "-------------------------------------------------"
@@ -190,14 +188,18 @@ cp local/third_party/maya/lib/* $INSTALL_ROOT/third_party/maya/lib
 mkdir -p $INSTALL_ROOT/third_party/maya/plugin
 cp local/third_party/maya/plugin/* $INSTALL_ROOT/third_party/maya/plugin
 
+mkdir -p $INSTALL_ROOT/third_party/maya/share
+cp local/third_party/maya/share/* $INSTALL_ROOT/third_party/maya/share
+
+mkdir -p $INSTALL_ROOT/third_party/maya/scripts
+
 echo "Copy $INSTALL_ROOT/ to ~/Library/Pixar/ on the user's machine" > $INSTALL_ROOT/README.txt
 echo "Modify Maya.env at ~/Library/Preferences/Autodesk/maya/2017/Maya.env with the Maya.env found here." >> $INSTALL_ROOT/README.txt
 echo "Open Maya and open the Plugin manager (Windows > Settings/Preferences > Plugin-manager)" >> $INSTALL_ROOT/README.txt
 echo "Click Loaded beside pxrUsd.bundle, and click Autoload if you want the plugin automatically loaded at start." >> $INSTALL_ROOT/README.txt
 echo "" >> $INSTALL_ROOT/README.txt
 
-echo "MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:\$HOME/Library/Pixar/third_party/maya/plugin/" > $INSTALL_ROOT/Maya.env
-echo "MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:\$HOME/Library/Pixar/third_party/maya/share/usd/plugins/usdMaya/resources/" >> $INSTALL_ROOT/Maya.env
+echo "MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:\$HOME/Library/Pixar/third_party/maya/plugin/::\$HOME/Library/Pixar/third_party/maya/share/usd/plugins/usdMaya/resources/" > $INSTALL_ROOT/Maya.env
+echo "MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:\$HOME/Library/Pixar/third_party/maya/scripts/:\$HOME/Library/Pixar/third_party/maya/share/usd/plugins/usdMaya/resources/" >> $INSTALL_ROOT/Maya.env
 echo "PYTHONPATH=$PYTHONPATH:\$HOME/Library/Pixar/lib/python/" >> $INSTALL_ROOT/Maya.env
 echo "" >> $INSTALL_ROOT/Maya.env
-
