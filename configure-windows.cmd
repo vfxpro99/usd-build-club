@@ -9,6 +9,10 @@ REM ensure a 64 bit development environment using VS2015
 IF NOT "%VisualStudioVersion%"=="14.0" ^
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
 
+if "%~1"=="debug" (set tbb_debug="-DTBB_USE_DEBUG_BUILD:INT=1")
+
+echo "configuring for %tbb_debug% *******"
+
 REM // USE_PTEX=0 because ptex integration is currently broken with the latest version of ptex
 cmake ..\..\..\..\USD ^
       -DPXR_VALIDATE_GENERATED_CODE=OFF ^
@@ -25,7 +29,7 @@ cmake ..\..\..\..\USD ^
       -DOPENSUBDIV_ROOT_DIR="%builddir%" ^
       -DPTEX_LOCATION="%builddir%" ^
       -DQT_ROOT_DIR="%builddir%" ^
-      -DTBB_ROOT_DIR="%builddir%" ^
+      -DTBB_ROOT_DIR="%builddir%" %tbb_debug% ^
       -DQt5Core_DIR="C:\qt\5.7\msvc2015_64\lib\cmake\Qt5Core" ^
       -DQt5Gui_DIR="C:\qt\5.7\msvc2015_64\lib\cmake\Qt5Gui" ^
       -DQt5OpenGL_DIR="C:\qt\5.7\msvc2015_64\lib\cmake\Qt5OpenGL" ^

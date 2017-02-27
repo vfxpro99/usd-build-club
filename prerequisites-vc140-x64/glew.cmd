@@ -24,10 +24,6 @@ cd .\prereq\glew-build-club
 if not exist "build_win" mkdir build_win
 cd build_win
 
-REM We are intentionally ONLY building the static library here, as there are
-REM known issues with linking OpenSubdiv and USD with mixed static/dynamic
-REM configurations.
-
 REM cl /c -DGLEW_BUILD -DSTATIC -DGLEW_STATIC -I"%current%\local\include" ..\src\glew.c
 REM lib /out:glew32s.lib glew.obj
 
