@@ -189,7 +189,7 @@ mkdir -p $INSTALL_ROOT/third_party/maya/plugin
 cp local/third_party/maya/plugin/* $INSTALL_ROOT/third_party/maya/plugin
 
 mkdir -p $INSTALL_ROOT/third_party/maya/share
-cp local/third_party/maya/share/* $INSTALL_ROOT/third_party/maya/share
+cp -R local/third_party/maya/share $INSTALL_ROOT/third_party/maya
 
 mkdir -p $INSTALL_ROOT/third_party/maya/scripts
 
@@ -203,3 +203,6 @@ echo "MAYA_PLUG_IN_PATH=$MAYA_PLUGIN_PATH:\$HOME/Library/Pixar/third_party/maya/
 echo "MAYA_SCRIPT_PATH=$MAYA_SCRIPT_PATH:\$HOME/Library/Pixar/third_party/maya/scripts/:\$HOME/Library/Pixar/third_party/maya/share/usd/plugins/usdMaya/resources/" >> $INSTALL_ROOT/Maya.env
 echo "PYTHONPATH=$PYTHONPATH:\$HOME/Library/Pixar/lib/python/" >> $INSTALL_ROOT/Maya.env
 echo "" >> $INSTALL_ROOT/Maya.env
+
+echo "The maya plug in has been finalized at $INSTALL_ROOT"
+echo "Please see $INSTALL_ROOT/README.txt for more information"
