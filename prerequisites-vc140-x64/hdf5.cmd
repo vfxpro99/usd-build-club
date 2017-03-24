@@ -18,6 +18,14 @@ if not exist "build\hdf5" ^
 mkdir build\hdf5
 cd build\hdf5
 
+
+rem Width with l64 failed with result: -2147483645
+rem Width with l failed with result: FAILED_TO_RUN
+rem Width with L failed with result: FAILED_TO_RUN
+rem Width with q failed with result: FAILED_TO_RUN
+rem Width with I64 failed with result: FAILED_TO_RUN
+rem Width with ll failed with result: FAILED_TO_RUN
+
 cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local"^

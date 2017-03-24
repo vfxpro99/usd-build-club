@@ -14,7 +14,7 @@ cmake ..\..\..\..\USD ^
       -DPXR_VALIDATE_GENERATED_CODE=OFF ^
       -DPXR_BUILD_MAYA_PLUGIN=0 ^
       -DPXR_BUILD_KATANA_PLUGIN=0 ^
-      -DPXR_BUILD_ALEMBIC_PLUGIN=0 ^
+      -DPXR_BUILD_ALEMBIC_PLUGIN=1 ^
       -DCMAKE_INSTALL_PREFIX="%builddir%" ^
       -DCMAKE_PREFIX_PATH="%builddir%" ^
       -DALEMBIC_DIR="%builddir%" ^

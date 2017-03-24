@@ -71,7 +71,7 @@ cd ..
 if not exist "USD/.git/config" ^
 git clone https://github.com/PixarAnimationStudios/USD.git
 cd USD
-git checkout dev_win_ip
+git checkout dev
 git pull
 
 cd %current%

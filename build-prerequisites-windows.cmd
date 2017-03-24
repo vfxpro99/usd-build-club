@@ -16,5 +16,5 @@ call ..\usd-build-club\prerequisites-vc140-x64\glext.cmd
 call ..\usd-build-club\prerequisites-vc140-x64\openexr.cmd
 call ..\usd-build-club\prerequisites-vc140-x64\OpenSubdiv.cmd
 call ..\usd-build-club\prerequisites-vc140-x64\OpenImageIO.cmd
-rem call ..\usd-build-club\prerequisites-vc140-x64\hdf5.cmd
+call ..\usd-build-club\prerequisites-vc140-x64\hdf5.cmd
 call ..\usd-build-club\prerequisites-vc140-x64\alembic.cmd
