@@ -54,9 +54,18 @@ cmake -G "Visual Studio 14 2015 Win64"^
       ..\..\openexr\OpenEXR
 
 cmake --build . --target install --config Release
+
 rem msbuild openEXR.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 cd %current%
+
+copy .\local\lib\Iex-2_2.lib .\local\lib\Iex.lib
+copy .\local\lib\IexMath-2_2.lib .\local\lib\IexMath.lib
+copy .\local\lib\IlmImf-2_2.lib .\local\lib\IlmImf.lib
+copy .\local\lib\IlmImfUtil-2_2.lib .\local\lib\IlmImfUtil.lib
+copy .\local\lib\IlmThread-2_2.lib .\local\lib\IlmThread.lib
+copy .\local\lib\Imath-2_2.lib .\local\lib\Imath.lib
+
 
 rem xcopy .\prereq\build\OpenEXR\IlmImf\Release\IlmImf*.lib .\local\lib\ /s /y
 rem xcopy .\prereq\build\OpenEXR\IlmImf\Release\IlmImf*.dll .\local\bin\ /s /y
