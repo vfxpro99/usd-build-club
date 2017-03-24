@@ -2,8 +2,7 @@ ECHO building glfw
 
 SET current=%cd%
 
-if not exist "prereq" ^
-mkdir prereq
+if not exist "prereq" mkdir prereq
 cd prereq
 
 if not exist "glfw\CMakeLists.txt" ^
@@ -13,8 +12,7 @@ cd glfw
 git pull
 cd ..
 
-if not exist "build\glfw" ^
-mkdir build\glfw
+if not exist "build\glfw" mkdir build\glfw
 cd build\glfw
 
 cmake -G "Visual Studio 14 2015 Win64"^

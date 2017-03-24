@@ -53,15 +53,21 @@ rem msbuild OpenSubdiv.sln /t:Build /p:Configuration=Release /p:Platform=x64
 echo "Building OpenSubdiv Debug"
 cmake --build . --target install --config Debug -- /maxcpucount:8
 
-cd ..\..\..\local\lib
-ren osdCPU.lib osdCPU_debug.lib
-ren osdGPU.lib osdGPU_debug.lib
-cd ..\..\prereq\build\OpenSubdiv
+if "%~1"=="debug"
+(
+      echo "Built opensubdiv debug"
+)
+else (
+      cd ..\..\..\local\lib
+      ren osdCPU.lib osdCPU_debug.lib
+      ren osdGPU.lib osdGPU_debug.lib
+      cd ..\bin
+      ren osdCPU.dll osdCPU_debug.dll
+      ren osdGPU.dll osdGPU_debug.dll
+      cd ..\..\prereq\build\OpenSubdiv
 
-echo "Building OpenSubdiv Release"
-cmake --build . --target install --config Release -- /maxcpucount:8
+      echo "Building OpenSubdiv Release"
+      cmake --build . --target install --config Release -- /maxcpucount:8
+)
 
 cd %current%
-
-rem xcopy .\prereq\OpenSubdiv\build\OpenSubdiv\lib\Release\*.lib .\local\lib\ /s /y
-rem xcopy .\prereq\OpenSubdiv\opensubdiv\*.h .\local\include\opensubdiv\ /s /y

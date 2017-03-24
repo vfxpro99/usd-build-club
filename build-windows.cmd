@@ -56,12 +56,15 @@ set release=true
 IF "%~1"=="debug" (set release=false)
 IF "%~2"=="debug" (set release=false)
 
+set debug=release
+if NOT "%release%"=="true" (set debug=debug)
+
 REM prerequisites
 IF NOT "%prereq%"=="true" GOTO Build
 
 echo "Building prerequisite libraries for USD"
 cd %current%
-call ..\usd-build-club\build-prerequisites-windows.cmd
+call ..\usd-build-club\build-prerequisites-windows.cmd %debug%
 
 :Build
 
@@ -75,7 +78,7 @@ git checkout dev
 git pull
 
 cd %current%
-call ..\usd-build-club\configure-windows.cmd
+call ..\usd-build-club\configure-windows.cmd %debug%
 
 IF "%release%"=="true" GOTO BuildRelease
 
