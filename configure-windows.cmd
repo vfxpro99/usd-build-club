@@ -29,6 +29,7 @@ cmake ..\..\..\..\USD ^
       -DOPENSUBDIV_ROOT_DIR="%builddir%" ^
       -DPTEX_LOCATION="%builddir%" ^
       -DQT_ROOT_DIR="%builddir%" ^
+      -DHDF5_ROOT="%builddir%" ^
       -DTBB_ROOT_DIR="%builddir%" %tbb_debug% ^
       -DQt5Core_DIR="C:\qt\5.7\msvc2015_64\lib\cmake\Qt5Core" ^
       -DQt5Gui_DIR="C:\qt\5.7\msvc2015_64\lib\cmake\Qt5Gui" ^
