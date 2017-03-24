@@ -19,16 +19,28 @@ mkdir build\ptex
 
 cd build\ptex
 
-cmake -G "Visual Studio 14 2015 Win64" ^
-      -DCMAKE_PREFIX_PATH="%current%\local"^
-      -DCMAKE_INSTALL_PREFIX="%current%\local"^
-      -DZLIB_INCLUDE_DIR="%current%\local\include" ^
-      -DZLIB_LIBRARY="%current%\local\lib\zlib.lib" ^
-      ..\..\ptex
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexCache.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexFilters.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexHalf.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexReader.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexSeparableFilter.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexSeparableKernel.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexTriangleFilter.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexTriangleKernel.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexUtils.cpp
+cl /c -DPTEXAPI="__declspec(dllexport)" -I"%current%\local\include"  -wd4800 -wd4244 -D_CRT_SECURE_NO_WARNINGS /EHsc ..\..\ptex\src\ptex\PtexWriter.cpp
 
-rem // This build is not thread-safe, must use maxcpucount:1
-if exist "ptex.sln" ^
-cmake --build . --target install --config Release -- /maxcpucount:1
+link /dll -out:ptex.dll PtexCache.obj PtexFilters.obj PtexHalf.obj PtexReader.obj ^
+ PtexSeparableFilter.obj PtexSeparableKernel.obj PtexTriangleFilter.obj PtexTriangleKernel.obj ^
+ PtexUtils.obj PtexWriter.obj zlib.lib /libpath:"%current%\local\lib"
 
-cd ../../..
+copy ptex.* ..\..\..\local\lib\
+copy ptex.dll ..\..\..\local\dll\
+cd ..\..\..
+
+copy prereq\ptex\src\ptex\PtexHalf.h local\include\PtexHalf.h
+copy prereq\ptex\src\ptex\PtexInt.h local\include\PtexInt.h
+copy prereq\ptex\src\ptex\Ptexture.h local\include\Ptexture.h
+copy prereq\ptex\src\ptex\PtexUtils.h local\include\PtexUtils.h
+copy prereq\ptex\src\ptex\PtexVersion.h local\include\PtexVersion.h
 
