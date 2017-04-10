@@ -29,8 +29,8 @@ cmake  -G "Visual Studio 14 2015 Win64"^
 	-DBOOST_LIBRARYDIR="%current%\local\lib"^
 	-DBoost_INCLUDE_DIR="%current%\local\include"^
 	-DBoost_LIBRARY_DIR="%current%\local\lib"^
-    -DUSE_HDF5=ON^
-	-DHDF5_ROOT="%current%\local"^
+    -DUSE_HDF5=OFF^
+	-DUSE_TESTS=OFF -DUSE_EXAMPLES=OFF^
 	-DALEMBIC_PYILMBASE_PYIMATH_LIB="%current%\local\lib\libPyImath.lib"^
 	-DILMBASE_ROOT="%current%\local"^
 	-DALEMBIC_PYILMBASE_ROOT="%current%\local"^

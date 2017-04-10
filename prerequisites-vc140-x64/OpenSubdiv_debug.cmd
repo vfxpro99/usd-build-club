@@ -50,7 +50,7 @@ cmake -G "Visual Studio 14 2015 Win64"^
        ..\..\OpenSubdiv
 
 rem msbuild OpenSubdiv.sln /t:Build /p:Configuration=Release /p:Platform=x64
-echo "Building OpenSubdiv Release"
-cmake --build . --target install --config Release -- /maxcpucount:8
+echo "Building OpenSubdiv Debug"
+cmake --build . --target install --config Debug -- /maxcpucount:8
 
 cd %current%

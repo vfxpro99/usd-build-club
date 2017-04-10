@@ -29,6 +29,7 @@ rem Width with ll failed with result: FAILED_TO_RUN
 cmake -G "Visual Studio 14 2015 Win64"^
       -DCMAKE_PREFIX_PATH="%current%\local"^
       -DCMAKE_INSTALL_PREFIX="%current%\local"^
+      -DBUILD_SHARED_LIBS=ON^
       -DHDF5_BUILD_HL_LIB=1 -DHDF5_BUILD_CPP_LIB=1 -DHDF5_BUILD_HL_CPP_LIB=1 ^
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=./hdf5-stage^
       ..\..\hdf5
