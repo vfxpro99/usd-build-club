@@ -55,6 +55,8 @@ IF "%~2"=="prereq" (set prereq=true)
 set release=true
 IF "%~1"=="debug" (set release=false)
 IF "%~2"=="debug" (set release=false)
+IF "%~1"=="Debug" (set release=false)
+IF "%~2"=="Debug" (set release=false)
 
 set debug=release
 if NOT "%release%"=="true" (set debug=debug)

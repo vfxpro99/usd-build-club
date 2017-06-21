@@ -13,11 +13,12 @@ mkdir build\OpenSubdiv
 echo "Building OpenSubdiv from vfxpro99 dev fork due to GLEW issues"
 
 if not exist "OpenSubdiv\CMakeLists.txt" ^
-git clone https://github.com/vfxpro99/OpenSubdiv.git
+rem git clone https://github.com/vfxpro99/OpenSubdiv.git
+git clone https://github.com/PixarAnimationStudios/OpenSubdiv.git
 
 cd OpenSubdiv
 git pull
-REM checkout the dev branch, since 3.0.5 ptex detection was broken by changes in ptex changes.
+REM checkout the dev branch, since 3.0.5 ptex detection was broken by changes in ptex.
 git checkout dev
 cd ..
 
@@ -42,7 +43,7 @@ cmake -G "Visual Studio 14 2015 Win64"^
       -DNO_PTEX=0^
       -DNO_DOC=1^
       -DNO_OMP=1^
-      -DNO_TBB=0^
+      -DNO_TBB=1^
       -DNO_CUDA=1^
       -DNO_OPENCL=1^
       -DNO_OPENGL=0^
