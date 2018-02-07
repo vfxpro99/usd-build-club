@@ -28,6 +28,7 @@ cmake -G "Visual Studio 15 2017 Win64"^
     -DCMAKE_PREFIX_PATH="%current%\local"^
     -DCMAKE_INSTALL_PREFIX="%current%\local" ^
     -DCMAKE_CXX_COMPILER_WORKS=1 ^
+    -DOPENEXR_HOME="%current%\local" ^
     -DOPENEXR_CUSTOM_INCLUDE_DIR:STRING="%current%\local\include" ^
     -DOPENEXR_CUSTOM_LIB_DIR="%current%\local\lib" ^
     -DBOOST_ROOT="%current%\local" ^
