@@ -32,6 +32,7 @@ cmake -G "Visual Studio 15 2017 Win64"^
     -DOPENEXR_CUSTOM_INCLUDE_DIR:STRING="%current%\local\include" ^
     -DOPENEXR_CUSTOM_LIB_DIR="%current%\local\lib" ^
     -DBOOST_ROOT="%current%\local" ^
+    -DBOOST_INCLUDEDIR="%current%\local\include\boost" ^
     -DBOOST_LIBRARYDIR="%current%\local\lib" ^
     -DBoost_USE_STATIC_LIBS:INT=0 ^
     -DBoost_LIBRARY_DIR_RELEASE="%current%\local\lib" ^
