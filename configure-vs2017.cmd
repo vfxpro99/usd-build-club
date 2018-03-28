@@ -5,8 +5,8 @@ set "current=%f:\=/%"
 
 SET builddir=%current%/local
 
-if not exist "prereq\build\USD" mkdir prereq\build\USD
-cd prereq\build\USD
+if not exist "build\USD" mkdir build\USD
+cd build\USD
 
 IF NOT "%VisualStudioVersion%"=="15.0" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 

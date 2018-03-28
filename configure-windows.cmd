@@ -4,12 +4,8 @@ set "current=%f:\=/%"
 
 SET builddir=%current%/local
 
-if not exist "prereq\build\USD" mkdir prereq\build\USD
-cd prereq\build\USD
-
-REM ensure a 64 bit development environment using VS2015
-IF NOT "%VisualStudioVersion%"=="14.0" ^
-call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+if not exist "build\USD" mkdir build\USD
+cd build\USD
 
 set tbb_lib="tbb.lib"
 if "%~1"=="debug" (set tbb_debug="-DTBB_USE_DEBUG_BUILD:INT=1")
@@ -25,8 +21,8 @@ REM    -DPTEX_INCLUDE_DIR=C:\path\to\ptex           ^
 REM    -DOIIO_BASE_DIR=C:\path\to\openimageio       ^
 REM    -DBOOST_ROOT=C:\path\to\boost                ^
 
-cmake ..\..\..\..\USD ^
-      -G "Visual Studio 14 2015 Win64" ^
+cmake ..\..\USD ^
+      -G "Visual Studio 15 2017 Win64" ^
       -DPXR_VALIDATE_GENERATED_CODE=OFF ^
       -DPXR_BUILD_MAYA_PLUGIN=0 ^
       -DPXR_BUILD_KATANA_PLUGIN=0 ^
