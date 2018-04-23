@@ -15,7 +15,7 @@ if [ ! -f "${BREW}" ]; then
   source ${SCRIPT_DIR}/brew/brew-install.sh
 fi
 
-PATH=${PATH}:$ROOT/homebrew/bin
+PATH=$ROOT/homebrew/bin:${PATH}
 
 
 # We use $BREW to get standard stuff we don't want/need to build
@@ -31,7 +31,7 @@ echo "2/5 Installing USD dependencies"
 echo "-------------------------------------------------"
 
 $BREW install cmake
-$BREW install python
+$BREW install python2
 
 sudo easy_install -U pip
 sudo pip install --upgrade PyOpenGL PyOpenGL-accelerate
@@ -49,7 +49,7 @@ $BREW install openexr
 $BREW install glfw3
 $BREW install ptex
 $BREW install opencolorio
-$BREW install homebrew/science/openimageio
+$BREW install brewsci/science/openimageio
 $BREW install $SCRIPT_DIR/brew/opensubdiv.rb
 
 echo "-------------------------------------------------"

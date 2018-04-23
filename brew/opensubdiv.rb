@@ -15,7 +15,7 @@ class Opensubdiv < Formula
   depends_on "tbb"
   #depends_on "clew"
   depends_on "glew"
-  depends_on "homebrew/versions/glfw3"
+  depends_on "glfw3"
   depends_on "ptex"
 
   def install
