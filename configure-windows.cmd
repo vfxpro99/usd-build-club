@@ -21,7 +21,7 @@ REM    -DPTEX_INCLUDE_DIR=C:\path\to\ptex           ^
 REM    -DOIIO_BASE_DIR=C:\path\to\openimageio       ^
 REM    -DBOOST_ROOT=C:\path\to\boost                ^
 
-cmake ..\..\USD ^
+cmake ..\..\..\USD ^
       -G "Visual Studio 15 2017 Win64" ^
       -DPXR_VALIDATE_GENERATED_CODE=OFF ^
       -DPXR_BUILD_MAYA_PLUGIN=0 ^
