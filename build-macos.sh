@@ -15,10 +15,7 @@ if hash cmake 2>/dev/null; then
   echo "cmake up to date"
 else
   echo "Please install cmake and run this script again."
-  echo "cmake can be installed via homebrew"
-  echo "brew install cmake"
   exit 1
-  #$PREREQ_SCRIPTDIR/prerequisites-macos/cmake.sh $ROOT/local
 fi
 
 PYTHONPATH=$ROOT/local/lib/python2.7/site-packages:$PYTHONPATH
@@ -30,14 +27,8 @@ echo "-------------------------------------------------"
 if hash qmake 2>/dev/null; then
   echo "qmake found, if PySide exists, usdview will be built"
 else
-  echo "Usdview uses PySide. PySide needs qmake in the path. qmake comes from Qt"
-  echo "One way to get it is via homebrew:"
-  echo ""
-  echo "brew install cartr/qt4/qt"
-  echo "brew install cartr/qt4/pyside"
-  echo "brew install cartr/qt4/pyside-tools"
-  echo ""
-  echo "qmake typically appears in /usr/local/Cellar/qt4/4.8.7/bin"
+  echo "Usdview uses PySide2"
+  echo "python -m pip install --index-url=https://download.qt.io/official_releases/QtForPython/ pyside2 --trusted-host download.qt.io"
 fi
 
 echo "-------------------------------------------------"
@@ -73,20 +64,17 @@ echo "-------------------------------------------------"
 BUILDDIR="$ROOT/local"
 
 cmake ../USD \
-  -DCMAKE_INSTALL_PREFIX="${BUILDDIR}" \
-  -DCMAKE_PREFIX_PATH="${BUILDDIR}" \
-  -DALEMBIC_DIR="${BUILDDIR}" \
-  -DDOUBLE_CONVERSION_DIR="${BUILDDIR}" \
-  -DGLEW_LOCATION="${BUILDDIR}" \
-  -DOIIO_LOCATION="${BUILDDIR}" \
-  -DOPENEXR_ROOT_DIR="${BUILDDIR}" \
-  -DOPENSUBDIV_ROOT_DIR="${BUILDDIR}" \
-  -DPTEX_LOCATION="${BUILDDIR}" \
-  -DTBB_ROOT_DIR="${BUILDDIR}" \
-  -DBoost_INCLUDE_DIR="${BUILDDIR}/include" \
-  -DBoost_LIBRARY_DIR="${BUILDDIR}/lib" \
-  -DQT_ROOT_DIR="$ROOT/homebrew" \
-  -G Xcode
+  -DCMAKE_INSTALL_PREFIX="$BUILDDIR" \
+  -DCMAKE_PREFIX_PATH="$BUILDDIR" \
+  -DALEMBIC_DIR="$BUILDDIR" \
+  -DGLEW_LOCATION="$BUILDDIR" \
+  -DOIIO_LOCATION="$BUILDDIR" \
+  -DOPENEXR_ROOT_DIR="$BUILDDIR" \
+  -DOPENSUBDIV_ROOT_DIR="$BUILDDIR" \
+  -DPTEX_LOCATION="$BUILDDIR" \
+  -DTBB_ROOT_DIR="$BUILDDIR" \
+  -DBoost_INCLUDE_DIR="$BUILDDIR/include" \
+  -DBoost_LIBRARY_DIR="$BUILDDIR/lib"
 
 rc=$?
 if [ $rc -ne 0 ]; then
